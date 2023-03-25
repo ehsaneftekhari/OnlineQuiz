@@ -4,6 +4,6 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IValidators
 {
     public interface IUserValidator
     {
-        bool ValidateBaseUserInfo(BaseUserInfo baseUserInfo);
+        bool ValidateBaseUserInfo(BaseUser baseUserInfo);
     }
 }

@@ -75,7 +75,7 @@
             // 
             // ExitBtn
             // 
-            ExitBtn.Location = new Point(412, 623);
+            ExitBtn.Location = new Point(236, 636);
             ExitBtn.Name = "ExitBtn";
             ExitBtn.Size = new Size(170, 61);
             ExitBtn.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             // BackBtn
             // 
-            BackBtn.Location = new Point(236, 623);
+            BackBtn.Location = new Point(412, 636);
             BackBtn.Name = "BackBtn";
             BackBtn.Size = new Size(170, 61);
             BackBtn.TabIndex = 4;
@@ -93,18 +93,15 @@
             BackBtn.UseVisualStyleBackColor = true;
             BackBtn.Click += BackBtn_Click;
             // 
-            // mesageLb
+            // messageLb
             // 
             messageLb.AutoSize = true;
             messageLb.ForeColor = Color.Red;
             messageLb.Location = new Point(122, 564);
-            messageLb.Name = "mesageLb";
-            messageLb.Size = new Size(97, 41);
+            messageLb.Name = "messageLb";
+            messageLb.Size = new Size(144, 41);
             messageLb.TabIndex = 5;
-            messageLb.Text = "";
-#if DEBUG
             messageLb.Text = "<_blank>";
-#endif
             // 
             // LogInForm
             // 
@@ -122,10 +119,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "LogInForm";
-            ShowInTaskbar = true;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LogIn Form";
-            TopMost = false;
             ResumeLayout(false);
             PerformLayout();
         }

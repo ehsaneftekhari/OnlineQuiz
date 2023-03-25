@@ -9,6 +9,6 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
     public interface IUserController
     {
-        BaseUser AddBaseUser(BaseUserInfo baseUserInfo);
+        BaseUser AddBaseUser(BaseUser baseUserInfo);
     }
 }

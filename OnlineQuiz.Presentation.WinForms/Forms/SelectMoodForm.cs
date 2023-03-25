@@ -18,9 +18,9 @@ namespace OnlineQuiz.Presentation.WinForms
             return instance.result;
         }
 
-        private void AdminSelectBtn_Click(object sender, EventArgs e)
+        private void LogInSelectBtn_Click(object sender, EventArgs e)
         {
-            result = SelectMoodResults.UserSelected;
+            result = SelectMoodResults.LogInSelected;
             Close();
         }
 
@@ -39,6 +39,6 @@ namespace OnlineQuiz.Presentation.WinForms
 
     public enum SelectMoodResults
     {
-        Exit, UserSelected, QuizSelected
+        Exit, LogInSelected, QuizSelected
     }
 }

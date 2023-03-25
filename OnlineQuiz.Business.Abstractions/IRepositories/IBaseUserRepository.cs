@@ -4,7 +4,7 @@ namespace OnlineQuiz.Business.Abstractions.IRepositories
 {
     public interface IBaseUserRepository
     {
-        int Add(BaseUserInfo baseUserInfo);
+        int Add(BaseUser baseUserInfo);
 
         BaseUser GetById(int baseUserId);
 

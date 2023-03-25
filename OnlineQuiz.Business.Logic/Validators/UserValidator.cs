@@ -22,7 +22,7 @@ namespace OnlineQuiz.Business.Logic.Validators
             this.validatorFunctions = validatorFunctions;
         }
 
-        public bool ValidateBaseUserInfo(BaseUserInfo baseUserInfo)
+        public bool ValidateBaseUserInfo(BaseUser baseUserInfo)
         {
             validatorFunctions.CheckNullArgumentException(baseUserInfo, nameof(baseUserInfo));
 

@@ -32,11 +32,15 @@ namespace OnlineQuiz.Presentation.WinForms
         {
             Config();
 
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Application.Run(ServiceProvider.GetRequiredService<BaseUserRegisterInfoForm>());
+            Starter starter = new Starter(ServiceProvider);
+            var r = starter.Run();
+
+            //Application.Run();
 
             ShoutDown();
         }

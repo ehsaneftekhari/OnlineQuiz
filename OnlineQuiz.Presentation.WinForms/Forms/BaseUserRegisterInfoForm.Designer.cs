@@ -45,21 +45,23 @@
             // 
             // BackBtn
             // 
-            BackBtn.Location = new Point(274, 775);
+            BackBtn.Location = new Point(450, 763);
             BackBtn.Name = "BackBtn";
             BackBtn.Size = new Size(170, 61);
-            BackBtn.TabIndex = 5;
+            BackBtn.TabIndex = 6;
             BackBtn.Text = "Back";
             BackBtn.UseVisualStyleBackColor = true;
+            BackBtn.Click += BackBtn_Click;
             // 
             // ExitBtn
             // 
-            ExitBtn.Location = new Point(450, 775);
+            ExitBtn.Location = new Point(274, 763);
             ExitBtn.Name = "ExitBtn";
             ExitBtn.Size = new Size(170, 61);
-            ExitBtn.TabIndex = 6;
+            ExitBtn.TabIndex = 7;
             ExitBtn.Text = "Exit";
             ExitBtn.UseVisualStyleBackColor = true;
+            ExitBtn.Click += ExitBtn_Click;
             // 
             // EmailTB
             // 
@@ -67,7 +69,7 @@
             EmailTB.Name = "EmailTB";
             EmailTB.PlaceholderText = "Email";
             EmailTB.Size = new Size(551, 47);
-            EmailTB.TabIndex = 1;
+            EmailTB.TabIndex = 3;
             // 
             // LastNameTB
             // 
@@ -75,7 +77,7 @@
             LastNameTB.Name = "LastNameTB";
             LastNameTB.PlaceholderText = "Last Name";
             LastNameTB.Size = new Size(551, 47);
-            LastNameTB.TabIndex = 1;
+            LastNameTB.TabIndex = 2;
             // 
             // PhoneNumberTB
             // 
@@ -83,14 +85,14 @@
             PhoneNumberTB.Name = "PhoneNumberTB";
             PhoneNumberTB.PlaceholderText = "Phone Number";
             PhoneNumberTB.Size = new Size(551, 47);
-            PhoneNumberTB.TabIndex = 1;
+            PhoneNumberTB.TabIndex = 4;
             // 
             // RegisterBtn
             // 
             RegisterBtn.Location = new Point(117, 595);
             RegisterBtn.Name = "RegisterBtn";
             RegisterBtn.Size = new Size(455, 95);
-            RegisterBtn.TabIndex = 7;
+            RegisterBtn.TabIndex = 5;
             RegisterBtn.Text = "Register";
             RegisterBtn.UseVisualStyleBackColor = true;
             RegisterBtn.Click += RegisterBtn_Click;
@@ -109,9 +111,8 @@
             FirstNameMessageLbl.ForeColor = Color.Red;
             FirstNameMessageLbl.Location = new Point(69, 169);
             FirstNameMessageLbl.Name = "FirstNameMessageLbl";
-            FirstNameMessageLbl.Size = new Size(144, 41);
+            FirstNameMessageLbl.Size = new Size(0, 41);
             FirstNameMessageLbl.TabIndex = 8;
-            //FirstNameMessageLbl.Text = "<_blank>";
             // 
             // LastNameMessageLbl
             // 
@@ -119,9 +120,8 @@
             LastNameMessageLbl.ForeColor = Color.Red;
             LastNameMessageLbl.Location = new Point(69, 288);
             LastNameMessageLbl.Name = "LastNameMessageLbl";
-            LastNameMessageLbl.Size = new Size(144, 41);
+            LastNameMessageLbl.Size = new Size(0, 41);
             LastNameMessageLbl.TabIndex = 8;
-            //LastNameMessageLbl.Text = "<_blank>";
             // 
             // EmailMessageLbl
             // 
@@ -129,9 +129,8 @@
             EmailMessageLbl.ForeColor = Color.Red;
             EmailMessageLbl.Location = new Point(69, 407);
             EmailMessageLbl.Name = "EmailMessageLbl";
-            EmailMessageLbl.Size = new Size(144, 41);
+            EmailMessageLbl.Size = new Size(0, 41);
             EmailMessageLbl.TabIndex = 8;
-            //EmailMessageLbl.Text = "<_blank>";
             // 
             // PhoneNumberMessageLbl
             // 
@@ -139,9 +138,8 @@
             PhoneNumberMessageLbl.ForeColor = Color.Red;
             PhoneNumberMessageLbl.Location = new Point(69, 526);
             PhoneNumberMessageLbl.Name = "PhoneNumberMessageLbl";
-            PhoneNumberMessageLbl.Size = new Size(144, 41);
+            PhoneNumberMessageLbl.Size = new Size(0, 41);
             PhoneNumberMessageLbl.TabIndex = 8;
-            //PhoneNumberMessageLbl.Text = "<_blank>";
             // 
             // MessageLbl
             // 
@@ -149,9 +147,8 @@
             MessageLbl.ForeColor = Color.Red;
             MessageLbl.Location = new Point(272, 708);
             MessageLbl.Name = "MessageLbl";
-            MessageLbl.Size = new Size(144, 41);
+            MessageLbl.Size = new Size(0, 41);
             MessageLbl.TabIndex = 8;
-            //MessageLbl.Text = "<_blank>";
             // 
             // label
             // 
@@ -159,7 +156,7 @@
             label.Location = new Point(183, 43);
             label.Name = "label";
             label.Size = new Size(323, 41);
-            label.TabIndex = 9;
+            label.TabIndex = 0;
             label.Text = "Please enter asked info";
             // 
             // BaseUserRegisterInfoForm
@@ -180,7 +177,9 @@
             Controls.Add(EmailTB);
             Controls.Add(BackBtn);
             Controls.Add(ExitBtn);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "BaseUserRegisterInfoForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "BaseUserRegisterInfoForm";
             ResumeLayout(false);
             PerformLayout();

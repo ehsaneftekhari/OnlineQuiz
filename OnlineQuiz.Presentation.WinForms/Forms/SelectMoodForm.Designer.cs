@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             label = new Label();
-            UserSelectBtn = new Button();
+            LogInSelectBtn = new Button();
             QuizSelectBtn = new Button();
             ExitBtn = new Button();
-            label2 = new Label();
             SuspendLayout();
             // 
             // label
@@ -44,15 +43,15 @@
             label.TabIndex = 0;
             label.Text = "Select the type of your operation";
             // 
-            // UserSelectBtn
+            // LogInSelectBtn
             // 
-            UserSelectBtn.Location = new Point(119, 175);
-            UserSelectBtn.Name = "UserSelectBtn";
-            UserSelectBtn.Size = new Size(455, 95);
-            UserSelectBtn.TabIndex = 1;
-            UserSelectBtn.Text = "User";
-            UserSelectBtn.UseVisualStyleBackColor = true;
-            UserSelectBtn.Click += AdminSelectBtn_Click;
+            LogInSelectBtn.Location = new Point(119, 175);
+            LogInSelectBtn.Name = "LogInSelectBtn";
+            LogInSelectBtn.Size = new Size(455, 95);
+            LogInSelectBtn.TabIndex = 1;
+            LogInSelectBtn.Text = "Log in";
+            LogInSelectBtn.UseVisualStyleBackColor = true;
+            LogInSelectBtn.Click += LogInSelectBtn_Click;
             // 
             // QuizSelectBtn
             // 
@@ -74,13 +73,6 @@
             ExitBtn.UseVisualStyleBackColor = true;
             ExitBtn.Click += ExitBtn_Click;
             // 
-            // label2
-            // 
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(100, 23);
-            label2.TabIndex = 0;
-            // 
             // SelectMoodForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -88,7 +80,7 @@
             ClientSize = new Size(693, 661);
             Controls.Add(ExitBtn);
             Controls.Add(QuizSelectBtn);
-            Controls.Add(UserSelectBtn);
+            Controls.Add(LogInSelectBtn);
             Controls.Add(label);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(7, 8, 7, 8);
@@ -104,9 +96,8 @@
         #endregion
 
         private Label label;
-        private Button UserSelectBtn;
+        private Button LogInSelectBtn;
         private Button QuizSelectBtn;
         private Button ExitBtn;
-        private Label label2;
     }
 }

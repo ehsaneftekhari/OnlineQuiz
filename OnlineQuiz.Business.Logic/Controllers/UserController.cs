@@ -16,7 +16,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
             this.userValidator = userValidator;
         }
 
-        public BaseUser AddBaseUser(BaseUserInfo baseUserInfo)
+        public BaseUser AddBaseUser(BaseUser baseUserInfo)
         {
             int id = -1;
             if (userValidator.ValidateBaseUserInfo(baseUserInfo))

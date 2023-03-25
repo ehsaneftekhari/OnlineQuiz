@@ -13,8 +13,11 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             this.appMessageRepository = appMessageRepository;
         }
 
-        public int Add(BaseUserInfo baseUserInfo)
+        public int Add(BaseUser baseUserInfo)
         {
+            if(baseUserInfo == null)
+                throw new ArgumentNullException(nameof(baseUserInfo));
+
             var BaseUserId = SqlCommandBuilder.CreateSP("[Users].[Usp_BaseUser_Add]")
                 .AddParameter("@FirstName", baseUserInfo.FirstName.Value)
                 .AddParameter("@LastName", baseUserInfo.LastName.Value)
