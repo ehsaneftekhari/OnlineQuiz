@@ -1,13 +1,15 @@
-﻿namespace OnlineQuiz.Presentation.WinForms
+﻿using System.Windows.Forms;
+
+namespace OnlineQuiz.Presentation.WinForms.Forms.Controls
 {
-    partial class LogInForm
+    partial class LogInUserControl
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,10 +22,10 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -32,25 +34,24 @@
             LoginBtn = new Button();
             UsernameTB = new TextBox();
             PasswordTB = new TextBox();
-            ExitBtn = new Button();
-            BackBtn = new Button();
             messageLb = new Label();
             SuspendLayout();
             // 
             // label
             // 
             label.AutoSize = true;
-            label.Location = new Point(91, 112);
+            label.Font = new Font("Segoe UI", 14.1F, FontStyle.Regular, GraphicsUnit.Point);
+            label.Location = new Point(182, 0);
             label.Name = "label";
-            label.Size = new Size(510, 41);
+            label.Size = new Size(143, 62);
             label.TabIndex = 0;
-            label.Text = "Please enter username and password";
+            label.Text = "Login";
             // 
             // LoginBtn
             // 
-            LoginBtn.Location = new Point(119, 439);
+            LoginBtn.Location = new Point(27, 276);
             LoginBtn.Name = "LoginBtn";
-            LoginBtn.Size = new Size(455, 95);
+            LoginBtn.Size = new Size(464, 95);
             LoginBtn.TabIndex = 3;
             LoginBtn.Text = "Login";
             LoginBtn.UseVisualStyleBackColor = true;
@@ -58,7 +59,7 @@
             // 
             // UsernameTB
             // 
-            UsernameTB.Location = new Point(114, 219);
+            UsernameTB.Location = new Point(27, 102);
             UsernameTB.Name = "UsernameTB";
             UsernameTB.PlaceholderText = "Username";
             UsernameTB.Size = new Size(464, 47);
@@ -66,60 +67,33 @@
             // 
             // PasswordTB
             // 
-            PasswordTB.Location = new Point(114, 329);
+            PasswordTB.Location = new Point(27, 189);
             PasswordTB.Name = "PasswordTB";
             PasswordTB.PlaceholderText = "Password";
             PasswordTB.Size = new Size(464, 47);
             PasswordTB.TabIndex = 2;
             // 
-            // ExitBtn
-            // 
-            ExitBtn.Location = new Point(228, 636);
-            ExitBtn.Name = "ExitBtn";
-            ExitBtn.Size = new Size(170, 61);
-            ExitBtn.TabIndex = 5;
-            ExitBtn.Text = "Exit";
-            ExitBtn.UseVisualStyleBackColor = true;
-            ExitBtn.Click += ExitBtn_Click;
-            // 
-            // BackBtn
-            // 
-            BackBtn.Location = new Point(404, 636);
-            BackBtn.Name = "BackBtn";
-            BackBtn.Size = new Size(170, 61);
-            BackBtn.TabIndex = 0;
-            BackBtn.Text = "Back";
-            BackBtn.UseVisualStyleBackColor = true;
-            BackBtn.Click += BackBtn_Click;
-            // 
             // messageLb
             // 
             messageLb.AutoSize = true;
             messageLb.ForeColor = Color.Red;
-            messageLb.Location = new Point(114, 561);
+            messageLb.Location = new Point(27, 413);
             messageLb.Name = "messageLb";
             messageLb.Size = new Size(144, 41);
             messageLb.TabIndex = 6;
             messageLb.Text = "<_blank>";
             // 
-            // LogInForm
+            // LogInUserControl
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(693, 791);
             Controls.Add(messageLb);
-            Controls.Add(BackBtn);
-            Controls.Add(ExitBtn);
             Controls.Add(PasswordTB);
             Controls.Add(UsernameTB);
             Controls.Add(LoginBtn);
             Controls.Add(label);
-            FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "LogInForm";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "LogIn Form";
+            Name = "LogInUserControl";
+            Size = new Size(518, 469);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -130,8 +104,6 @@
         private Button LoginBtn;
         private TextBox UsernameTB;
         private TextBox PasswordTB;
-        private Button ExitBtn;
-        private Button BackBtn;
         private Label messageLb;
     }
 }
