@@ -28,46 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            menuStrip1 = new MenuStrip();
+            mainMenuStrip = new MenuStrip();
             quizToolStripMenuItem = new ToolStripMenuItem();
-            addQuizeToolStripMenuItem = new ToolStripMenuItem();
-            quizesListToolStripMenuItem = new ToolStripMenuItem();
+            addQuizToolStripMenuItem = new ToolStripMenuItem();
+            quizzesListToolStripMenuItem = new ToolStripMenuItem();
             userToolStripMenuItem = new ToolStripMenuItem();
             settingToolStripMenuItem = new ToolStripMenuItem();
             languageToolStripMenuItem = new ToolStripMenuItem();
             takeQuizToolStripMenuItem = new ToolStripMenuItem();
-            menuStrip1.SuspendLayout();
+            mainMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
+            // mainMenuStrip
             // 
-            menuStrip1.ImageScalingSize = new Size(40, 40);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { quizToolStripMenuItem, userToolStripMenuItem, settingToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(2145, 49);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            mainMenuStrip.ImageScalingSize = new Size(40, 40);
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { quizToolStripMenuItem, userToolStripMenuItem, settingToolStripMenuItem });
+            mainMenuStrip.Location = new Point(0, 0);
+            mainMenuStrip.Name = "mainMenuStrip";
+            mainMenuStrip.Size = new Size(2145, 49);
+            mainMenuStrip.TabIndex = 0;
+            mainMenuStrip.Text = "mainMenuStrip";
             // 
             // quizToolStripMenuItem
             // 
-            quizToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addQuizeToolStripMenuItem, quizesListToolStripMenuItem, takeQuizToolStripMenuItem });
+            quizToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addQuizToolStripMenuItem, quizzesListToolStripMenuItem, takeQuizToolStripMenuItem });
             quizToolStripMenuItem.Name = "quizToolStripMenuItem";
             quizToolStripMenuItem.Size = new Size(103, 45);
             quizToolStripMenuItem.Text = "Quiz";
             // 
-            // addQuizeToolStripMenuItem
+            // addQuizToolStripMenuItem
             // 
-            addQuizeToolStripMenuItem.Name = "addQuizeToolStripMenuItem";
-            addQuizeToolStripMenuItem.Size = new Size(448, 54);
-            addQuizeToolStripMenuItem.Text = "Add quiz";
-            addQuizeToolStripMenuItem.Click += addQuizToolStripMenuItem_Click;
+            addQuizToolStripMenuItem.Name = "addQuizToolStripMenuItem";
+            addQuizToolStripMenuItem.Size = new Size(448, 54);
+            addQuizToolStripMenuItem.Text = "Add quiz";
+            addQuizToolStripMenuItem.Click += addQuizToolStripMenuItem_Click;
             // 
-            // quizesListToolStripMenuItem
+            // quizzesListToolStripMenuItem
             // 
-            quizesListToolStripMenuItem.Name = "quizesListToolStripMenuItem";
-            quizesListToolStripMenuItem.Size = new Size(448, 54);
-            quizesListToolStripMenuItem.Text = "Manage quizes";
+            quizzesListToolStripMenuItem.Name = "quizzesListToolStripMenuItem";
+            quizzesListToolStripMenuItem.Size = new Size(448, 54);
+            quizzesListToolStripMenuItem.Text = "Manage quizzes";
             // 
             // userToolStripMenuItem
             // 
@@ -99,22 +99,22 @@
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2145, 1253);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            Controls.Add(mainMenuStrip);
+            MainMenuStrip = mainMenuStrip;
             Name = "MainPanelFrom";
             Text = "MainPanelFrom";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            mainMenuStrip.ResumeLayout(false);
+            mainMenuStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private MenuStrip menuStrip1;
+        private MenuStrip mainMenuStrip;
         private ToolStripMenuItem quizToolStripMenuItem;
-        private ToolStripMenuItem quizesListToolStripMenuItem;
-        private ToolStripMenuItem addQuizeToolStripMenuItem;
+        private ToolStripMenuItem quizzesListToolStripMenuItem;
+        private ToolStripMenuItem addQuizToolStripMenuItem;
         private ToolStripMenuItem userToolStripMenuItem;
         private ToolStripMenuItem settingToolStripMenuItem;
         private ToolStripMenuItem languageToolStripMenuItem;
