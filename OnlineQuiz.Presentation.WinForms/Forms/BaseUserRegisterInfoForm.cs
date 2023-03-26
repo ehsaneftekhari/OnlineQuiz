@@ -2,7 +2,7 @@
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models;
 using OnlineQuiz.Business.Models.Users;
-using OnlineQuiz.Presentation.WinForms.FormHelpers;
+using OnlineQuiz.Presentation.WinForms.Helpers;
 
 namespace OnlineQuiz.Presentation.WinForms
 {

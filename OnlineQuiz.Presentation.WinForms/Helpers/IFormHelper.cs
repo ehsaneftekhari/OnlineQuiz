@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Business.Models;
 
-namespace OnlineQuiz.Presentation.WinForms.FormHelpers
+namespace OnlineQuiz.Presentation.WinForms.Helpers
 {
     public interface IFormHelper
     {

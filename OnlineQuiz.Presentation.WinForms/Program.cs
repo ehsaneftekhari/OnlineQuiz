@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Presentation.WinForms.FormHelpers;
+using OnlineQuiz.Presentation.WinForms.Helpers;
 using OnlineQuiz.Presentation.WinForms.Forms.Controls;
 using System;
 

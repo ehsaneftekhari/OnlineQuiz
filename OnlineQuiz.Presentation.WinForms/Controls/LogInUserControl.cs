@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models.Users;
-using OnlineQuiz.Presentation.WinForms.FormHelpers;
+using OnlineQuiz.Presentation.WinForms.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
