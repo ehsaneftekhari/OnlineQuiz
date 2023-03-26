@@ -18,7 +18,7 @@ namespace OnlineQuiz.Presentation.WinForms
         public MainPanelFrom(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            mainMenuStrip.Items.Clear();
+            //mainMenuStrip.Items.Clear();
             this.serviceProvider = serviceProvider;
 
 
@@ -40,10 +40,10 @@ namespace OnlineQuiz.Presentation.WinForms
 
                     break;
 
-                case State.GuestRegistered: 
+                case State.GuestRegistered:
                     break;
 
-                case State.LoggedIn: 
+                case State.LoggedIn:
                     break;
 
                 case State.Exit:
