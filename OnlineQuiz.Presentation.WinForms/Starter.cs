@@ -81,7 +81,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
 
                     case State.LogInForm:
-                        LogInResults logInResults = LogInForm.Start();
+                        LogInResults logInResults = LogInForm.Start(serviceProvider);
 
                         if (logInResults == LogInResults.Exit)
                             nextState = State.Exit;
@@ -89,7 +89,7 @@ namespace OnlineQuiz.Presentation.WinForms
                         if (logInResults == LogInResults.Back)
                             nextState = State.SelectMoodForm;
 
-                        if (logInResults == LogInResults.OK)
+                        if (logInResults == LogInResults.LoggedIn)
                             nextState = State.LoggedIn;
 
                         break;

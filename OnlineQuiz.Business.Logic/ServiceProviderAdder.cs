@@ -15,8 +15,7 @@ namespace OnlineQuiz.Business.Logic
                 serviceProvider.AddTransient<IValidatorFunctions, ValidatorFunctions>();
                 serviceProvider.AddTransient<IUserValidator, UserValidator>();
                 serviceProvider.AddTransient<IUserController, UserController>();
-
-                Persistence.ADO.ServiceProviderAdder.Add(serviceProvider);
+                serviceProvider.AddTransient<IVerifier, Verifier>();
             }
         }
     }

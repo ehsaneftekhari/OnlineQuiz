@@ -5,7 +5,7 @@ namespace OnlineQuiz.Presentation.WinForms.FormHelpers
     public class FormHelper : IFormHelper
     {
 
-        public void SetTextFormValue(Field<string> field, TextBox textBox, Label messageLabel)
+        public void SetFromFieldModel(Field<string> field, TextBox textBox, Label messageLabel)
         {
             textBox.Text = field.Value;
 

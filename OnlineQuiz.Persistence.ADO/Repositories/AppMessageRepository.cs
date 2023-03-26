@@ -22,6 +22,8 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_BaseUserInfo_LongLastName", "Last Name can not be longer than 32 characters");
             Messages.Add("en_BaseUserInfo_EmailWrongFormat", "Email is not in correct format");
             Messages.Add("en_BaseUserInfo_PhoneNumberWrongFormat", "Phone number is not in correct format");
+
+            Messages.Add("en_User_InvalidCredentials", "Username or Password is not valid");
         }
         public string GetMessage(string messageTitle)
         {

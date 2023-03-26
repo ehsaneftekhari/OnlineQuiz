@@ -47,10 +47,10 @@ namespace OnlineQuiz.Presentation.WinForms
         {
             if (baseUser != null)
             {
-                formHelper.SetTextFormValue(baseUser.FirstName, FirstNameTB, FirstNameMessageLbl);
-                formHelper.SetTextFormValue(baseUser.LastName, LastNameTB, LastNameMessageLbl);
-                formHelper.SetTextFormValue(baseUser.Email, EmailTB, EmailMessageLbl);
-                formHelper.SetTextFormValue(baseUser.PhoneNumber, PhoneNumberTB, PhoneNumberMessageLbl);
+                formHelper.SetFromFieldModel(baseUser.FirstName, FirstNameTB, FirstNameMessageLbl);
+                formHelper.SetFromFieldModel(baseUser.LastName, LastNameTB, LastNameMessageLbl);
+                formHelper.SetFromFieldModel(baseUser.Email, EmailTB, EmailMessageLbl);
+                formHelper.SetFromFieldModel(baseUser.PhoneNumber, PhoneNumberTB, PhoneNumberMessageLbl);
             }
         }
 

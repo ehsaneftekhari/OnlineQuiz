@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineQuiz.Persistence.ADO.Builders
 {
-    public interface IExecutedSPBuilder
+    public interface IADOExecutedSPBuilder
     {
         object GetValueOfOutputParameters(string parameterName);
 

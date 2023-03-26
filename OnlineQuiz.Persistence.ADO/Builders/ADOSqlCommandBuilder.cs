@@ -8,39 +8,39 @@ using System.Threading.Tasks;
 
 namespace OnlineQuiz.Persistence.ADO.Builders
 {
-    public class SqlCommandBuilder : INotExecutedSPBuilder, IExecutedSPBuilder
+    public class ADOSqlCommandBuilder : IADONotExecutedSPBuilder, IADOExecutedSPBuilder
     {
         private readonly SqlCommand _sqlCommand;
         //public SqlCommand SqlCommand => _sqlCommand; 
 
-        private SqlCommandBuilder(string cmdText)
+        private ADOSqlCommandBuilder(string cmdText)
         {
-            SqlConnection connection = SqlConnectionCreator.Create();
+            SqlConnection connection = ADOSqlConnectionCreator.Create();
             _sqlCommand = new SqlCommand(cmdText, connection);
         }
 
-        public static INotExecutedSPBuilder CreateSP(string SpName)
+        public static IADONotExecutedSPBuilder CreateSP(string SpName)
         {
-            SqlCommandBuilder sqlCommandBuilder = new SqlCommandBuilder(SpName);
+            ADOSqlCommandBuilder sqlCommandBuilder = new ADOSqlCommandBuilder(SpName);
             sqlCommandBuilder._sqlCommand.CommandType = CommandType.StoredProcedure;
 
             return sqlCommandBuilder;
         }
 
-        public INotExecutedSPBuilder AddParameter(string parameterName, object value)
+        public IADONotExecutedSPBuilder AddParameter(string parameterName, object value)
         {
             _sqlCommand.Parameters.Add(new SqlParameter(parameterName, value));
             return this;
         }
 
-        public INotExecutedSPBuilder AddOutputParameter(string parameterName, SqlDbType dbType)
+        public IADONotExecutedSPBuilder AddOutputParameter(string parameterName, SqlDbType dbType)
         {
             _sqlCommand.Parameters.Add(new SqlParameter(parameterName, dbType));
             _sqlCommand.Parameters[parameterName].Direction = ParameterDirection.Output;
             return this;
         }
 
-        public IExecutedSPBuilder ExecuteNonQuery(out int rowsAffected)
+        public IADOExecutedSPBuilder ExecuteNonQuery(out int rowsAffected)
         {
             if (_sqlCommand.Connection.State != ConnectionState.Open)
                 _sqlCommand.Connection.Open();
@@ -52,12 +52,12 @@ namespace OnlineQuiz.Persistence.ADO.Builders
             return this;
         }
 
-        public IExecutedSPBuilder ExecuteNonQuery()
+        public IADOExecutedSPBuilder ExecuteNonQuery()
         {
             return ExecuteNonQuery(out int _);
         }
 
-        public IExecutedSPBuilder ExecuteReader(out DataTable dataTable)
+        public IADOExecutedSPBuilder ExecuteReader(out DataTable dataTable)
         {
             dataTable = new DataTable();
 

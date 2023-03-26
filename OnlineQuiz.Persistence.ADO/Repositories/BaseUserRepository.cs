@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Models.Users;
-using SqlCommandBuilder = OnlineQuiz.Persistence.ADO.Builders.SqlCommandBuilder;
+using ADOSqlCommandBuilder = OnlineQuiz.Persistence.ADO.Builders.ADOSqlCommandBuilder;
 
 namespace OnlineQuiz.Persistence.ADO.Repositories
 {
@@ -18,7 +18,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             if(baseUserInfo == null)
                 throw new ArgumentNullException(nameof(baseUserInfo));
 
-            var BaseUserId = SqlCommandBuilder.CreateSP("[Users].[Usp_BaseUser_Add]")
+            var BaseUserId = ADOSqlCommandBuilder.CreateSP("[Users].[Usp_BaseUser_Add]")
                 .AddParameter("@FirstName", baseUserInfo.FirstName.Value)
                 .AddParameter("@LastName", baseUserInfo.LastName.Value)
                 .AddParameter("@Email", baseUserInfo.Email.Value)

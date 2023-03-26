@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Models
 {
-    public class Field<Type>
+    public class Field<Type> : StatusModel
     {
         private Type? _value;
 
@@ -22,20 +22,6 @@ namespace OnlineQuiz.Business.Models
             }
         }
 
-        private ModelStatusEnum _Status;
-
-        public ModelStatusEnum Status
-        {
-            get => _Status;
-            set
-            {
-                _Status = value;
-                if (value == ModelStatusEnum.Fine)
-                    ClearMessage();
-            }
-        }
-
-        public string Message { get; set; }
 
         Func<Type, string> CheckWarning { get; set; }
 
@@ -51,12 +37,6 @@ namespace OnlineQuiz.Business.Models
             CheckWarning = checkWarning;
             CheckError = checkError;
         }
-
-        public bool IsFine() => Status == ModelStatusEnum.Fine;
-
-        public void SetFine() => Status = ModelStatusEnum.Fine;
-
-        public void ClearMessage() => Message = null;
 
         private void InvokeChecks(Type value)
         {

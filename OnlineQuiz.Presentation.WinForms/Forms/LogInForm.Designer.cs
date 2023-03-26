@@ -40,7 +40,7 @@
             // label
             // 
             label.AutoSize = true;
-            label.Location = new Point(99, 112);
+            label.Location = new Point(91, 112);
             label.Name = "label";
             label.Size = new Size(510, 41);
             label.TabIndex = 0;
@@ -48,47 +48,46 @@
             // 
             // LoginBtn
             // 
-            LoginBtn.Location = new Point(127, 439);
+            LoginBtn.Location = new Point(119, 439);
             LoginBtn.Name = "LoginBtn";
             LoginBtn.Size = new Size(455, 95);
-            LoginBtn.TabIndex = 2;
+            LoginBtn.TabIndex = 3;
             LoginBtn.Text = "Login";
             LoginBtn.UseVisualStyleBackColor = true;
             LoginBtn.Click += LoginBtn_Click;
             // 
             // UsernameTB
             // 
-            UsernameTB.Location = new Point(122, 219);
+            UsernameTB.Location = new Point(114, 219);
             UsernameTB.Name = "UsernameTB";
             UsernameTB.PlaceholderText = "Username";
             UsernameTB.Size = new Size(464, 47);
-            UsernameTB.TabIndex = 3;
-            UsernameTB.UseWaitCursor = true;
+            UsernameTB.TabIndex = 1;
             // 
             // PasswordTB
             // 
-            PasswordTB.Location = new Point(122, 329);
+            PasswordTB.Location = new Point(114, 329);
             PasswordTB.Name = "PasswordTB";
             PasswordTB.PlaceholderText = "Password";
             PasswordTB.Size = new Size(464, 47);
-            PasswordTB.TabIndex = 3;
+            PasswordTB.TabIndex = 2;
             // 
             // ExitBtn
             // 
-            ExitBtn.Location = new Point(236, 636);
+            ExitBtn.Location = new Point(228, 636);
             ExitBtn.Name = "ExitBtn";
             ExitBtn.Size = new Size(170, 61);
-            ExitBtn.TabIndex = 4;
+            ExitBtn.TabIndex = 5;
             ExitBtn.Text = "Exit";
             ExitBtn.UseVisualStyleBackColor = true;
             ExitBtn.Click += ExitBtn_Click;
             // 
             // BackBtn
             // 
-            BackBtn.Location = new Point(412, 636);
+            BackBtn.Location = new Point(404, 636);
             BackBtn.Name = "BackBtn";
             BackBtn.Size = new Size(170, 61);
-            BackBtn.TabIndex = 4;
+            BackBtn.TabIndex = 0;
             BackBtn.Text = "Back";
             BackBtn.UseVisualStyleBackColor = true;
             BackBtn.Click += BackBtn_Click;
@@ -97,10 +96,10 @@
             // 
             messageLb.AutoSize = true;
             messageLb.ForeColor = Color.Red;
-            messageLb.Location = new Point(122, 564);
+            messageLb.Location = new Point(114, 561);
             messageLb.Name = "messageLb";
             messageLb.Size = new Size(144, 41);
-            messageLb.TabIndex = 5;
+            messageLb.TabIndex = 6;
             messageLb.Text = "<_blank>";
             // 
             // LogInForm

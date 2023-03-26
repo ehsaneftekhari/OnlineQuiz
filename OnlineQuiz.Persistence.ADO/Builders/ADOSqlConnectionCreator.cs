@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace OnlineQuiz.Persistence.ADO.Builders
 {
-    internal class SqlConnectionCreator
+    internal class ADOSqlConnectionCreator
     {
         private static string ConnectionString = "data source=EHSANVIVOBOOK\\EHSANSQLSERVER;initial catalog=OnlineTestDB;integrated security=true";
         private static SqlConnection? connection;

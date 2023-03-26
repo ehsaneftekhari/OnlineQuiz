@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Presentation.WinForms.FormHelpers;
+using System;
 
 namespace OnlineQuiz.Presentation.WinForms
 {
@@ -12,7 +13,7 @@ namespace OnlineQuiz.Presentation.WinForms
             ServiceCollection serviceDescriptors = new ServiceCollection();
 
             Business.Logic.ServiceProviderAdder.Add(serviceDescriptors);
-
+            Persistence.ADO.ServiceProviderAdder.Add(serviceDescriptors);
 
             serviceDescriptors.AddSingleton<BaseUserRegisterInfoForm>();
             serviceDescriptors.AddTransient<IFormHelper, FormHelper>();

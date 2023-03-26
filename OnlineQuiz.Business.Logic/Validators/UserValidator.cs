@@ -8,17 +8,14 @@ namespace OnlineQuiz.Business.Logic.Validators
 {
     public class UserValidator : IUserValidator
     {
-        IBaseUserRepository baseUserRepository;
-
         IValidatorFunctions validatorFunctions;
 
-        public UserValidator(IBaseUserRepository baseUserRepository, IValidatorFunctions validatorFunctions)
+        public UserValidator(IValidatorFunctions validatorFunctions)
         {
             validatorFunctions.CheckNullArgumentException(
-                baseUserRepository, nameof(baseUserRepository)
+                validatorFunctions, nameof(validatorFunctions)
                 );
 
-            this.baseUserRepository = baseUserRepository;
             this.validatorFunctions = validatorFunctions;
         }
 

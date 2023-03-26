@@ -4,6 +4,6 @@ namespace OnlineQuiz.Presentation.WinForms.FormHelpers
 {
     public interface IFormHelper
     {
-        void SetTextFormValue(Field<string> field, TextBox textBox, Label messageLabel);
+        void SetFromFieldModel(Field<string> field, TextBox textBox, Label messageLabel);
     }
 }
