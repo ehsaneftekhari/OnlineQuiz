@@ -39,7 +39,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
             validatorFunctions.CheckRegex(baseUserInfo.Email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", "en_BaseUserInfo_EmailWrongFormat");
 
-            validatorFunctions.CheckStringMaxLength(baseUserInfo.PhoneNumber, 10, "en_BaseUserInfo_PhoneNumberWrongFormat");
+            validatorFunctions.CheckRegex(baseUserInfo.PhoneNumber, "^(0{0,1})\\d{10}$", "en_BaseUserInfo_PhoneNumberWrongFormat");
         
             return baseUserInfo.IsFine();
         }
