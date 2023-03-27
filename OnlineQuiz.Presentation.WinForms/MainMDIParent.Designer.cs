@@ -1,6 +1,6 @@
 ﻿namespace OnlineQuiz.Presentation.WinForms
 {
-    partial class QuizDesignerMDIParent
+    partial class MainMDIParent
     {
         /// <summary>
         /// Required designer variable.
@@ -32,10 +32,12 @@
             menuStrip = new MenuStrip();
             windowsMenu = new ToolStripMenuItem();
             newWindowToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
             cascadeToolStripMenuItem = new ToolStripMenuItem();
             tileVerticalToolStripMenuItem = new ToolStripMenuItem();
             tileHorizontalToolStripMenuItem = new ToolStripMenuItem();
             closeAllToolStripMenuItem = new ToolStripMenuItem();
+            Login_Register_ToolStripMenuItem = new ToolStripMenuItem();
             toolTip = new ToolTip(components);
             menuStrip.SuspendLayout();
             SuspendLayout();
@@ -43,20 +45,20 @@
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(40, 40);
-            menuStrip.Items.AddRange(new ToolStripItem[] { windowsMenu });
+            menuStrip.Items.AddRange(new ToolStripItem[] { windowsMenu, Login_Register_ToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.MdiWindowListItem = windowsMenu;
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(17, 6, 0, 6);
-            menuStrip.Size = new Size(1791, 57);
+            menuStrip.Size = new Size(1791, 60);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "MenuStrip";
             // 
             // windowsMenu
             // 
-            windowsMenu.DropDownItems.AddRange(new ToolStripItem[] { newWindowToolStripMenuItem, cascadeToolStripMenuItem, tileVerticalToolStripMenuItem, tileHorizontalToolStripMenuItem, closeAllToolStripMenuItem });
+            windowsMenu.DropDownItems.AddRange(new ToolStripItem[] { newWindowToolStripMenuItem, toolStripSeparator1, cascadeToolStripMenuItem, tileVerticalToolStripMenuItem, tileHorizontalToolStripMenuItem, closeAllToolStripMenuItem });
             windowsMenu.Name = "windowsMenu";
-            windowsMenu.Size = new Size(165, 45);
+            windowsMenu.Size = new Size(165, 48);
             windowsMenu.Text = "&Windows";
             // 
             // newWindowToolStripMenuItem
@@ -65,6 +67,11 @@
             newWindowToolStripMenuItem.Size = new Size(375, 54);
             newWindowToolStripMenuItem.Text = "&New Window";
             newWindowToolStripMenuItem.Click += ShowNewForm;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(372, 6);
             // 
             // cascadeToolStripMenuItem
             // 
@@ -94,7 +101,14 @@
             closeAllToolStripMenuItem.Text = "C&lose All";
             closeAllToolStripMenuItem.Click += CloseAllToolStripMenuItem_Click;
             // 
-            // QuizDesignerMDIParent
+            // Login_Register_ToolStripMenuItem
+            // 
+            Login_Register_ToolStripMenuItem.Name = "Login_Register_ToolStripMenuItem";
+            Login_Register_ToolStripMenuItem.Size = new Size(235, 48);
+            Login_Register_ToolStripMenuItem.Text = "Login/Register";
+            Login_Register_ToolStripMenuItem.Click += loginToolStripMenuItem1_Click;
+            // 
+            // MainMDIParent
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -103,8 +117,8 @@
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
             Margin = new Padding(8, 9, 8, 9);
-            Name = "MDIParent";
-            Text = "QuizDesignerMDIParent";
+            Name = "MainMDIParent";
+            Text = "OnlineQuiz";
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             ResumeLayout(false);
@@ -121,6 +135,8 @@
         private System.Windows.Forms.ToolStripMenuItem tileVerticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeAllToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem Login_Register_ToolStripMenuItem;
     }
 }
 
