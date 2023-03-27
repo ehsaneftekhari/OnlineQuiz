@@ -7,15 +7,15 @@ using User = OnlineQuiz.Business.Models.Users.User;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {
-    public partial class StartForm : Form
+    public partial class LoginRegister : Form
     {
         IVerifier verifier;
         IFormHelper formHelper;
         IUserController userController;
 
-        static StartForm instance;
+        static LoginRegister instance;
 
-        private StartForm(IVerifier verifier, IFormHelper formHelper, IUserController userController)
+        private LoginRegister(IVerifier verifier, IFormHelper formHelper, IUserController userController)
         {
             InitializeComponent();
             this.verifier = verifier;
@@ -23,14 +23,14 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             this.userController = userController;
         }
 
-        public static StartForm Create(IServiceProvider serviceProvider)
+        public static LoginRegister Create(IServiceProvider serviceProvider)
         {
             IVerifier verifier = serviceProvider.GetRequiredService<IVerifier>();
             IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             IUserController userController = serviceProvider.GetRequiredService<IUserController>();
 
             if (instance == null || instance.IsDisposed)
-                instance = new StartForm(verifier, formHelper, userController);
+                instance = new LoginRegister(verifier, formHelper, userController);
 
             return instance;
         }
@@ -57,13 +57,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 OnLogIn.Invoke(user);
         }
 
-        private void RegisterBtn_Click(object sender, EventArgs e)
+        private void RegisterBaseUserBtn_Click(object sender, EventArgs e)
         {
             BaseUser newUserInfo = new BaseUser(RegisterFirstNameTB.Text, RegisterLastNameTB.Text, RegisterEmailTB.Text, RegisterPhoneNumberTB.Text);
 
             newUserInfo = userController.AddBaseUser(newUserInfo);
 
-            SetRegisterFields(newUserInfo);
+            SetBaseUserRegisterFields(newUserInfo);
 
             if (newUserInfo.HasId())
                 InvokeOnBaseUserRegister(newUserInfo);
@@ -75,7 +75,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 OnBaseUserRegister.Invoke(baseUser);
         }
 
-        private void SetRegisterFields(BaseUser? baseUser)
+        private void SetBaseUserRegisterFields(BaseUser? baseUser)
         {
             if (baseUser != null)
             {

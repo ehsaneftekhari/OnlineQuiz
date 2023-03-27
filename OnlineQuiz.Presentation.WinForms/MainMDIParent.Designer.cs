@@ -50,7 +50,7 @@
             menuStrip.MdiWindowListItem = windowsMenu;
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(17, 6, 0, 6);
-            menuStrip.Size = new Size(1791, 60);
+            menuStrip.Size = new Size(1791, 57);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "MenuStrip";
             // 
@@ -58,7 +58,7 @@
             // 
             windowsMenu.DropDownItems.AddRange(new ToolStripItem[] { newWindowToolStripMenuItem, toolStripSeparator1, cascadeToolStripMenuItem, tileVerticalToolStripMenuItem, tileHorizontalToolStripMenuItem, closeAllToolStripMenuItem });
             windowsMenu.Name = "windowsMenu";
-            windowsMenu.Size = new Size(165, 48);
+            windowsMenu.Size = new Size(165, 45);
             windowsMenu.Text = "&Windows";
             // 
             // newWindowToolStripMenuItem
@@ -104,7 +104,7 @@
             // Login_Register_ToolStripMenuItem
             // 
             Login_Register_ToolStripMenuItem.Name = "Login_Register_ToolStripMenuItem";
-            Login_Register_ToolStripMenuItem.Size = new Size(235, 48);
+            Login_Register_ToolStripMenuItem.Size = new Size(235, 45);
             Login_Register_ToolStripMenuItem.Text = "Login/Register";
             Login_Register_ToolStripMenuItem.Click += loginToolStripMenuItem1_Click;
             // 
@@ -112,7 +112,7 @@
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1791, 1429);
+            ClientSize = new Size(1791, 1899);
             Controls.Add(menuStrip);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;

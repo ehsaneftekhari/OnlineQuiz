@@ -109,7 +109,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenLogin()
         {
-            StartForm StartForm = serviceProvider.GetRequiredService<StartForm>();
+            LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
             StartForm.OnBaseUserRegister += SetBaseUser;
             StartForm.OnBaseUserRegister += (_) => StartForm.Close();
             StartForm.OnLogIn += SetUser;
