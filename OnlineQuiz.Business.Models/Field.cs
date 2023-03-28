@@ -32,6 +32,11 @@ namespace OnlineQuiz.Business.Models
             Value = default(Type);
         }
 
+        public Field(Type value)
+        {
+            Value = value;
+        }
+
         public Field(Func<Type, string> checkWarning, Func<Type, string> checkError)
         {
             CheckWarning = checkWarning;

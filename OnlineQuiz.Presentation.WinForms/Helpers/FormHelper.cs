@@ -9,14 +9,23 @@ namespace OnlineQuiz.Presentation.WinForms.Helpers
         {
             textBox.Text = field.Value;
 
-            if (!field.IsFine())
-                messageLabel.Text = field.Message;
+            messageLabel.Text = field.Message;
 
-            if (field.Status == ModelStatusEnum.Error)
-                messageLabel.ForeColor = Color.Red;
+            if (!string.IsNullOrEmpty(field.Message))
+            {
+                if (field.Status == ModelStatusEnum.Error)
+                    messageLabel.ForeColor = Color.Red;
 
-            if (field.Status == ModelStatusEnum.Warning)
-                messageLabel.ForeColor = Color.Orange;
+                if (field.Status == ModelStatusEnum.Warning)
+                    messageLabel.ForeColor = Color.Orange;
+
+                if (field.Status == ModelStatusEnum.Fine)
+                    messageLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                messageLabel.ForeColor = Color.Black;
+            }
         }
     }
 }

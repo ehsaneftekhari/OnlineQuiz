@@ -19,17 +19,17 @@ namespace OnlineQuiz.Business.Logic.Validators
             this.appMessageRepository = appMessageRepository;
         }
 
-        public bool Check<T>(Field<T> field, Func<T, bool> func, string messageTitle, ModelStatusEnum status)
+        public bool Check<T>(Field<T> field, Func<T, bool> finderMethod, string messageTitle, ModelStatusEnum status)
         {
             CheckNullArgumentException(
                 field, nameof(field),
                 field.Value!, nameof(field.Value),
-                func, nameof(func),
+                finderMethod, nameof(finderMethod),
                 messageTitle, nameof(messageTitle),
                 status, nameof(status)
                 );
 
-            if (func.Invoke(field.Value))
+            if (finderMethod.Invoke(field.Value))
             {
                 SetStatusForField(field, status);
                 SetMessageForField(field, messageTitle);

@@ -6,7 +6,7 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IValidators
     {
         bool CheckNullArgumentException(params object[] arguments);
 
-        bool Check<T>(Field<T> field, Func<T, bool> func, string messageTitle, ModelStatusEnum status);
+        bool Check<T>(Field<T> field, Func<T, bool> finderMethod, string messageTitle, ModelStatusEnum status);
 
         bool CheckRegex(Field<string> field, string regexPattern, string messageTitle);
 

@@ -104,7 +104,6 @@
             LoginMessageLb.Name = "LoginMessageLb";
             LoginMessageLb.Size = new Size(136, 41);
             LoginMessageLb.TabIndex = 0;
-            LoginMessageLb.Text = "Message";
             // 
             // RegisterEmailTB
             // 
@@ -156,7 +155,6 @@
             RegisterFirstNameMessageLbl.Name = "RegisterFirstNameMessageLbl";
             RegisterFirstNameMessageLbl.Size = new Size(136, 41);
             RegisterFirstNameMessageLbl.TabIndex = 8;
-            RegisterFirstNameMessageLbl.Text = "Message";
             // 
             // RegisterLastNameMessageLbl
             // 
@@ -166,7 +164,6 @@
             RegisterLastNameMessageLbl.Name = "RegisterLastNameMessageLbl";
             RegisterLastNameMessageLbl.Size = new Size(136, 41);
             RegisterLastNameMessageLbl.TabIndex = 8;
-            RegisterLastNameMessageLbl.Text = "Message";
             // 
             // RegisterEmailMessageLbl
             // 
@@ -176,7 +173,6 @@
             RegisterEmailMessageLbl.Name = "RegisterEmailMessageLbl";
             RegisterEmailMessageLbl.Size = new Size(136, 41);
             RegisterEmailMessageLbl.TabIndex = 8;
-            RegisterEmailMessageLbl.Text = "Message";
             // 
             // RegisterPhoneNumberMessageLbl
             // 
@@ -186,7 +182,6 @@
             RegisterPhoneNumberMessageLbl.Name = "RegisterPhoneNumberMessageLbl";
             RegisterPhoneNumberMessageLbl.Size = new Size(136, 41);
             RegisterPhoneNumberMessageLbl.TabIndex = 8;
-            RegisterPhoneNumberMessageLbl.Text = "Message";
             // 
             // RegisterBaseUserMessageLbl
             // 
@@ -196,7 +191,6 @@
             RegisterBaseUserMessageLbl.Name = "RegisterBaseUserMessageLbl";
             RegisterBaseUserMessageLbl.Size = new Size(136, 41);
             RegisterBaseUserMessageLbl.TabIndex = 8;
-            RegisterBaseUserMessageLbl.Text = "Message";
             // 
             // RegisterBaseUserTitleLabel
             // 
@@ -257,7 +251,6 @@
             RegisterUserMessageLbl.Name = "RegisterUserMessageLbl";
             RegisterUserMessageLbl.Size = new Size(136, 41);
             RegisterUserMessageLbl.TabIndex = 8;
-            RegisterUserMessageLbl.Text = "Message";
             // 
             // RegisterPasswordVerifyMessageLbl
             // 
@@ -267,7 +260,6 @@
             RegisterPasswordVerifyMessageLbl.Name = "RegisterPasswordVerifyMessageLbl";
             RegisterPasswordVerifyMessageLbl.Size = new Size(136, 41);
             RegisterPasswordVerifyMessageLbl.TabIndex = 8;
-            RegisterPasswordVerifyMessageLbl.Text = "Message";
             // 
             // RegisterPasswordMessageLbl
             // 
@@ -277,7 +269,6 @@
             RegisterPasswordMessageLbl.Name = "RegisterPasswordMessageLbl";
             RegisterPasswordMessageLbl.Size = new Size(136, 41);
             RegisterPasswordMessageLbl.TabIndex = 8;
-            RegisterPasswordMessageLbl.Text = "Message";
             // 
             // RegisterUsernameMessageLbl
             // 
@@ -287,7 +278,6 @@
             RegisterUsernameMessageLbl.Name = "RegisterUsernameMessageLbl";
             RegisterUsernameMessageLbl.Size = new Size(136, 41);
             RegisterUsernameMessageLbl.TabIndex = 8;
-            RegisterUsernameMessageLbl.Text = "Message";
             // 
             // RegisterUserBtn
             // 
@@ -297,6 +287,7 @@
             RegisterUserBtn.TabIndex = 8;
             RegisterUserBtn.Text = "Register";
             RegisterUserBtn.UseVisualStyleBackColor = true;
+            RegisterUserBtn.Click += RegisterUserBtn_Click;
             // 
             // RegisterUsernameTB
             // 

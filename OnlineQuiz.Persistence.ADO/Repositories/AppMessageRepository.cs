@@ -24,6 +24,16 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_BaseUserInfo_PhoneNumberWrongFormat", "Phone number is not in correct format");
 
             Messages.Add("en_User_InvalidCredentials", "Username or Password is not valid");
+            Messages.Add("en_User_InvalidUsername", "Username is not valid.\n(only a-b A-B 0-9 - _ . (no Space)])");
+            Messages.Add("en_User_InvalidLongUsername", "Username is to long");
+            Messages.Add("en_User_InvalidShortUsername", "Username is to short");
+            Messages.Add("en_User_InvalidEmptyUsername", "Username can not be empty");
+            Messages.Add("en_User_UsernameInUse", "Username is in use");
+            Messages.Add("en_User_EmailInUse", "Email is in use");
+            Messages.Add("en_User_PhoneNumberInUse", "PhoneNumber is in use");
+            Messages.Add("en_User_EmptyPassword", "Password can not be empty");
+            Messages.Add("en_User_NotEqualPasswordVerify", "Password and it's Verify are not Equal");
+
         }
         public string GetMessage(string messageTitle)
         {

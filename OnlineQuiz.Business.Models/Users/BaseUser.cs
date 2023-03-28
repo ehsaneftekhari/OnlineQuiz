@@ -12,17 +12,17 @@
 
         public int BaseUserId { get; set; }
 
-        private BaseUser()
+        public BaseUser()
         {
-            FirstName = new Field<string>();
-            LastName = new Field<string>();
-            Email = new Field<string>();
-            PhoneNumber = new Field<string>();
+            FirstName = new Field<string>(string.Empty);
+            LastName = new Field<string>(string.Empty);
+            Email = new Field<string>(string.Empty);
+            PhoneNumber = new Field<string>(string.Empty);
             BaseUserId = 0;
         }
 
 
-        public BaseUser(string firstName, string lastName, string email, string phoneNumber, int baseUserId = -1) : this()
+        public BaseUser(string firstName, string lastName, string email, string phoneNumber, int baseUserId = 0) : this()
         {
             if (firstName == null)
                 throw new ArgumentNullException(nameof(firstName));

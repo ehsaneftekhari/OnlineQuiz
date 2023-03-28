@@ -16,14 +16,16 @@ namespace OnlineQuiz.Business.Logic.Controllers
     {
         IUserRepository userRepository;
         IAppMessageRepository appMessageRepository;
+        IValidatorFunctions validatorFunctions;
 
-        public Verifier(IUserRepository userRepository, IAppMessageRepository appMessageRepository)
+        public Verifier(IUserRepository userRepository, IAppMessageRepository appMessageRepository, IValidatorFunctions validatorFunctions)
         {
             this.userRepository = userRepository;
             this.appMessageRepository = appMessageRepository;
+            this.validatorFunctions = validatorFunctions;
         }
 
-        public User VerifyUser(UserCredential credential)
+        public User VerifyUserCredential(UserCredential credential)
         {
             int id = userRepository.VerifyUser(credential);
 
@@ -38,6 +40,32 @@ namespace OnlineQuiz.Business.Logic.Controllers
                 result.BaseUserId = id;
             }
             return result;
+        }
+
+        public bool VerifyUserFields(User newUser)
+        {
+            bool usernameNotInUse = userRepository.VerifyUserName(newUser.Username.Value);
+            if(!usernameNotInUse)
+            {
+                validatorFunctions.SetStatusForField(newUser.Username, Models.ModelStatusEnum.Error);
+                validatorFunctions.SetMessageForField(newUser.Username, "en_User_UsernameInUse");
+            }
+
+            bool emailNotInUse = userRepository.VerifyEmail(newUser.Email.Value);
+            if (!emailNotInUse)
+            {
+                validatorFunctions.SetStatusForField(newUser.Email, Models.ModelStatusEnum.Error);
+                validatorFunctions.SetMessageForField(newUser.Email, "en_User_EmailInUse");
+            }
+
+            bool phoneNumberNotInUse = userRepository.VerifyPhoneNumber(newUser.PhoneNumber.Value);
+            if (!phoneNumberNotInUse)
+            {
+                validatorFunctions.SetStatusForField(newUser.PhoneNumber, Models.ModelStatusEnum.Error);
+                validatorFunctions.SetMessageForField(newUser.PhoneNumber, "en_User_PhoneNumberInUse");
+            }
+
+            return usernameNotInUse && emailNotInUse && phoneNumberNotInUse;
         }
     }
 }

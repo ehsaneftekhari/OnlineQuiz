@@ -4,6 +4,8 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
     public interface IVerifier
     {
-        User VerifyUser(UserCredential credential);
+        User VerifyUserCredential(UserCredential credential);
+
+        public bool VerifyUserFields(User newUser);
     }
 }
