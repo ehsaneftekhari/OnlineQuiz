@@ -1,10 +1,13 @@
-﻿using System;
+﻿using OnlineQuiz.Library;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace OnlineQuiz.Persistence.ADO.Builders
 {
@@ -15,12 +18,16 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 
         private ADOSqlCommandBuilder(string cmdText)
         {
+            ThrowHelper.ThrowNullOrEmptyStringException(cmdText, nameof(cmdText));
+
             SqlConnection connection = ADOSqlConnectionCreator.Create();
             _sqlCommand = new SqlCommand(cmdText, connection);
         }
 
         public static IADONotExecutedSPBuilder CreateSP(string SpName)
         {
+            ThrowHelper.ThrowNullOrEmptyStringException(SpName, nameof(SpName));
+
             ADOSqlCommandBuilder sqlCommandBuilder = new ADOSqlCommandBuilder(SpName);
             sqlCommandBuilder._sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -29,12 +36,18 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 
         public IADONotExecutedSPBuilder AddParameter(string parameterName, object value)
         {
+            ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
+            ThrowHelper.ThrowNullArgumentException(value, nameof(value));
+
             _sqlCommand.Parameters.Add(new SqlParameter(parameterName, value));
             return this;
         }
 
         public IADONotExecutedSPBuilder AddOutputParameter(string parameterName, SqlDbType dbType)
         {
+            ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
+            ThrowHelper.ThrowNullArgumentException(dbType, nameof(dbType));
+
             _sqlCommand.Parameters.Add(new SqlParameter(parameterName, dbType));
             _sqlCommand.Parameters[parameterName].Direction = ParameterDirection.Output;
             return this;
@@ -73,33 +86,21 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 
         public object GetValueOfOutputParameters(string parameterName)
         {
-            if (parameterName == null)
-                throw new ArgumentNullException();
-
-            if (parameterName.Length == 0)
-                throw new ArgumentException();
+            ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
 
             return _sqlCommand.Parameters[parameterName].Value;
         }
 
         public Type GetValueOfOutputParameters<Type>(string parameterName)
         {
-            if (parameterName == null)
-                throw new ArgumentNullException();
-
-            if (parameterName.Length == 0)
-                throw new ArgumentException();
+            ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
 
             return (Type)(_sqlCommand.Parameters[parameterName].Value);
         }
 
         public IDictionary<string, object> GetValueOfOutputParameters(params string[] parameterNames)
         {
-            if (parameterNames == null)
-                throw new ArgumentNullException();
-
-            if (parameterNames.Length == 0)
-                throw new ArgumentException();
+            ThrowHelper.ThrowNullOrEmptyArrayException(parameterNames, nameof(parameterNames));
 
             IDictionary<string, object> keyValuePairs = new Dictionary<string, object>();
 

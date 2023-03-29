@@ -1,4 +1,5 @@
 ﻿using OnlineQuiz.Business.Models.Models;
+using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Models.Users
 {
@@ -26,17 +27,13 @@ namespace OnlineQuiz.Business.Models.Users
 
         public BaseUser(string firstName, string lastName, string email, string phoneNumber, int baseUserId = 0) : this()
         {
-            if (firstName == null)
-                throw new ArgumentNullException(nameof(firstName));
-
-            if (lastName == null)
-                throw new ArgumentNullException(nameof(lastName));
-
-            if (email == null)
-                throw new ArgumentNullException(nameof(email));
-
-            if (phoneNumber == null)
-                throw new ArgumentNullException(nameof(phoneNumber));
+            ThrowHelper.ThrowNullArgumentException(
+                firstName, nameof(firstName),
+                lastName, nameof(lastName),
+                email, nameof(email),
+                phoneNumber, nameof(phoneNumber),
+                baseUserId, nameof(baseUserId)
+            );
 
             FirstName!.Value = firstName;
             LastName!.Value = lastName;
@@ -47,17 +44,13 @@ namespace OnlineQuiz.Business.Models.Users
 
         public BaseUser(Field<string> firstName, Field<string> lastName, Field<string> email, Field<string> phoneNumber, int baseUserId = -1) : base()
         {
-            if (firstName == null)
-                throw new ArgumentNullException(nameof(firstName));
-
-            if (lastName == null)
-                throw new ArgumentNullException(nameof(lastName));
-
-            if (email == null)
-                throw new ArgumentNullException(nameof(email));
-
-            if (phoneNumber == null)
-                throw new ArgumentNullException(nameof(phoneNumber));
+            ThrowHelper.ThrowNullArgumentException(
+                firstName, nameof(firstName),
+                lastName, nameof(lastName),
+                email, nameof(email),
+                phoneNumber, nameof(phoneNumber),
+                baseUserId, nameof(baseUserId)
+            );
 
             FirstName = firstName;
             LastName = lastName;
@@ -74,6 +67,10 @@ namespace OnlineQuiz.Business.Models.Users
 
         public bool HasEqualFieldsValues(BaseUser baseUser)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                baseUser, nameof(baseUser)
+            );
+
             bool result = baseUser.FirstName.Value == this.FirstName.Value;
             result &= baseUser.LastName.Value == this.LastName.Value;
             result &= baseUser.Email.Value == this.Email.Value;

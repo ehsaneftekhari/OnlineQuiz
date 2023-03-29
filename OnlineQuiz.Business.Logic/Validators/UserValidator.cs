@@ -1,8 +1,7 @@
-﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IValidators;
+﻿using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Users;
-using System.Text.RegularExpressions;
+using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Validators
 {
@@ -12,7 +11,8 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public UserValidator(IValidatorFunctions validatorFunctions)
         {
-            validatorFunctions.CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException
+                (
                 validatorFunctions, nameof(validatorFunctions)
                 );
 
@@ -21,7 +21,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool ValidateBaseUserInfo(BaseUser baseUserInfo)
         {
-            validatorFunctions.CheckNullArgumentException(baseUserInfo, nameof(baseUserInfo));
+            ThrowHelper.ThrowNullArgumentException(baseUserInfo, nameof(baseUserInfo));
 
             validatorFunctions.CheckStringEmpty(baseUserInfo.FirstName, "en_BaseUserInfo_EmptyFirstName");
             validatorFunctions.CheckStringEmpty(baseUserInfo.LastName, "en_BaseUserInfo_EmptyLastName");
@@ -36,6 +36,10 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool ValidateUserInfo(User user)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                user, nameof(user)
+                );
+
             ValidateBaseUserInfo(user);
 
             validatorFunctions.CheckRegex(user.Username, "\\A[a-zA-Z0-9_\\-\\.]*\\z", "en_User_InvalidUsername");
@@ -48,14 +52,14 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool ValidatePassword(Field<string> password, Field<string> passwordVerify)
         {
-            validatorFunctions.CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
                 password, nameof(password),
                 passwordVerify, nameof(passwordVerify)
                 );
 
             bool result = validatorFunctions.Check(passwordVerify, x => x != password.Value, "en_User_NotEqualPasswordVerify", ModelStatusEnum.Error);
             result = result && validatorFunctions.CheckStringEmpty(password, "en_User_EmptyPassword");
-           
+
             return result;
         }
     }

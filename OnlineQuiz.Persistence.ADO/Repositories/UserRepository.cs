@@ -1,6 +1,8 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Library;
 using System.Data;
+using System.Net;
 using ADOSqlCommandBuilder = OnlineQuiz.Persistence.ADO.Builders.ADOSqlCommandBuilder;
 
 namespace OnlineQuiz.Persistence.ADO.Repositories
@@ -13,8 +15,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
         public int VerifyUser(UserCredential credential)
         {
-            if (credential == null)
-                throw new ArgumentNullException(nameof(credential));
+            ThrowHelper.ThrowNullArgumentException(credential, nameof(credential));
 
             DataTable dataTable;
 
@@ -32,8 +33,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
         public bool VerifyUserName(string username)
         {
-            if (username == null)
-                throw new ArgumentNullException(nameof(username));
+            ThrowHelper.ThrowNullArgumentException(username, nameof(username));
 
             DataTable dataTable;
 
@@ -53,8 +53,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
         public bool VerifyEmail(string email)
         {
-            if (email == null)
-                throw new ArgumentNullException(nameof(email));
+            ThrowHelper.ThrowNullArgumentException(email, nameof(email));
 
             DataTable dataTable;
 
@@ -74,8 +73,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
         public bool VerifyPhoneNumber(string phoneNumber)
         {
-            if (phoneNumber == null)
-                throw new ArgumentNullException(nameof(phoneNumber));
+            ThrowHelper.ThrowNullArgumentException(phoneNumber, nameof(phoneNumber));
 
             DataTable dataTable;
 
@@ -95,11 +93,10 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
         public int Add (User newUser, string password)
         {
-            if (newUser == null)
-                throw new ArgumentNullException(nameof(newUser));
-
-            if (password == null)
-                throw new ArgumentNullException(nameof(password));
+            ThrowHelper.ThrowNullArgumentException(
+                newUser, nameof(newUser),
+                password, nameof(password)
+            );
 
             var baseUserId = ADOSqlCommandBuilder.CreateSP("[Users].[Usp_User_Add]")
                 .AddParameter("@FirstName", newUser.FirstName.Value)

@@ -2,9 +2,9 @@
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
-using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
@@ -14,19 +14,21 @@ namespace OnlineQuiz.Business.Logic.Controllers
         IUserRepository userRepository;
         IUserValidator userValidator;
         IUserVerifier verifier;
-        IValidatorFunctions validatorFunctions;
 
-        public UserController(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository, IValidatorFunctions validatorFunctions)
+        public UserController(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository)
         {
             this.baseUserRepository = baseUserRepository;
             this.userValidator = userValidator;
             this.verifier = verifier;
             this.userRepository = userRepository;
-            this.validatorFunctions = validatorFunctions;
         }
 
         public BaseUser AddBaseUser(BaseUser baseUserInfo)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                baseUserInfo, nameof(baseUserInfo)
+                );
+
             int id = 0;
             if (userValidator.ValidateBaseUserInfo(baseUserInfo))
                 id = baseUserRepository.Add(baseUserInfo);
@@ -37,6 +39,12 @@ namespace OnlineQuiz.Business.Logic.Controllers
 
         public User AddUser(User newUser, Field<string> password, Field<string> passwordVerify)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                 newUser, nameof(newUser),
+                 password, nameof(password),
+                 passwordVerify, nameof(passwordVerify)
+                 );
+
             int id = 0;
             bool validatePasswordResult = userValidator.ValidatePassword(password, passwordVerify);
             bool validateResult = userValidator.ValidateUserInfo(newUser);

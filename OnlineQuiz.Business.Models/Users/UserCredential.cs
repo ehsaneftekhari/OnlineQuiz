@@ -1,4 +1,6 @@
-﻿namespace OnlineQuiz.Business.Models.Users
+﻿using OnlineQuiz.Library;
+
+namespace OnlineQuiz.Business.Models.Users
 {
     public class UserCredential
     {
@@ -7,6 +9,11 @@
 
         public UserCredential(string username, string password)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                username, nameof(username),
+                password, nameof(password)
+            );
+
             Username = username;
             Password = password;
         }

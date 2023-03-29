@@ -10,7 +10,7 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 {
     internal class ADOSqlConnectionCreator
     {
-        private static string ConnectionString = "data source=EHSANVIVOBOOK\\EHSANSQLSERVER;initial catalog=OnlineTestDB;integrated security=true";
+        private readonly static string ConnectionString = "data source=EHSANVIVOBOOK\\EHSANSQLSERVER;initial catalog=OnlineTestDB;integrated security=true";
         private static SqlConnection? connection;
         public static SqlConnection Create()
         {

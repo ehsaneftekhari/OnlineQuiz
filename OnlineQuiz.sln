@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineQuiz.Persistence.ADO"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineQuiz.Business.Logic", "OnlineQuiz.Business.Logic\OnlineQuiz.Business.Logic.csproj", "{1376F322-99B0-4E35-9B99-9145C3501741}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineQuiz.Business.Abstractions", "OnlineQuiz.Business.Abstractions\OnlineQuiz.Business.Abstractions.csproj", "{2D0C7C84-65B7-4076-9F70-721C86946D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineQuiz.Business.Abstractions", "OnlineQuiz.Business.Abstractions\OnlineQuiz.Business.Abstractions.csproj", "{2D0C7C84-65B7-4076-9F70-721C86946D0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineQuiz.Library", "OnlineQuiz.Library\OnlineQuiz.Library.csproj", "{10CD0FA0-8851-47E1-89FA-4568F60BEC22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{2D0C7C84-65B7-4076-9F70-721C86946D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D0C7C84-65B7-4076-9F70-721C86946D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D0C7C84-65B7-4076-9F70-721C86946D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10CD0FA0-8851-47E1-89FA-4568F60BEC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10CD0FA0-8851-47E1-89FA-4568F60BEC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10CD0FA0-8851-47E1-89FA-4568F60BEC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10CD0FA0-8851-47E1-89FA-4568F60BEC22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

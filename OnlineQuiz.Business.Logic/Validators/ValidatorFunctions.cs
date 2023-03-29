@@ -1,12 +1,8 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Models.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using OnlineQuiz.Library;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Logic.Validators
 {
@@ -21,7 +17,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool Check<T>(Field<T> field, Func<T, bool> finderMethod, string messageTitle, ModelStatusEnum status)
         {
-            CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
                 field, nameof(field),
                 field.Value!, nameof(field.Value),
                 finderMethod, nameof(finderMethod),
@@ -41,7 +37,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool CheckRegex(Field<string> email, string regexPattern, string messageTitle)
         {
-            CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
                 email, nameof(email),
                 email.Value!, nameof(email.Value),
                 regexPattern, nameof(regexPattern),
@@ -57,7 +53,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool CheckStringMaxLength(Field<string> field, int lengthLimit, string messageTitle)
         {
-            CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
                 field, nameof(field),
                 field.Value!, nameof(field.Value),
                 messageTitle, nameof(messageTitle)
@@ -68,7 +64,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public bool CheckStringEmpty(Field<string> field, string messageTitle)
         {
-            CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
                 field, nameof(field),
                 field.Value!, nameof(field.Value),
                 messageTitle, nameof(messageTitle)
@@ -79,7 +75,7 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public void SetMessageForField<T>(Field<T> field, string messageTitle)
         {
-            CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
             field, nameof(field),
                 messageTitle, nameof(messageTitle)
                 );
@@ -89,24 +85,12 @@ namespace OnlineQuiz.Business.Logic.Validators
 
         public void SetStatusForField<T>(Field<T> field, ModelStatusEnum status)
         {
-            CheckNullArgumentException(
+            ThrowHelper.ThrowNullArgumentException(
                 field, nameof(field),
                 status, nameof(status)
                 );
 
             field.Status = status;
-        }
-
-        public bool CheckNullArgumentException(params object[] arguments)
-        {
-            for (int i = 0; i < arguments.Length; i += 2)
-            {
-                object arg = arguments[i];
-                if (arg == null)
-                    throw new ArgumentNullException(arguments[i + 1].ToString() + " can not be null");
-            }
-
-            return true;
         }
     }
 }

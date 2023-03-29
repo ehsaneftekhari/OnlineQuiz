@@ -1,4 +1,5 @@
 ﻿using OnlineQuiz.Business.Models.Models;
+using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Models.Users
 {
@@ -13,11 +14,24 @@ namespace OnlineQuiz.Business.Models.Users
 
         public User(string username) : this()
         {
+            ThrowHelper.ThrowNullArgumentException(
+                username, nameof(username)
+            );
+
             Username.Value = username;
         }
 
         public User(string firstName, string lastName, string email, string phoneNumber, string username, int baseUserId = 0) : this(username)
-        { 
+        {
+            ThrowHelper.ThrowNullArgumentException(
+                firstName, nameof(firstName),
+                lastName, nameof(lastName),
+                email, nameof(email),
+                phoneNumber, nameof(phoneNumber),
+                username, nameof(username),
+                baseUserId, nameof(baseUserId)
+            );
+
             base.FirstName.Value = firstName;
             base.LastName.Value = lastName;
             base.Email.Value = email;

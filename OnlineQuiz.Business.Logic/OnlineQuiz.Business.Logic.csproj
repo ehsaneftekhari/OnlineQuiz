@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineQuiz.Business.Models\OnlineQuiz.Business.Models.csproj" />
+    <ProjectReference Include="..\OnlineQuiz.Library\OnlineQuiz.Library.csproj" />
     <ProjectReference Include="..\OnlineQuiz.Persistence.ADO\OnlineQuiz.Persistence.ADO.csproj" />
   </ItemGroup>
 

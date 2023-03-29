@@ -4,10 +4,12 @@ using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Library;
 using OnlineQuiz.Persistence.ADO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +30,10 @@ namespace OnlineQuiz.Business.Logic.Verifiers
 
         public User VerifyUserCredential(UserCredential credential)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                credential, nameof(credential)
+                );
+
             int id = userRepository.VerifyUser(credential);
 
             User result = new User(credential.Username);
@@ -45,6 +51,13 @@ namespace OnlineQuiz.Business.Logic.Verifiers
 
         public bool VerifyUserFields(User newUser)
         {
+            ThrowHelper.ThrowNullArgumentException(
+                newUser, nameof(newUser),
+                newUser.Username, nameof(newUser.Username),
+                newUser.Email, nameof(newUser.Email),
+                newUser.PhoneNumber, nameof(newUser.PhoneNumber)
+            );
+
             bool usernameNotInUse = userRepository.VerifyUserName(newUser.Username.Value);
             if (!usernameNotInUse)
             {
