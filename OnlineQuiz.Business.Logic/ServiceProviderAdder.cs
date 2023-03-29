@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
+using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Logic.Controllers;
 using OnlineQuiz.Business.Logic.Validators;
+using OnlineQuiz.Business.Logic.Verifiers;
 
 namespace OnlineQuiz.Business.Logic
 {
@@ -15,7 +17,7 @@ namespace OnlineQuiz.Business.Logic
                 serviceProvider.AddTransient<IValidatorFunctions, ValidatorFunctions>();
                 serviceProvider.AddTransient<IUserValidator, UserValidator>();
                 serviceProvider.AddTransient<IUserController, UserController>();
-                serviceProvider.AddTransient<IVerifier, Verifier>();
+                serviceProvider.AddTransient<IUserVerifier, UserVerifier>();
             }
         }
     }

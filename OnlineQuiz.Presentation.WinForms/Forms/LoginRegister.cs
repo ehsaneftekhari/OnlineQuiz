@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.ApplicationServices;
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models;
 using OnlineQuiz.Business.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Helpers;
@@ -11,14 +12,14 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class LoginRegister : Form
     {
-        IVerifier verifier;
+        IUserVerifier verifier;
         IFormHelper formHelper;
         IUserController userController;
         IAppMessageRepository appMessageRepository;
 
         static LoginRegister instance;
 
-        private LoginRegister(IVerifier verifier, IFormHelper formHelper, IUserController userController, IAppMessageRepository appMessageRepository)
+        private LoginRegister(IUserVerifier verifier, IFormHelper formHelper, IUserController userController, IAppMessageRepository appMessageRepository)
         {
             InitializeComponent();
             this.verifier = verifier;
@@ -29,7 +30,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         public static LoginRegister Create(IServiceProvider serviceProvider)
         {
-            IVerifier verifier = serviceProvider.GetRequiredService<IVerifier>();
+            IUserVerifier verifier = serviceProvider.GetRequiredService<IUserVerifier>();
             IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             IUserController userController = serviceProvider.GetRequiredService<IUserController>();
             IAppMessageRepository appMessageRepository = serviceProvider.GetRequiredService<IAppMessageRepository>();

@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
+using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Models.Users;
 using OnlineQuiz.Persistence.ADO.Repositories;
@@ -10,15 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Verifiers
 {
-    public class Verifier : IVerifier
+    public class UserVerifier : IUserVerifier
     {
         IUserRepository userRepository;
         IAppMessageRepository appMessageRepository;
         IValidatorFunctions validatorFunctions;
 
-        public Verifier(IUserRepository userRepository, IAppMessageRepository appMessageRepository, IValidatorFunctions validatorFunctions)
+        public UserVerifier(IUserRepository userRepository, IAppMessageRepository appMessageRepository, IValidatorFunctions validatorFunctions)
         {
             this.userRepository = userRepository;
             this.appMessageRepository = appMessageRepository;
@@ -45,7 +45,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
         public bool VerifyUserFields(User newUser)
         {
             bool usernameNotInUse = userRepository.VerifyUserName(newUser.Username.Value);
-            if(!usernameNotInUse)
+            if (!usernameNotInUse)
             {
                 validatorFunctions.SetStatusForField(newUser.Username, Models.ModelStatusEnum.Error);
                 validatorFunctions.SetMessageForField(newUser.Username, "en_User_UsernameInUse");

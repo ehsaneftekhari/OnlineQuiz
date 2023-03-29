@@ -1,6 +1,7 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
+using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Models;
 using OnlineQuiz.Business.Models.Users;
@@ -12,10 +13,10 @@ namespace OnlineQuiz.Business.Logic.Controllers
         IBaseUserRepository baseUserRepository;
         IUserRepository userRepository;
         IUserValidator userValidator;
-        IVerifier verifier;
+        IUserVerifier verifier;
         IValidatorFunctions validatorFunctions;
 
-        public UserController(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IVerifier verifier, IUserRepository userRepository, IValidatorFunctions validatorFunctions)
+        public UserController(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository, IValidatorFunctions validatorFunctions)
         {
             this.baseUserRepository = baseUserRepository;
             this.userValidator = userValidator;
