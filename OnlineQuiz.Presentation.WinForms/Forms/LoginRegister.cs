@@ -3,7 +3,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
-using OnlineQuiz.Business.Models;
+using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Helpers;
 using User = OnlineQuiz.Business.Models.Users.User;

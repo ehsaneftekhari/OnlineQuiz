@@ -1,4 +1,6 @@
-﻿namespace OnlineQuiz.Business.Models.Users
+﻿using OnlineQuiz.Business.Models.Models;
+
+namespace OnlineQuiz.Business.Models.Users
 {
     public record User : BaseUser
     {

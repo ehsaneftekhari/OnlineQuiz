@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineQuiz.Business.Models
+namespace OnlineQuiz.Business.Models.Models
 {
     public class Field<Type> : StatusModel
     {
@@ -29,7 +29,7 @@ namespace OnlineQuiz.Business.Models
 
         public Field()
         {
-            Value = default(Type);
+            Value = default;
         }
 
         public Field(Type value)

@@ -3,7 +3,7 @@ using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Logic.Validators;
-using OnlineQuiz.Business.Models;
+using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Users;
 
 namespace OnlineQuiz.Business.Logic.Controllers

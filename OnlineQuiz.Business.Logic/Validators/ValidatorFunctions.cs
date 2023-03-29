@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
-using OnlineQuiz.Business.Models;
+using OnlineQuiz.Business.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

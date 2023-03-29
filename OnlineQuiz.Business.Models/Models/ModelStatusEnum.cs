@@ -1,4 +1,4 @@
-﻿namespace OnlineQuiz.Business.Models
+﻿namespace OnlineQuiz.Business.Models.Models
 {
     public enum ModelStatusEnum
     {

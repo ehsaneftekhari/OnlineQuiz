@@ -1,4 +1,4 @@
-﻿using OnlineQuiz.Business.Models;
+﻿using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Users;
 using System;
 using System.Collections.Generic;

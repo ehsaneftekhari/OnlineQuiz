@@ -1,4 +1,4 @@
-﻿using OnlineQuiz.Business.Models;
+﻿using OnlineQuiz.Business.Models.Models;
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IValidators
 {
