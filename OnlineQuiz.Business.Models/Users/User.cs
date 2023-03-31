@@ -38,5 +38,7 @@ namespace OnlineQuiz.Business.Models.Users
             base.PhoneNumber.Value = phoneNumber;
             base.BaseUserId = baseUserId;
         }
+
+        public new bool IsFine() => FirstName.IsFine() && LastName.IsFine() && Email.IsFine() && PhoneNumber.IsFine() && Username.IsFine();
     }
 }
