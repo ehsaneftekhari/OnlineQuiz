@@ -25,7 +25,7 @@ namespace OnlineQuiz.Business.Logic.Validators
                 status, nameof(status)
                 );
 
-            if (finderMethod.Invoke(field.Value))
+            if (finderMethod.Invoke(field.Value!))
             {
                 SetStatusForField(field, status);
                 SetMessageForField(field, messageTitle);

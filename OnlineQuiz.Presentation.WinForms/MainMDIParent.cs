@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Models.Tests;
 using OnlineQuiz.Business.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Forms;
 
@@ -46,6 +47,7 @@ namespace OnlineQuiz.Presentation.WinForms
                     break;
 
                 case State.LoggedIn:
+                    menuStrip.Items.Add(testToolStripMenuItem);
                     menuStrip.Items.Add(logoutToolStripMenuItem);
                     break;
 
@@ -137,6 +139,18 @@ namespace OnlineQuiz.Presentation.WinForms
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LogOut();
+        }
+
+        private void addTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenAddTestForm();
+        }
+
+        private void OpenAddTestForm()
+        {
+            AddTestForm addTestForm = new AddTestForm(User.BaseUserId, serviceProvider);
+            addTestForm.OnTestAdded += (Test newTest, bool OpenTestExplorer) => MessageBox.Show(newTest.TestId + newTest.Title.Value);
+            AddNewChildForm(addTestForm);
         }
     }
 }

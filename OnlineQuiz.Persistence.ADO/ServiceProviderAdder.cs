@@ -18,6 +18,7 @@ namespace OnlineQuiz.Persistence.ADO
                 serviceProvider.AddTransient<IBaseUserRepository, BaseUserRepository>();
                 serviceProvider.AddTransient<IAppMessageRepository, AppMessageRepository>();
                 serviceProvider.AddTransient<IUserRepository, UserRepository>();
+                serviceProvider.AddTransient<ITestRepository, TestRepository>();
             }
         }
     }

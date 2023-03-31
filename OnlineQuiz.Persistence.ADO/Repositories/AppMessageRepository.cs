@@ -35,6 +35,10 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_User_EmptyPassword", "Password can not be empty");
             Messages.Add("en_User_NotEqualPasswordVerify", "Password and it's Verify are not Equal");
 
+            Messages.Add("en_Test_EmptyTitle", "Title can not be empty");
+            Messages.Add("en_BTest_LongTitle", "Title can not be longer than 32 characters");
+            Messages.Add("en_Test_AddTestUnknownError", "An unknown Error happened while adding the test");
+
         }
         public string GetMessage(string messageTitle)
         {
