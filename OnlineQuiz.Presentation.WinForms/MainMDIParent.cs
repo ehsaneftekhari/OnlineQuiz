@@ -19,9 +19,8 @@ namespace OnlineQuiz.Presentation.WinForms
         public MainMDIParent(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            //mainMenuStrip.Items.Clear();
-            this.serviceProvider = serviceProvider;
 
+            this.serviceProvider = serviceProvider;
 
             SetState(State.NotRegistered);
 
@@ -30,21 +29,24 @@ namespace OnlineQuiz.Presentation.WinForms
 
         User User { get; set; }
 
-        BaseUser BaseUser { get; set; }
+        BaseUser Guest { get; set; }
 
         private void SetState(State nexState)
         {
             state = nexState;
-
+            menuStrip.Items.Clear();
+            menuStrip.Items.Add(windowsMenu);
             switch (state)
             {
                 case State.NotRegistered:
+                    menuStrip.Items.Add(Login_Register_ToolStripMenuItem);
                     break;
 
                 case State.GuestRegistered:
                     break;
 
                 case State.LoggedIn:
+                    menuStrip.Items.Add(logoutToolStripMenuItem);
                     break;
 
                 case State.Exit:
@@ -61,9 +63,24 @@ namespace OnlineQuiz.Presentation.WinForms
             Exit
         }
 
-        private void SetUser(User newUser) => User = newUser;
+        private void LogIn(User newUser)
+        {
+            User = newUser;
+            SetState(State.LoggedIn);
+        }
 
-        private void SetBaseUser(BaseUser baseUser) => BaseUser = baseUser;
+        private void GuestRegister(BaseUser guest)
+        {
+            Guest = guest;
+            SetState(State.GuestRegistered);
+        }
+
+        private void LogOut()
+        {
+            User = null;
+            Guest = null;
+            SetState(State.NotRegistered);
+        }
 
         private void AddNewChildForm(Form childForm)
         {
@@ -110,11 +127,16 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenLogin()
         {
             LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
-            StartForm.OnBaseUserRegister += SetBaseUser;
+            StartForm.OnBaseUserRegister += GuestRegister;
             StartForm.OnBaseUserRegister += (_) => StartForm.Close();
-            StartForm.OnLogIn += SetUser;
+            StartForm.OnLogIn += LogIn;
             StartForm.OnLogIn += (_) => StartForm.Close();
             AddNewChildForm(StartForm);
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LogOut();
         }
     }
 }

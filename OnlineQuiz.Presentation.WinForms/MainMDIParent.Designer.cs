@@ -39,18 +39,19 @@
             closeAllToolStripMenuItem = new ToolStripMenuItem();
             Login_Register_ToolStripMenuItem = new ToolStripMenuItem();
             toolTip = new ToolTip(components);
+            logoutToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(40, 40);
-            menuStrip.Items.AddRange(new ToolStripItem[] { windowsMenu, Login_Register_ToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { windowsMenu, Login_Register_ToolStripMenuItem, logoutToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.MdiWindowListItem = windowsMenu;
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(17, 6, 0, 6);
-            menuStrip.Size = new Size(1791, 57);
+            menuStrip.Size = new Size(1791, 60);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "MenuStrip";
             // 
@@ -58,7 +59,7 @@
             // 
             windowsMenu.DropDownItems.AddRange(new ToolStripItem[] { newWindowToolStripMenuItem, toolStripSeparator1, cascadeToolStripMenuItem, tileVerticalToolStripMenuItem, tileHorizontalToolStripMenuItem, closeAllToolStripMenuItem });
             windowsMenu.Name = "windowsMenu";
-            windowsMenu.Size = new Size(165, 45);
+            windowsMenu.Size = new Size(165, 48);
             windowsMenu.Text = "&Windows";
             // 
             // newWindowToolStripMenuItem
@@ -104,9 +105,16 @@
             // Login_Register_ToolStripMenuItem
             // 
             Login_Register_ToolStripMenuItem.Name = "Login_Register_ToolStripMenuItem";
-            Login_Register_ToolStripMenuItem.Size = new Size(235, 45);
+            Login_Register_ToolStripMenuItem.Size = new Size(235, 48);
             Login_Register_ToolStripMenuItem.Text = "Login/Register";
             Login_Register_ToolStripMenuItem.Click += loginToolStripMenuItem1_Click;
+            // 
+            // logoutToolStripMenuItem
+            // 
+            logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            logoutToolStripMenuItem.Size = new Size(137, 48);
+            logoutToolStripMenuItem.Text = "Logout";
+            logoutToolStripMenuItem.Click += logoutToolStripMenuItem_Click;
             // 
             // MainMDIParent
             // 
@@ -137,6 +145,7 @@
         private System.Windows.Forms.ToolTip toolTip;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem Login_Register_ToolStripMenuItem;
+        private ToolStripMenuItem logoutToolStripMenuItem;
     }
 }
 

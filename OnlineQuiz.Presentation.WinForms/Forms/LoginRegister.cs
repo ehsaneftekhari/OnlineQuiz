@@ -54,7 +54,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
             formHelper.SetFromFieldModel(user.Username, LoginUsernameTB, LoginMessageLb);
 
-            if (user.BaseUserId > 0)
+            if (user.HasId())
                 InvokeOnLogIn(user);
         }
 
@@ -124,7 +124,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             SetUserRegisterFields(newUser, tempPasswordField, tempPasswordVerifyField);
 
             if (newUser.HasId())
-                InvokeOnBaseUserRegister(newUser);
+                InvokeOnLogIn(newUser);
         }
 
         private void clearUserRegisterFields()

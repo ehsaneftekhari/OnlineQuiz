@@ -1,6 +1,6 @@
 ﻿namespace OnlineQuiz.Presentation.WinForms.Forms
 {
-    partial class TestPropertiesForm
+    partial class AddTestForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,6 +32,7 @@
             PublishCKB = new CheckBox();
             TitleTB = new TextBox();
             TitleLbl = new Label();
+            OpenTestExplorerCKB = new CheckBox();
             SuspendLayout();
             // 
             // RandomizeSectionsCKB
@@ -40,7 +41,7 @@
             RandomizeSectionsCKB.Location = new Point(172, 136);
             RandomizeSectionsCKB.Name = "RandomizeSectionsCKB";
             RandomizeSectionsCKB.Size = new Size(316, 45);
-            RandomizeSectionsCKB.TabIndex = 5;
+            RandomizeSectionsCKB.TabIndex = 9;
             RandomizeSectionsCKB.Text = "RandomizeSections";
             RandomizeSectionsCKB.UseVisualStyleBackColor = true;
             // 
@@ -50,7 +51,7 @@
             PublishCKB.Location = new Point(172, 85);
             PublishCKB.Name = "PublishCKB";
             PublishCKB.Size = new Size(152, 45);
-            PublishCKB.TabIndex = 6;
+            PublishCKB.TabIndex = 10;
             PublishCKB.Text = "Publish";
             PublishCKB.UseVisualStyleBackColor = true;
             // 
@@ -59,7 +60,7 @@
             TitleTB.Location = new Point(172, 32);
             TitleTB.Name = "TitleTB";
             TitleTB.Size = new Size(781, 47);
-            TitleTB.TabIndex = 4;
+            TitleTB.TabIndex = 8;
             // 
             // TitleLbl
             // 
@@ -67,20 +68,31 @@
             TitleLbl.Location = new Point(25, 35);
             TitleLbl.Name = "TitleLbl";
             TitleLbl.Size = new Size(74, 41);
-            TitleLbl.TabIndex = 3;
+            TitleLbl.TabIndex = 7;
             TitleLbl.Text = "Title";
             // 
-            // TestPropertiesForm
+            // OpenTestExplorerCKB
+            // 
+            OpenTestExplorerCKB.AutoSize = true;
+            OpenTestExplorerCKB.Location = new Point(172, 187);
+            OpenTestExplorerCKB.Name = "OpenTestExplorerCKB";
+            OpenTestExplorerCKB.Size = new Size(306, 45);
+            OpenTestExplorerCKB.TabIndex = 9;
+            OpenTestExplorerCKB.Text = "Open Test Explorer";
+            OpenTestExplorerCKB.UseVisualStyleBackColor = true;
+            // 
+            // AddTestForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(977, 205);
+            ClientSize = new Size(977, 260);
+            Controls.Add(OpenTestExplorerCKB);
             Controls.Add(RandomizeSectionsCKB);
             Controls.Add(PublishCKB);
             Controls.Add(TitleTB);
             Controls.Add(TitleLbl);
-            Name = "TestPropertiesForm";
-            Text = "Test Properties";
+            Name = "AddTestForm";
+            Text = "Add Test";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -91,5 +103,6 @@
         private CheckBox PublishCKB;
         private TextBox TitleTB;
         private Label TitleLbl;
+        private CheckBox OpenTestExplorerCKB;
     }
 }
