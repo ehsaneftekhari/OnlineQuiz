@@ -73,7 +73,7 @@ namespace OnlineQuiz.Business.Logic.Validators
             return Check(field, x => x!.Length == 0, messageTitle, ModelStatusEnum.Error);
         }
 
-        public void SetMessageForField<T>(Field<T> field, string messageTitle)
+        public void SetMessageForField(MessageModel field, string messageTitle)
         {
             ThrowHelper.ThrowNullArgumentException(
             field, nameof(field),
@@ -83,7 +83,7 @@ namespace OnlineQuiz.Business.Logic.Validators
             field.Message = appMessageRepository.GetMessage(messageTitle);
         }
 
-        public void SetStatusForField<T>(Field<T> field, ModelStatusEnum status)
+        public void SetStatusForField(StatusMessageModel field, ModelStatusEnum status)
         {
             ThrowHelper.ThrowNullArgumentException(
                 field, nameof(field),

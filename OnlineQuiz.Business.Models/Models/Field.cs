@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Models.Models
 {
-    public class Field<Type> : StatusModel, IFine
+    public class Field<Type> : StatusMessageModel, IFine
     {
         private Type? _value;
 

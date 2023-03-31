@@ -12,8 +12,8 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IValidators
 
         bool CheckStringEmpty(Field<string> field, string messageTitle);
 
-        void SetMessageForField<T>(Field<T> field, string messageTitle);
+        void SetMessageForField(MessageModel field, string messageTitle);
 
-        void SetStatusForField<T>(Field<T> field, ModelStatusEnum status);
+        void SetStatusForField(StatusMessageModel field, ModelStatusEnum status);
     }
 }

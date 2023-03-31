@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Models.Models
 {
-    public abstract class StatusModel : MessageModel, IFine
+    public abstract class StatusMessageModel : MessageModel, IFine
     {
         private ModelStatusEnum _Status;
 
