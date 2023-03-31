@@ -1,9 +1,10 @@
-﻿using OnlineQuiz.Business.Models.Models;
+﻿using OnlineQuiz.Business.Models.Abstractions;
+using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Models.Users
 {
-    public record User : BaseUser
+    public record User : BaseUser, IFine, IIdContainer
     {
         public Field<string> Username { get; private set; }
 

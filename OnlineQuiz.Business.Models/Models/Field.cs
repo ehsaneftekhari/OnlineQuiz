@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineQuiz.Business.Models.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Models.Models
 {
-    public class Field<Type> : StatusModel
+    public class Field<Type> : StatusModel, IFine
     {
         private Type? _value;
 

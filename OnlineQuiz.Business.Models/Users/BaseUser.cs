@@ -1,9 +1,10 @@
-﻿using OnlineQuiz.Business.Models.Models;
+﻿using OnlineQuiz.Business.Models.Abstractions;
+using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Models.Users
 {
-    public record BaseUser
+    public record BaseUser : IFine, IIdContainer
     {
         public Field<string> FirstName { get; private set; }
 
@@ -64,19 +65,5 @@ namespace OnlineQuiz.Business.Models.Users
         public bool IsFine() => FirstName.IsFine() && LastName.IsFine() && Email.IsFine() & PhoneNumber.IsFine();
 
         public bool HasId() => BaseUserId > 0;
-
-        public bool HasEqualFieldsValues(BaseUser baseUser)
-        {
-            ThrowHelper.ThrowNullArgumentException(
-                baseUser, nameof(baseUser)
-            );
-
-            bool result = baseUser.FirstName.Value == this.FirstName.Value;
-            result &= baseUser.LastName.Value == this.LastName.Value;
-            result &= baseUser.Email.Value == this.Email.Value;
-            result &= baseUser.PhoneNumber.Value == this.PhoneNumber.Value;
-
-            return result;
-        }
     }
 }

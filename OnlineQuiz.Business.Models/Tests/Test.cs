@@ -1,8 +1,9 @@
-﻿using OnlineQuiz.Business.Models.Models;
+﻿using OnlineQuiz.Business.Models.Abstractions;
+using OnlineQuiz.Business.Models.Models;
 
 namespace OnlineQuiz.Business.Models.Tests
 {
-    public class Test
+    public class Test : IFine, IIdContainer
     {
         private Test() 
         {

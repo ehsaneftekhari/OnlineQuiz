@@ -10,8 +10,4 @@
     <ProjectReference Include="..\OnlineQuiz.Library\OnlineQuiz.Library.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstractions\" />
-  </ItemGroup>
-
 </Project>
