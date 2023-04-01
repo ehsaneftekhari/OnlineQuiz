@@ -1,4 +1,6 @@
 ﻿using OnlineQuiz.Presentation.WinForms.Forms.TreeNodes;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {
@@ -30,7 +32,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            components = new Container();
             mainTreeView = new TreeView();
+            contextMenuStrip = new ContextMenuStrip(components);
+            openTestToolStripMenuItem = new ToolStripMenuItem();
+            clearExplorerToolStripMenuItem = new ToolStripMenuItem();
+            contextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // mainTreeView
@@ -40,6 +47,26 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             mainTreeView.Name = "mainTreeView";
             mainTreeView.Size = new Size(739, 1384);
             mainTreeView.TabIndex = 0;
+            mainTreeView.ContextMenuStrip = contextMenuStrip;
+            // 
+            // contextMenuStrip
+            // 
+            contextMenuStrip.ImageScalingSize = new Size(40, 40);
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { openTestToolStripMenuItem, clearExplorerToolStripMenuItem });
+            contextMenuStrip.Name = "contextMenuStrip";
+            contextMenuStrip.Size = new Size(361, 155);
+            // 
+            // openTestToolStripMenuItem
+            // 
+            openTestToolStripMenuItem.Name = "openTestToolStripMenuItem";
+            openTestToolStripMenuItem.Size = new Size(360, 48);
+            openTestToolStripMenuItem.Text = "Open Test";
+            // 
+            // clearExplorerToolStripMenuItem
+            // 
+            clearExplorerToolStripMenuItem.Name = "clearExplorerToolStripMenuItem";
+            clearExplorerToolStripMenuItem.Size = new Size(360, 48);
+            clearExplorerToolStripMenuItem.Text = "Clear Explorer";
             // 
             // TestExplorerForm
             // 
@@ -49,11 +76,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             Controls.Add(mainTreeView);
             Name = "TestExplorerForm";
             Text = "TestExplorer";
+            contextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private TreeView mainTreeView;
+        private ContextMenuStrip contextMenuStrip;
+        private ToolStripMenuItem openTestToolStripMenuItem;
+        private ToolStripMenuItem clearExplorerToolStripMenuItem;
     }
 }

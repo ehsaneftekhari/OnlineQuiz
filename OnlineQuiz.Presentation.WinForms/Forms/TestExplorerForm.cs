@@ -13,12 +13,22 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class TestExplorerForm : Form
     {
-        public TestExplorerForm()
+        private TestExplorerForm(int testId = 0)
         {
-            components = new System.ComponentModel.Container();
             InitializeComponent();
-            TestTreeNode testTreeNode = new TestTreeNode(components, "Testi", 0);
+            TestTreeNode testTreeNode = new TestTreeNode(components!, "Test1", 0);
             mainTreeView.Nodes.Add(testTreeNode);
         }
+
+        public static TestExplorerForm Crete(int testId = 0)
+        {
+            if(instance == null || instance.IsDisposed)
+            {
+                instance = new TestExplorerForm(testId);
+            }
+            return instance;
+        }
+
+        static TestExplorerForm instance;
     }
 }

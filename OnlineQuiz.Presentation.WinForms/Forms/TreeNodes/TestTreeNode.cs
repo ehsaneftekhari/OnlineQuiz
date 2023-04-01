@@ -10,11 +10,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
     public partial class TestTreeNode : TreeNode
     {
         public int TestId { get; set; }
+        public string TestTitle { get; set; }
 
-        public TestTreeNode(IContainer container, string text, int testId) : base(text)
+        public TestTreeNode(IContainer container, string testTitle, int testId) : base(testTitle)
         {
             InitializeComponent(container);
             TestId = testId;
+            TestTitle = testTitle;
         }
 
         public void AddChild(SectionTreeNode sectionTreeNode)

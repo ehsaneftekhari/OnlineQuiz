@@ -130,9 +130,7 @@ namespace OnlineQuiz.Presentation.WinForms
         {
             LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
             StartForm.OnBaseUserRegister += GuestRegister;
-            StartForm.OnBaseUserRegister += (_) => StartForm.Close();
             StartForm.OnLogIn += LogIn;
-            StartForm.OnLogIn += (_) => StartForm.Close();
             AddNewChildForm(StartForm);
         }
 
@@ -149,7 +147,11 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenAddTestForm()
         {
             AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
-            addTestForm.OnTestAdded += (Test newTest, bool OpenTestExplorer) => MessageBox.Show(newTest.TestId + newTest.Title.Value);
+            addTestForm.OnTestAdded += (Test newTest, bool OpenTestExplorer) =>
+            {
+                if (OpenTestExplorer)
+                    OpenTestExplorerForm(newTest.TestId);
+            };
             AddNewChildForm(addTestForm);
         }
 
@@ -167,6 +169,8 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenTestExplorerForm(int testId)
         {
+            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(testId);
+            AddNewChildForm(testExplorerForm);
         }
     }
 }

@@ -62,6 +62,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             if (OnLogIn != null)
                 OnLogIn.Invoke(user);
+
+            Close();
         }
 
         private void RegisterBaseUserBtn_Click(object sender, EventArgs e)
@@ -86,6 +88,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             if (OnBaseUserRegister != null)
                 OnBaseUserRegister.Invoke(baseUser);
+
+            Close();
         }
 
         private void clearBaseUserRegisterFields()
