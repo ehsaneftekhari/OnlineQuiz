@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Models.Tests;
-using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Business.Models.Models.Tests;
+using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Forms;
 
 namespace OnlineQuiz.Presentation.WinForms
@@ -148,9 +148,25 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenAddTestForm()
         {
-            AddTestForm addTestForm = new AddTestForm(User.BaseUserId, serviceProvider);
+            AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
             addTestForm.OnTestAdded += (Test newTest, bool OpenTestExplorer) => MessageBox.Show(newTest.TestId + newTest.Title.Value);
             AddNewChildForm(addTestForm);
+        }
+
+        private void testListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenTestBrowseForm();
+        }
+
+        private void OpenTestBrowseForm()
+        {
+            TestBrowseForm TestList = TestBrowseForm.Create(User.BaseUserId, serviceProvider);
+            TestList.OnTestSelect += OpenTestExplorerForm;
+            AddNewChildForm(TestList);
+        }
+
+        private void OpenTestExplorerForm(int testId)
+        {
         }
     }
 }

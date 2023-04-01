@@ -3,7 +3,7 @@ using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models;
-using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
@@ -51,7 +51,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
             bool verifyResult = verifier.VerifyUserFields(newUser);
 
             if (validatePasswordResult && validateResult && verifyResult)
-                id = userRepository.Add(newUser, password.Value);
+                id = userRepository.Add(newUser, password.Value!);
 
             newUser.BaseUserId = id;
 

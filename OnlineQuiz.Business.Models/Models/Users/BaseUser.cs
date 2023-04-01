@@ -2,7 +2,7 @@
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Models.Users
+namespace OnlineQuiz.Business.Models.Models.Users
 {
     public record BaseUser : IFine, IIdContainer
     {

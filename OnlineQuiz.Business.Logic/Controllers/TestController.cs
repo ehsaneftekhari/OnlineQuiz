@@ -1,8 +1,8 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
-using OnlineQuiz.Business.Models.Models;
-using OnlineQuiz.Business.Models.Tests;
+using OnlineQuiz.Business.Models.Models.Tests;
+using OnlineQuiz.Business.Models.ViewModels;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
@@ -11,7 +11,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
     {
         ITestRepository testRepository;
         ITestValidator testValidator;
-        
+
 
         public TestController(ITestRepository testRepository, ITestValidator testValidator)
         {
@@ -26,11 +26,22 @@ namespace OnlineQuiz.Business.Logic.Controllers
             int newTestId = 0;
 
             bool testValidatorResult = testValidator.ValidateTest(newTest);
-            
-            if(testValidatorResult)
+
+            if (testValidatorResult)
                 newTestId = testRepository.Add(newTest);
 
             newTest.TestId = newTestId;
+        }
+
+        public List<TestViewModel> GetTestsList(int baseUserId, string title)
+        {
+            title = string.Format("%{0}%", title);
+
+            List<Test> getResult = testRepository.Get(baseUserId, title);
+
+            List<TestViewModel> result = getResult.Select(test => test.GetViewModel()).ToList();
+
+            return result;
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Library;
 using System.Data;
-using System.Net;
 using ADOSqlCommandBuilder = OnlineQuiz.Persistence.ADO.Builders.ADOSqlCommandBuilder;
 
 namespace OnlineQuiz.Persistence.ADO.Repositories
@@ -91,7 +90,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             return result == 0;
         }
 
-        public int Add (User newUser, string password)
+        public int Add(User newUser, string password)
         {
             ThrowHelper.ThrowNullArgumentException(
                 newUser, nameof(newUser),
@@ -99,11 +98,11 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             );
 
             var baseUserId = ADOSqlCommandBuilder.CreateSP("[Users].[Usp_User_Add]")
-                .AddParameter("@FirstName", newUser.FirstName.Value)
-                .AddParameter("@LastName", newUser.LastName.Value)
-                .AddParameter("@Email", newUser.Email.Value)
-                .AddParameter("@PhoneNumber", newUser.PhoneNumber.Value)
-                .AddParameter("@UserName", newUser.Username.Value)
+                .AddParameter("@FirstName", newUser.FirstName.Value!)
+                .AddParameter("@LastName", newUser.LastName.Value!)
+                .AddParameter("@Email", newUser.Email.Value!)
+                .AddParameter("@PhoneNumber", newUser.PhoneNumber.Value!)
+                .AddParameter("@UserName", newUser.Username.Value!)
                 .AddParameter("@PassWord", password)
                 .AddOutputParameter("@BaseUserId", System.Data.SqlDbType.Int)
                 .ExecuteNonQuery().GetValueOfOutputParameters("@BaseUserId");

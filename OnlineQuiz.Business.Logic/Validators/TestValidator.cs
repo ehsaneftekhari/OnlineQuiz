@@ -1,5 +1,5 @@
 ﻿using OnlineQuiz.Business.Logic.Abstractions.IValidators;
-using OnlineQuiz.Business.Models.Tests;
+using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Validators

@@ -1,6 +1,7 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Models.Tests;
+using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
+using System.Data;
 using ADOSqlCommandBuilder = OnlineQuiz.Persistence.ADO.Builders.ADOSqlCommandBuilder;
 
 namespace OnlineQuiz.Persistence.ADO.Repositories
@@ -26,7 +27,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
             var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Add]")
                 .AddParameter("@BaseUserId", test.BaseUserId.Value)
-                .AddParameter("@Title", test.Title.Value)
+                .AddParameter("@Title", test.Title.Value!)
                 .AddParameter("@Published", test.Published.Value)
                 .AddParameter("@RandomizeSections", test.RandomizeSections.Value)
                 .AddOutputParameter("@TestId", System.Data.SqlDbType.Int)
@@ -35,5 +36,17 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             return (int)TestId;
         }
 
+        public List<Test> Get(int baseUserId, string title)
+        {
+            ThrowHelper.ThrowNullArgumentException(title, nameof(title));
+
+            DataTable dataTable;
+            var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Get]")
+                .AddParameter("@BaseUserId", baseUserId)
+                .AddParameter("@Title", title)
+                .ExecuteReader(out dataTable);
+
+            return new DataTableAdapter().DataTableToTestList(dataTable);
+        }
     }
 }

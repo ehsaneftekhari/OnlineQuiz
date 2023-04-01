@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Models.Models;
-using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Validators

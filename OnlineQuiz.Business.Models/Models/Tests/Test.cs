@@ -1,11 +1,14 @@
 ﻿using OnlineQuiz.Business.Models.Abstractions;
 using OnlineQuiz.Business.Models.Models;
+using OnlineQuiz.Business.Models.ViewModels;
+using OnlineQuiz.Library;
+using System.Data;
 
-namespace OnlineQuiz.Business.Models.Tests
+namespace OnlineQuiz.Business.Models.Models.Tests
 {
     public class Test : IFine, IIdContainer
     {
-        private Test() 
+        private Test()
         {
             BaseUserId = new Field<int>(0);
             Title = new Field<string>(string.Empty);
@@ -16,6 +19,15 @@ namespace OnlineQuiz.Business.Models.Tests
         public Test(int baseUserId, string title, bool published, bool randomizeSections) : this()
         {
             BaseUserId.Value = baseUserId;
+            Title.Value = title;
+            Published.Value = published;
+            RandomizeSections.Value = randomizeSections;
+        }
+
+        public Test(int testId, int baseUserId, string title, bool published, bool randomizeSections) : this()
+        {
+            BaseUserId.Value = baseUserId;
+            TestId = testId;
             Title.Value = title;
             Published.Value = published;
             RandomizeSections.Value = randomizeSections;
@@ -34,5 +46,10 @@ namespace OnlineQuiz.Business.Models.Tests
         public bool IsFine() => BaseUserId.IsFine() && Title.IsFine() && Published.IsFine() & RandomizeSections.IsFine();
 
         public bool HasId() => TestId > 0;
+
+        public TestViewModel GetViewModel()
+        {
+            return new(TestId, Title.Value!, Published.Value, RandomizeSections.Value);
+        }
     }
 }

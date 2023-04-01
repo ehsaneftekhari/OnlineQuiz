@@ -4,9 +4,9 @@ using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models;
-using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Helpers;
-using User = OnlineQuiz.Business.Models.Users.User;
+using User = OnlineQuiz.Business.Models.Models.Users.User;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {

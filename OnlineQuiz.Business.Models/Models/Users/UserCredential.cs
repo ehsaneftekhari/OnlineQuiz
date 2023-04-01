@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Models.Users
+namespace OnlineQuiz.Business.Models.Models.Users
 {
     public class UserCredential
     {

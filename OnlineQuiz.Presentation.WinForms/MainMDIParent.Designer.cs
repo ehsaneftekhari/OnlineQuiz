@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             menuStrip = new MenuStrip();
             windowsMenu = new ToolStripMenuItem();
             newWindowToolStripMenuItem = new ToolStripMenuItem();
@@ -41,6 +40,7 @@
             logoutToolStripMenuItem = new ToolStripMenuItem();
             testToolStripMenuItem = new ToolStripMenuItem();
             addTestToolStripMenuItem = new ToolStripMenuItem();
+            testListToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,40 +66,40 @@
             // newWindowToolStripMenuItem
             // 
             newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
-            newWindowToolStripMenuItem.Size = new Size(448, 54);
+            newWindowToolStripMenuItem.Size = new Size(375, 54);
             newWindowToolStripMenuItem.Text = "&New Window";
             newWindowToolStripMenuItem.Click += ShowNewForm;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(445, 6);
+            toolStripSeparator1.Size = new Size(372, 6);
             // 
             // cascadeToolStripMenuItem
             // 
             cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            cascadeToolStripMenuItem.Size = new Size(448, 54);
+            cascadeToolStripMenuItem.Size = new Size(375, 54);
             cascadeToolStripMenuItem.Text = "&Cascade";
             cascadeToolStripMenuItem.Click += CascadeToolStripMenuItem_Click;
             // 
             // tileVerticalToolStripMenuItem
             // 
             tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            tileVerticalToolStripMenuItem.Size = new Size(448, 54);
+            tileVerticalToolStripMenuItem.Size = new Size(375, 54);
             tileVerticalToolStripMenuItem.Text = "Tile &Vertical";
             tileVerticalToolStripMenuItem.Click += TileVerticalToolStripMenuItem_Click;
             // 
             // tileHorizontalToolStripMenuItem
             // 
             tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            tileHorizontalToolStripMenuItem.Size = new Size(448, 54);
+            tileHorizontalToolStripMenuItem.Size = new Size(375, 54);
             tileHorizontalToolStripMenuItem.Text = "Tile &Horizontal";
             tileHorizontalToolStripMenuItem.Click += TileHorizontalToolStripMenuItem_Click;
             // 
             // closeAllToolStripMenuItem
             // 
             closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            closeAllToolStripMenuItem.Size = new Size(448, 54);
+            closeAllToolStripMenuItem.Size = new Size(375, 54);
             closeAllToolStripMenuItem.Text = "C&lose All";
             closeAllToolStripMenuItem.Click += CloseAllToolStripMenuItem_Click;
             // 
@@ -119,7 +119,7 @@
             // 
             // testToolStripMenuItem
             // 
-            testToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addTestToolStripMenuItem });
+            testToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addTestToolStripMenuItem, testListToolStripMenuItem });
             testToolStripMenuItem.Name = "testToolStripMenuItem";
             testToolStripMenuItem.Size = new Size(94, 48);
             testToolStripMenuItem.Text = "Test";
@@ -130,6 +130,13 @@
             addTestToolStripMenuItem.Size = new Size(448, 54);
             addTestToolStripMenuItem.Text = "Add Test";
             addTestToolStripMenuItem.Click += addTestToolStripMenuItem_Click;
+            // 
+            // testListToolStripMenuItem
+            // 
+            testListToolStripMenuItem.Name = "testListToolStripMenuItem";
+            testListToolStripMenuItem.Size = new Size(448, 54);
+            testListToolStripMenuItem.Text = "Test List";
+            testListToolStripMenuItem.Click += testListToolStripMenuItem_Click;
             // 
             // MainMDIParent
             // 
@@ -162,6 +169,7 @@
         private ToolStripMenuItem logoutToolStripMenuItem;
         private ToolStripMenuItem testToolStripMenuItem;
         private ToolStripMenuItem addTestToolStripMenuItem;
+        private ToolStripMenuItem testListToolStripMenuItem;
     }
 }
 

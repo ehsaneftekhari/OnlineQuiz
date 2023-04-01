@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
-using OnlineQuiz.Business.Models.Tests;
+using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -19,12 +20,25 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         ITestController testController;
         IFormHelper formHelper;
 
-        public AddTestForm(int userId, IServiceProvider serviceProvider)
+        private static AddTestForm instance;
+
+        private AddTestForm(int userId, ITestController testController, IFormHelper formHelper)
         {
             InitializeComponent();
             UserId = userId;
-            testController = serviceProvider.GetRequiredService<ITestController>();
-            formHelper = serviceProvider.GetRequiredService<IFormHelper>();
+            this.testController = testController;
+            this.formHelper = formHelper;
+        }
+
+        public static AddTestForm Create(int userId, IServiceProvider serviceProvider)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                ITestController testController = serviceProvider.GetRequiredService<ITestController>();
+                IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
+                instance = new AddTestForm(userId, testController, formHelper);
+            }
+            return instance;
         }
 
         int UserId { get; set; }

@@ -1,5 +1,5 @@
 ﻿using OnlineQuiz.Business.Models.Models;
-using OnlineQuiz.Business.Models.Users;
+using OnlineQuiz.Business.Models.Models.Users;
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IValidators
 {

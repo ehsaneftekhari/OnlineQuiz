@@ -2,7 +2,7 @@
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Models.Users
+namespace OnlineQuiz.Business.Models.Models.Users
 {
     public record User : BaseUser, IFine, IIdContainer
     {
@@ -33,11 +33,11 @@ namespace OnlineQuiz.Business.Models.Users
                 baseUserId, nameof(baseUserId)
             );
 
-            base.FirstName.Value = firstName;
-            base.LastName.Value = lastName;
-            base.Email.Value = email;
-            base.PhoneNumber.Value = phoneNumber;
-            base.BaseUserId = baseUserId;
+            FirstName.Value = firstName;
+            LastName.Value = lastName;
+            Email.Value = email;
+            PhoneNumber.Value = phoneNumber;
+            BaseUserId = baseUserId;
         }
 
         public new bool IsFine() => FirstName.IsFine() && LastName.IsFine() && Email.IsFine() && PhoneNumber.IsFine() && Username.IsFine();
