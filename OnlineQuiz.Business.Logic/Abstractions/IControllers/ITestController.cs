@@ -1,5 +1,4 @@
 ﻿using OnlineQuiz.Business.Models.Models.Tests;
-using OnlineQuiz.Business.Models.ViewModels;
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
@@ -8,5 +7,7 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
         void AddTest(Test newTest);
 
         List<TestViewModel> GetTestsList(int baseUserId, string title);
+
+        Test GetTest(int testId);
     }
 }

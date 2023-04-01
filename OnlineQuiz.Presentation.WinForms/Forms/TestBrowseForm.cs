@@ -2,7 +2,6 @@
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models.Models.Tests;
-using OnlineQuiz.Business.Models.ViewModels;
 using OnlineQuiz.Library;
 using System.ComponentModel;
 

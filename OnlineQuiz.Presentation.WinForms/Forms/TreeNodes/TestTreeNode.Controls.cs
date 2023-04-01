@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
@@ -21,7 +15,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             // contextMenuStrip
             // 
             contextMenuStrip.ImageScalingSize = new Size(40, 40);
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] {AddSectionToolStripMenuItem, PropertiesToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { AddSectionToolStripMenuItem, PropertiesToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new Size(361, 155);
             // 

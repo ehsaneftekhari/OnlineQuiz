@@ -1,8 +1,4 @@
 ﻿using OnlineQuiz.Business.Models.Abstractions;
-using OnlineQuiz.Business.Models.Models;
-using OnlineQuiz.Business.Models.ViewModels;
-using OnlineQuiz.Library;
-using System.Data;
 
 namespace OnlineQuiz.Business.Models.Models.Tests
 {
@@ -47,7 +43,7 @@ namespace OnlineQuiz.Business.Models.Models.Tests
 
         public bool HasId() => TestId > 0;
 
-        public TestViewModel GetViewModel()
+        public TestViewModel ToViewModel()
         {
             return new(TestId, Title.Value!, Published.Value, RandomizeSections.Value);
         }

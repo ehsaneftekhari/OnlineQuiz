@@ -1,27 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Models.Models.Sections;
+using OnlineQuiz.Library;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
     public partial class TestTreeNode : TreeNode
     {
+        ITestController testController;
+        ISectionController sectionController;
+        IQuestionController questionController;
         public int TestId { get; set; }
         public string TestTitle { get; set; }
 
-        public TestTreeNode(IContainer container, string testTitle, int testId) : base(testTitle)
+        public TestTreeNode(ITestController testController,
+                            ISectionController sectionController,
+                            IQuestionController questionController,
+                            IContainer container,
+                            string testTitle,
+                            int testId) : base(testTitle)
         {
+            ThrowHelper.ThrowNullOrEmptyStringException(testTitle, nameof(testTitle));
+
             InitializeComponent(container);
             TestId = testId;
             TestTitle = testTitle;
+            this.testController = testController;
+            this.sectionController = sectionController;
+            this.questionController = questionController;
+
+            ReLoadSections();
         }
 
-        public void AddChild(SectionTreeNode sectionTreeNode)
+        private void AddChild(SectionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
+
+        private void AddChild(List<SectionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
+
+
+        private void ReLoadSections()
         {
-            Nodes.Add(sectionTreeNode);
+            List<SectionViewModel> sectionViewModelList = sectionController.GetSectionList(TestId);
+
+            List<SectionTreeNode> sectionTreeList = sectionViewModelList.Select(SVM => new SectionTreeNode(questionController,
+                                                                                                           SVM.SectionTitle,
+                                                                                                           SVM.Order,
+                                                                                                           SVM.SectionId)).ToList();
+
+            AddChild(sectionTreeList);
         }
 
         private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)

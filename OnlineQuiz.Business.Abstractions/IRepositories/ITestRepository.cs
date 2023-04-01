@@ -7,6 +7,8 @@ namespace OnlineQuiz.Business.Abstractions.IRepositories
     {
         int Add(Test test);
 
-        List<Test> Get(int baseUserId, string title);
+        List<Test> GetList(int baseUserId, string title);
+
+        Test Get(int testId);
     }
 }

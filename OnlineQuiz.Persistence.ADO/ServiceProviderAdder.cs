@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Persistence.ADO.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineQuiz.Persistence.ADO
 {
@@ -19,6 +14,8 @@ namespace OnlineQuiz.Persistence.ADO
                 serviceProvider.AddTransient<IAppMessageRepository, AppMessageRepository>();
                 serviceProvider.AddTransient<IUserRepository, UserRepository>();
                 serviceProvider.AddTransient<ITestRepository, TestRepository>();
+                serviceProvider.AddTransient<ISectionRepository, SectionRepository>();
+                serviceProvider.AddTransient<IQuestionRepository, QuestionRepository>();
             }
         }
     }

@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineQuiz.Business.Models.ViewModels
+namespace OnlineQuiz.Business.Models.Models.Tests
 {
     public class TestViewModel
     {
-        public TestViewModel(int testId, string title, bool published, bool randomizeSections)
+        public TestViewModel(int testId,
+                             string title,
+                             bool published,
+                             bool randomizeSections)
         {
             TestId = testId;
             Title = title;

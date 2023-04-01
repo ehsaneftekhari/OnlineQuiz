@@ -1,6 +1,7 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
+using OnlineQuiz.Persistence.ADO.SqlDataAdapters;
 using System.Data;
 using ADOSqlCommandBuilder = OnlineQuiz.Persistence.ADO.Builders.ADOSqlCommandBuilder;
 
@@ -8,12 +9,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 {
     internal class TestRepository : ITestRepository
     {
-        private IAppMessageRepository appMessageRepository;
-
-        public TestRepository(IAppMessageRepository appMessageRepository)
-        {
-            this.appMessageRepository = appMessageRepository;
-        }
+        public TestRepository() { }
 
         public int Add(Test test)
         {
@@ -36,17 +32,27 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             return (int)TestId;
         }
 
-        public List<Test> Get(int baseUserId, string title)
+        public List<Test> GetList(int baseUserId, string title)
         {
             ThrowHelper.ThrowNullArgumentException(title, nameof(title));
 
             DataTable dataTable;
-            var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Get]")
+            var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_GetList]")
                 .AddParameter("@BaseUserId", baseUserId)
                 .AddParameter("@Title", title)
                 .ExecuteReader(out dataTable);
 
-            return new DataTableAdapter().DataTableToTestList(dataTable);
+            return new TestDataTableAdapter().DataTableToList(dataTable);
+        }
+
+        public Test Get(int testId)
+        {
+            DataTable dataTable;
+            var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Get]")
+                .AddParameter("@TestId", testId)
+                .ExecuteReader(out dataTable);
+
+            return new TestDataTableAdapter().DataTableToList(dataTable).First();
         }
     }
 }

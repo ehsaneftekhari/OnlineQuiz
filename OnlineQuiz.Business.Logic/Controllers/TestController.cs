@@ -2,7 +2,6 @@
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Models.Models.Tests;
-using OnlineQuiz.Business.Models.ViewModels;
 using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
@@ -37,11 +36,18 @@ namespace OnlineQuiz.Business.Logic.Controllers
         {
             title = string.Format("%{0}%", title);
 
-            List<Test> getResult = testRepository.Get(baseUserId, title);
+            List<Test> getResult = testRepository.GetList(baseUserId, title);
 
-            List<TestViewModel> result = getResult.Select(test => test.GetViewModel()).ToList();
+            List<TestViewModel> result = getResult.Select(test => test.ToViewModel()).ToList();
 
             return result;
+        }
+
+        public Test GetTest(int testId)
+        {
+            Test getResult = testRepository.Get(testId);
+
+            return getResult;
         }
     }
 }

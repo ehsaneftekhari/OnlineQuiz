@@ -169,7 +169,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenTestExplorerForm(int testId)
         {
-            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(testId);
+            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider ,testId);
             AddNewChildForm(testExplorerForm);
         }
     }
