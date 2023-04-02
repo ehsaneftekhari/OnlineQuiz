@@ -37,6 +37,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         static TestExplorerForm instance;
 
+        public Action TestBrowseFormOpener { get; set; }
+
         void OpenTest(int testId = 0)
         {
             if (testId != 0)
@@ -44,6 +46,11 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 Test test = GetTestSeedData(testId);
                 AddTestTreeNode(test);
             }
+        }
+
+        void ClearTreeView()
+        {
+            mainTreeView.Nodes.Clear();
         }
 
         Test GetTestSeedData(int testId)
@@ -75,6 +82,22 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                                                              test.TestId);
                 mainTreeView.Nodes.Add(testTreeNode);
             }
+        }
+
+        private void openTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InvokeTestBrowseFormOpener();
+        }
+
+        private void InvokeTestBrowseFormOpener()
+        {
+            if (TestBrowseFormOpener != null)
+                TestBrowseFormOpener.Invoke();
+        }
+
+        private void clearExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearTreeView();
         }
     }
 }

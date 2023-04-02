@@ -42,12 +42,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             // 
             // mainTreeView
             // 
+            mainTreeView.ContextMenuStrip = contextMenuStrip;
             mainTreeView.Dock = DockStyle.Fill;
             mainTreeView.Location = new Point(0, 0);
             mainTreeView.Name = "mainTreeView";
             mainTreeView.Size = new Size(739, 1384);
             mainTreeView.TabIndex = 0;
-            mainTreeView.ContextMenuStrip = contextMenuStrip;
             // 
             // contextMenuStrip
             // 
@@ -61,12 +61,14 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             openTestToolStripMenuItem.Name = "openTestToolStripMenuItem";
             openTestToolStripMenuItem.Size = new Size(360, 48);
             openTestToolStripMenuItem.Text = "Open Test";
+            openTestToolStripMenuItem.Click += openTestToolStripMenuItem_Click;
             // 
             // clearExplorerToolStripMenuItem
             // 
             clearExplorerToolStripMenuItem.Name = "clearExplorerToolStripMenuItem";
             clearExplorerToolStripMenuItem.Size = new Size(360, 48);
             clearExplorerToolStripMenuItem.Text = "Clear Explorer";
+            clearExplorerToolStripMenuItem.Click += clearExplorerToolStripMenuItem_Click;
             // 
             // TestExplorerForm
             // 
