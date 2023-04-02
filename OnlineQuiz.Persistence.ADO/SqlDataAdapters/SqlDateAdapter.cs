@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineQuiz.Persistence.ADO.SqlDataAdapters
+﻿namespace OnlineQuiz.Persistence.ADO.SqlDataAdapters
 {
     public class SqlDateAdapter
     {

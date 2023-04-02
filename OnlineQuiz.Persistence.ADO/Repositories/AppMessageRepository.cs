@@ -1,10 +1,5 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Library;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineQuiz.Persistence.ADO.Repositories
 {

@@ -1,17 +1,9 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
-using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Library;
-using OnlineQuiz.Persistence.ADO.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Logic.Verifiers
 {

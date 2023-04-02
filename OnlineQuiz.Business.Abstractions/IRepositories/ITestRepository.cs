@@ -1,5 +1,4 @@
 ﻿using OnlineQuiz.Business.Models.Models.Tests;
-using System.Data;
 
 namespace OnlineQuiz.Business.Abstractions.IRepositories
 {

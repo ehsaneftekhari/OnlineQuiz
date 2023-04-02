@@ -1,10 +1,5 @@
 ﻿using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models.Models.Tests;
-using OnlineQuiz.Library;
-using System.ComponentModel;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineQuiz.Business.Models.Models
+﻿namespace OnlineQuiz.Business.Models.Models
 {
     public abstract class MessageModel
     {

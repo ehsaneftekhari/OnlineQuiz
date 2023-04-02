@@ -1,6 +1,5 @@
 ﻿using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
-using System.Collections.Generic;
 using System.Data;
 
 namespace OnlineQuiz.Persistence.ADO.SqlDataAdapters
