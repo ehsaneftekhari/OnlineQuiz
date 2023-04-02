@@ -13,6 +13,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
             this.testController = testController;
             UserId = userId;
+
+            LoadListData();
         }
 
         public static TestBrowseForm Create(int userId, IServiceProvider serviceProvider)

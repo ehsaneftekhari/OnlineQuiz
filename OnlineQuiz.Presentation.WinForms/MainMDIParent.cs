@@ -162,16 +162,28 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenTestBrowseForm()
         {
+            OpenTestBrowseForm(false);
+        }
+
+        private void OpenTestBrowseForm(bool closeAfterSelect)
+        {
             TestBrowseForm TestList = TestBrowseForm.Create(User.BaseUserId, serviceProvider);
             TestList.OnTestSelect += OpenTestExplorerForm;
+            if(closeAfterSelect)
+                TestList.OnTestSelect += (_) => TestList.Close();
             AddNewChildForm(TestList);
         }
 
-        private void OpenTestExplorerForm(int testId)
+        private void OpenTestExplorerForm(int testId = 0)
         {
-            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider ,testId);
+            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider, testId);
             testExplorerForm.TestBrowseFormOpener += OpenTestBrowseForm;
             AddNewChildForm(testExplorerForm);
+        }
+
+        private void testExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenTestExplorerForm();
         }
     }
 }

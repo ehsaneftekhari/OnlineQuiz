@@ -37,7 +37,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         static TestExplorerForm instance;
 
-        public Action TestBrowseFormOpener { get; set; }
+        public Action<bool> TestBrowseFormOpener { get; set; }
 
         void OpenTest(int testId = 0)
         {
@@ -91,8 +91,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void InvokeTestBrowseFormOpener()
         {
+            bool closeTestBrowseAfterSelect = true;
             if (TestBrowseFormOpener != null)
-                TestBrowseFormOpener.Invoke();
+                TestBrowseFormOpener.Invoke(closeTestBrowseAfterSelect);
         }
 
         private void clearExplorerToolStripMenuItem_Click(object sender, EventArgs e)

@@ -41,6 +41,7 @@
             testToolStripMenuItem = new ToolStripMenuItem();
             addTestToolStripMenuItem = new ToolStripMenuItem();
             testListToolStripMenuItem = new ToolStripMenuItem();
+            testExplorerToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -119,7 +120,7 @@
             // 
             // testToolStripMenuItem
             // 
-            testToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addTestToolStripMenuItem, testListToolStripMenuItem });
+            testToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addTestToolStripMenuItem, testListToolStripMenuItem, testExplorerToolStripMenuItem });
             testToolStripMenuItem.Name = "testToolStripMenuItem";
             testToolStripMenuItem.Size = new Size(94, 48);
             testToolStripMenuItem.Text = "Test";
@@ -137,6 +138,13 @@
             testListToolStripMenuItem.Size = new Size(448, 54);
             testListToolStripMenuItem.Text = "Test List";
             testListToolStripMenuItem.Click += testListToolStripMenuItem_Click;
+            // 
+            // testExplorerToolStripMenuItem
+            // 
+            testExplorerToolStripMenuItem.Name = "testExplorerToolStripMenuItem";
+            testExplorerToolStripMenuItem.Size = new Size(448, 54);
+            testExplorerToolStripMenuItem.Text = "Test Explorer";
+            testExplorerToolStripMenuItem.Click += testExplorerToolStripMenuItem_Click;
             // 
             // MainMDIParent
             // 
@@ -170,6 +178,7 @@
         private ToolStripMenuItem testToolStripMenuItem;
         private ToolStripMenuItem addTestToolStripMenuItem;
         private ToolStripMenuItem testListToolStripMenuItem;
+        private ToolStripMenuItem testExplorerToolStripMenuItem;
     }
 }
 
