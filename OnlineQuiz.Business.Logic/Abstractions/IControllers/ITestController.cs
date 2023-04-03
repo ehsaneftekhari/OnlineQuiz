@@ -6,6 +6,8 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
     {
         void AddTest(Test newTest);
 
+        bool EditTest(Test editedTest);
+
         List<TestViewModel> GetTestsList(int baseUserId, string title);
 
         Test GetTest(int testId);

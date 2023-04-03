@@ -32,6 +32,20 @@ namespace OnlineQuiz.Business.Logic.Controllers
             newTest.TestId = newTestId;
         }
 
+        public bool EditTest(Test editedTest)
+        {
+            ThrowHelper.ThrowNullArgumentException(editedTest, nameof(editedTest));
+
+            bool testValidatorResult = testValidator.ValidateTest(editedTest);
+
+            bool result = false;
+
+            if (testValidatorResult)
+                result = testRepository.Edit(editedTest) == 1 ? true : false;
+
+            return result;
+        }
+
         public List<TestViewModel> GetTestsList(int baseUserId, string title)
         {
             title = string.Format("%{0}%", title);

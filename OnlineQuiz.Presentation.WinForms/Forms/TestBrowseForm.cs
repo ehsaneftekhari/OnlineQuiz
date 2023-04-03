@@ -1,38 +1,51 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models.Models.Tests;
+using OnlineQuiz.Presentation.WinForms.Helpers;
+using System;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class TestBrowseForm : Form
     {
+        ITestController testController;
 
-        private TestBrowseForm(ITestController testController, int userId)
+        static List<TestBrowseForm> instanceList;
+
+        private TestBrowseForm(IServiceProvider serviceProvider, int userId, string ownerName)
         {
             InitializeComponent();
 
-            this.testController = testController;
+            testController = serviceProvider.GetRequiredService<ITestController>();
             UserId = userId;
 
             LoadListData();
+            OwnerName = ownerName;
         }
 
-        public static TestBrowseForm Create(int userId, IServiceProvider serviceProvider)
+        public static TestBrowseForm Create(IServiceProvider serviceProvider, int userId, string ownerName)
         {
-            if (instance == null || instance.IsDisposed)
+            if (instanceList == null)
+                instanceList = new();
+
+            TestBrowseForm instance = instanceList.FirstOrDefault(x => x.OwnerName == ownerName);
+
+            if(instance == null || instance.IsDisposed)
             {
-                ITestController testController = serviceProvider.GetRequiredService<ITestController>();
-                instance = new(testController, userId);
+                instance = new(serviceProvider, userId, ownerName);
+                instanceList.Add(instance);
             }
+
             return instance;
         }
 
-        static TestBrowseForm instance;
+        public string OwnerName { get; private set; }
 
-        ITestController testController;
-        int UserId;
+        int UserId { get; set; }
 
-        public Action<int> OnTestSelect;
+        public Action<int> OnTestSelect { get; set; }
+
+        public bool CloseAfterSelect { get; set; }
 
         private void LoadListData()
         {
@@ -55,12 +68,19 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             DataGridViewRow row = testListDGV.Rows[e.RowIndex];
             var testId = row.Cells["TestId"].Value;
             InvokeOnTestSelect((int)testId);
+            CloseIfAllowed();
         }
 
         private void InvokeOnTestSelect(int testId)
         {
             if (OnTestSelect != null)
                 OnTestSelect.Invoke(testId);
+        }
+
+        private void CloseIfAllowed()
+        {
+            if(CloseAfterSelect)
+                base.Close();
         }
     }
 }

@@ -1,50 +1,41 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
-using OnlineQuiz.Business.Models.Models.Tests;
-using OnlineQuiz.Library;
+﻿using OnlineQuiz.Library;
 using OnlineQuiz.Presentation.WinForms.Forms.TreeNodes;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class TestExplorerForm : Form
     {
-        ITestController testController;
-        ISectionController sectionController;
-        IQuestionController questionController;
+        IServiceProvider serviceProvider;
 
-        private TestExplorerForm(ITestController testController,
-                                 ISectionController sectionController,
-                                 IQuestionController questionController)
+        private TestExplorerForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            this.testController = testController;
-            this.sectionController = sectionController;
-            this.questionController = questionController;
+            this.serviceProvider = serviceProvider;
         }
 
-        public static TestExplorerForm Crete(IServiceProvider serviceProvider, int testId = 0)
+        public static TestExplorerForm Crete(IServiceProvider serviceProvider)
         {
             if (instance == null || instance.IsDisposed)
             {
-                ITestController testController = serviceProvider.GetRequiredService<ITestController>();
-                ISectionController sectionController = serviceProvider.GetRequiredService<ISectionController>();
-                IQuestionController questionController = serviceProvider.GetRequiredService<IQuestionController>();
-                instance = new TestExplorerForm(testController, sectionController, questionController);
+                instance = new TestExplorerForm(serviceProvider);
             }
-            instance.OpenTest(testId);
             return instance;
         }
 
         static TestExplorerForm instance;
 
-        public Action<bool> TestBrowseFormOpener { get; set; }
+        public Action<bool, string> TestBrowseFormOpener { get; set; }
 
-        void OpenTest(int testId = 0)
+        public Action<Form> ChildFormAdder { get; set; }
+
+        public void OpenTest(int testId = 0)
         {
-            if (testId != 0)
+            if (testId != 0 && HasTestId(testId))
             {
-                Test test = GetTestSeedData(testId);
-                AddTestTreeNode(test);
+                TestTreeNode testTreeNode = new TestTreeNode(serviceProvider, components, testId);
+                testTreeNode.ChildFormAdder += ChildFormAdder;
+                testTreeNode.TestNodeCloser += RemoveTestTreeNode;
+                OneTimeAddTestTreeNode(testTreeNode);
             }
         }
 
@@ -53,35 +44,31 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             mainTreeView.Nodes.Clear();
         }
 
-        Test GetTestSeedData(int testId)
+        void OneTimeAddTestTreeNode(TestTreeNode testTreeNode)
         {
-            return testController.GetTest(testId);
+            ThrowHelper.ThrowNullArgumentException(testTreeNode, nameof(testTreeNode));
+
+            if (HasTestId(testTreeNode.TestId))
+            {
+                testTreeNode.LoadTestData();
+                mainTreeView.Nodes.Add(testTreeNode);
+            }
         }
 
-        void AddTestTreeNode(Test test)
+        bool HasTestId(int testId)
         {
-            ThrowHelper.ThrowNullArgumentException(test,
-                nameof(test),
-                test.Title,
-                nameof(test.Title));
-
             bool flag = true;
             foreach (TestTreeNode node in mainTreeView.Nodes)
             {
-                if (node.TestId == test.TestId)
+                if (node.TestId == testId)
                     flag = false;
             }
+            return flag;
+        }
 
-            if (flag)
-            {
-                TestTreeNode testTreeNode = new TestTreeNode(testController,
-                                                             sectionController,
-                                                             questionController,
-                                                             components!,
-                                                             test.Title.Value!,
-                                                             test.TestId);
-                mainTreeView.Nodes.Add(testTreeNode);
-            }
+        void RemoveTestTreeNode(TestTreeNode testTreeNode)
+        {
+            mainTreeView.Nodes.Remove(testTreeNode);
         }
 
         private void openTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,7 +80,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             bool closeTestBrowseAfterSelect = true;
             if (TestBrowseFormOpener != null)
-                TestBrowseFormOpener.Invoke(closeTestBrowseAfterSelect);
+                TestBrowseFormOpener.Invoke(closeTestBrowseAfterSelect, nameof(TestExplorerForm));
         }
 
         private void clearExplorerToolStripMenuItem_Click(object sender, EventArgs e)

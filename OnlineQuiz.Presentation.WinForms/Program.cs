@@ -17,7 +17,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
             serviceDescriptors.AddTransient(LoginRegister.Create);
             serviceDescriptors.AddTransient<IFormHelper, FormHelper>();
-
+            
             ServiceProvider = serviceDescriptors.BuildServiceProvider();
         }
 

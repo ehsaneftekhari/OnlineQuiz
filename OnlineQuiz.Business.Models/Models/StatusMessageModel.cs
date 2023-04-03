@@ -4,6 +4,8 @@ namespace OnlineQuiz.Business.Models.Models
 {
     public abstract class StatusMessageModel : MessageModel, IFine
     {
+        public StatusMessageModel() : base() { }
+
         private ModelStatusEnum _Status;
 
         public ModelStatusEnum Status

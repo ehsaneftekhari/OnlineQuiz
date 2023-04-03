@@ -11,7 +11,6 @@ namespace OnlineQuiz.Presentation.WinForms
 
         State state;
         IServiceProvider serviceProvider;
-
         //public MainMDIParent()
         //{
         //    InitializeComponent();
@@ -129,7 +128,9 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenLogin()
         {
             LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
+            StartForm.OnBaseUserRegister -= GuestRegister;
             StartForm.OnBaseUserRegister += GuestRegister;
+            StartForm.OnLogIn -= LogIn;
             StartForm.OnLogIn += LogIn;
             AddNewChildForm(StartForm);
         }
@@ -147,37 +148,48 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenAddTestForm()
         {
             AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
-            addTestForm.OnTestAdded += (Test newTest, bool OpenTestExplorer) =>
-            {
-                if (OpenTestExplorer)
-                    OpenTestExplorerForm(newTest.TestId);
-            };
+            addTestForm.OnTestAdded -= OnTestAdded;
+            addTestForm.OnTestAdded += OnTestAdded;
             AddNewChildForm(addTestForm);
+        }
+
+        private void OnTestAdded(Test newTest, bool OpenTestExplorer)
+        {
+            if (OpenTestExplorer)
+                OpenTestExplorerForm(newTest.TestId);
         }
 
         private void testListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenTestBrowseForm();
+            OpenTestBrowseForm(nameof(MainMDIParent));
         }
 
-        private void OpenTestBrowseForm()
+        private void OpenTestBrowseForm(string ownerName)
         {
-            OpenTestBrowseForm(false);
+            OpenTestBrowseForm(false, ownerName);
         }
 
-        private void OpenTestBrowseForm(bool closeAfterSelect)
+        private void OpenTestBrowseForm(bool closeAfterSelect, string ownerName)
         {
-            TestBrowseForm TestList = TestBrowseForm.Create(User.BaseUserId, serviceProvider);
+            TestBrowseForm TestList = TestBrowseForm.Create(serviceProvider, User.BaseUserId, ownerName);
+            TestList.OnTestSelect -= OpenTestExplorerForm;
             TestList.OnTestSelect += OpenTestExplorerForm;
-            if(closeAfterSelect)
-                TestList.OnTestSelect += (_) => TestList.Close();
+
+            TestList.CloseAfterSelect = closeAfterSelect;
+
             AddNewChildForm(TestList);
         }
 
         private void OpenTestExplorerForm(int testId = 0)
         {
-            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider, testId);
+            TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider);
+            testExplorerForm.ChildFormAdder -= AddNewChildForm;
+            testExplorerForm.ChildFormAdder += AddNewChildForm;
+            testExplorerForm.TestBrowseFormOpener -= OpenTestBrowseForm;
             testExplorerForm.TestBrowseFormOpener += OpenTestBrowseForm;
+            testExplorerForm.OpenTest(testId);
+
+
             AddNewChildForm(testExplorerForm);
         }
 

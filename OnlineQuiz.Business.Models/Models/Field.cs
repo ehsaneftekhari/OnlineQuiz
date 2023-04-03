@@ -22,17 +22,17 @@ namespace OnlineQuiz.Business.Models.Models
 
         Func<Type, string> CheckError { get; set; }
 
-        public Field()
+        public Field() : base()
         {
             Value = default;
         }
 
-        public Field(Type value)
+        public Field(Type value) : this()
         {
             Value = value;
         }
 
-        public Field(Func<Type, string> checkWarning, Func<Type, string> checkError)
+        public Field(Func<Type, string> checkWarning, Func<Type, string> checkError) : this()
         {
             CheckWarning = checkWarning;
             CheckError = checkError;

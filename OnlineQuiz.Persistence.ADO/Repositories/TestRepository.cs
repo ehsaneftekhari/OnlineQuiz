@@ -32,6 +32,27 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             return (int)TestId;
         }
 
+        public int Edit(Test test)
+        {
+            ThrowHelper.ThrowNullArgumentException(
+                test, nameof(test),
+                test.Title, nameof(test.Title),
+                test.Published, nameof(test.Published),
+                test.RandomizeSections, nameof(test.RandomizeSections)
+            );
+
+            int rowsAffected;
+
+            ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Edit]")
+                .AddParameter("@TestId", test.TestId!)
+                .AddParameter("@Title", test.Title.Value!)
+                .AddParameter("@Published", test.Published.Value)
+                .AddParameter("@RandomizeSections", test.RandomizeSections.Value)
+                .ExecuteNonQuery(out rowsAffected);
+
+            return rowsAffected;
+        }
+
         public List<Test> GetList(int baseUserId, string title)
         {
             ThrowHelper.ThrowNullArgumentException(title, nameof(title));

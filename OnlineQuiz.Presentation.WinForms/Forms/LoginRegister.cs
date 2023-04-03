@@ -40,18 +40,18 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             return instance;
         }
 
-        public Action<User> OnLogIn;
+        public Action<User> OnLogIn { get; set; }
 
-        public Action<BaseUser> OnBaseUserRegister;
+        public Action<BaseUser> OnBaseUserRegister { get; set; }
 
-        public Action<User> OnUserRegister;
+        public Action<User> OnUserRegister { get; set; }
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             UserCredential credential = new UserCredential(LoginUsernameTB.Text, LoginPasswordTB.Text);
             User user = verifier.VerifyUserCredential(credential);
 
-            formHelper.SetFromFieldModel(user.Username, LoginUsernameTB, LoginMessageLb);
+            formHelper.FillForm(user.Username, LoginUsernameTB, LoginMessageLb);
 
             if (user.HasId())
                 InvokeOnLogIn(user);
@@ -101,10 +101,10 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             if (baseUser != null)
             {
-                formHelper.SetFromFieldModel(baseUser.FirstName, RegisterFirstNameTB, RegisterFirstNameMessageLbl);
-                formHelper.SetFromFieldModel(baseUser.LastName, RegisterLastNameTB, RegisterLastNameMessageLbl);
-                formHelper.SetFromFieldModel(baseUser.Email, RegisterEmailTB, RegisterEmailMessageLbl);
-                formHelper.SetFromFieldModel(baseUser.PhoneNumber, RegisterPhoneNumberTB, RegisterPhoneNumberMessageLbl);
+                formHelper.FillForm(baseUser.FirstName, RegisterFirstNameTB, RegisterFirstNameMessageLbl);
+                formHelper.FillForm(baseUser.LastName, RegisterLastNameTB, RegisterLastNameMessageLbl);
+                formHelper.FillForm(baseUser.Email, RegisterEmailTB, RegisterEmailMessageLbl);
+                formHelper.FillForm(baseUser.PhoneNumber, RegisterPhoneNumberTB, RegisterPhoneNumberMessageLbl);
             }
         }
 
@@ -144,9 +144,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             if (user != null)
             {
                 SetBaseUserRegisterFields(user);
-                formHelper.SetFromFieldModel(user.Username, RegisterUsernameTB, RegisterUsernameMessageLbl);
-                formHelper.SetFromFieldModel(password, RegisterPasswordTB, RegisterPasswordMessageLbl);
-                formHelper.SetFromFieldModel(passwordVerify, RegisterPasswordVerifyTB, RegisterPasswordVerifyMessageLbl);
+                formHelper.FillForm(user.Username, RegisterUsernameTB, RegisterUsernameMessageLbl);
+                formHelper.FillForm(password, RegisterPasswordTB, RegisterPasswordMessageLbl);
+                formHelper.FillForm(passwordVerify, RegisterPasswordVerifyTB, RegisterPasswordVerifyMessageLbl);
             }
         }
     }

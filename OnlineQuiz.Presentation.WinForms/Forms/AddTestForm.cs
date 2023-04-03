@@ -2,31 +2,33 @@
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
+using System;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class AddTestForm : Form
     {
+        IServiceProvider serviceProvider;
         ITestController testController;
         IFormHelper formHelper;
 
         private static AddTestForm instance;
 
-        private AddTestForm(int userId, ITestController testController, IFormHelper formHelper)
+        private AddTestForm(int userId, IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             InitializeComponent();
             UserId = userId;
-            this.testController = testController;
-            this.formHelper = formHelper;
+            testController = serviceProvider.GetRequiredService<ITestController>();
+            formHelper = serviceProvider.GetRequiredService<IFormHelper>();
+            
         }
 
         public static AddTestForm Create(int userId, IServiceProvider serviceProvider)
         {
             if (instance == null || instance.IsDisposed)
             {
-                ITestController testController = serviceProvider.GetRequiredService<ITestController>();
-                IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-                instance = new AddTestForm(userId, testController, formHelper);
+                instance = new AddTestForm(userId, serviceProvider);
             }
             return instance;
         }
@@ -42,11 +44,16 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void AddBtn_Click(object sender, EventArgs e)
         {
+            AddTest();
+        }
+
+        void AddTest()
+        {
             Test newTest = new Test(UserId, TitleTB.Text, PublishCkB.Checked, RandomizeSectionsCkB.Checked);
 
             testController.AddTest(newTest);
 
-            formHelper.SetFromFieldModel(newTest.Title, TitleTB, TitleMessageLbl);
+            formHelper.FillForm(newTest.Title, TitleTB, TitleMessageLbl);
 
             if (newTest.HasId())
                 InvokeTestAdded(newTest, OpenTestExplorerCkB.Checked);

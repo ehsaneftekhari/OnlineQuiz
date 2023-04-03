@@ -111,8 +111,9 @@
             TitleMessageLbl.AutoSize = true;
             TitleMessageLbl.Location = new Point(172, 82);
             TitleMessageLbl.Name = "TitleMessageLbl";
-            TitleMessageLbl.Size = new Size(0, 41);
+            TitleMessageLbl.Size = new Size(90, 41);
             TitleMessageLbl.TabIndex = 13;
+            TitleMessageLbl.Text = "blank";
             // 
             // AddTestForm
             // 

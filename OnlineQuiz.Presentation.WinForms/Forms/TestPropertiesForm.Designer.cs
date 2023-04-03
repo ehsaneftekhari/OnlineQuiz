@@ -28,38 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
-            RandomizeSectionsCKB = new CheckBox();
-            PublishCKB = new CheckBox();
+            TitleMessageLbl = new Label();
+            CancelBtn = new Button();
+            SaveBtn = new Button();
+            RandomizeSectionsCkB = new CheckBox();
+            PublishCkB = new CheckBox();
             TitleTB = new TextBox();
             TitleLbl = new Label();
             SuspendLayout();
             // 
-            // RandomizeSectionsCKB
+            // TitleMessageLbl
             // 
-            RandomizeSectionsCKB.AutoSize = true;
-            RandomizeSectionsCKB.Location = new Point(172, 136);
-            RandomizeSectionsCKB.Name = "RandomizeSectionsCKB";
-            RandomizeSectionsCKB.Size = new Size(316, 45);
-            RandomizeSectionsCKB.TabIndex = 5;
-            RandomizeSectionsCKB.Text = "RandomizeSections";
-            RandomizeSectionsCKB.UseVisualStyleBackColor = true;
+            TitleMessageLbl.AutoSize = true;
+            TitleMessageLbl.Location = new Point(172, 82);
+            TitleMessageLbl.Name = "TitleMessageLbl";
+            TitleMessageLbl.Size = new Size(90, 41);
+            TitleMessageLbl.TabIndex = 21;
+            TitleMessageLbl.Text = "blank";
             // 
-            // PublishCKB
+            // CancelBtn
             // 
-            PublishCKB.AutoSize = true;
-            PublishCKB.Location = new Point(172, 85);
-            PublishCKB.Name = "PublishCKB";
-            PublishCKB.Size = new Size(152, 45);
-            PublishCKB.TabIndex = 6;
-            PublishCKB.Text = "Publish";
-            PublishCKB.UseVisualStyleBackColor = true;
+            CancelBtn.Location = new Point(582, 340);
+            CancelBtn.Name = "CancelBtn";
+            CancelBtn.Size = new Size(188, 58);
+            CancelBtn.TabIndex = 20;
+            CancelBtn.Text = "Cancel";
+            CancelBtn.UseVisualStyleBackColor = true;
+            CancelBtn.Click += CancelBtn_Click;
+            // 
+            // SaveBtn
+            // 
+            SaveBtn.Location = new Point(776, 340);
+            SaveBtn.Name = "SaveBtn";
+            SaveBtn.Size = new Size(188, 58);
+            SaveBtn.TabIndex = 19;
+            SaveBtn.Text = "Save";
+            SaveBtn.UseVisualStyleBackColor = true;
+            SaveBtn.Click += SaveBtn_Click;
+            // 
+            // RandomizeSectionsCkB
+            // 
+            RandomizeSectionsCkB.AutoSize = true;
+            RandomizeSectionsCkB.Location = new Point(172, 193);
+            RandomizeSectionsCkB.Name = "RandomizeSectionsCkB";
+            RandomizeSectionsCkB.Size = new Size(316, 45);
+            RandomizeSectionsCkB.TabIndex = 17;
+            RandomizeSectionsCkB.Text = "RandomizeSections";
+            RandomizeSectionsCkB.UseVisualStyleBackColor = true;
+            // 
+            // PublishCkB
+            // 
+            PublishCkB.AutoSize = true;
+            PublishCkB.Location = new Point(172, 142);
+            PublishCkB.Name = "PublishCkB";
+            PublishCkB.Size = new Size(152, 45);
+            PublishCkB.TabIndex = 18;
+            PublishCkB.Text = "Publish";
+            PublishCkB.UseVisualStyleBackColor = true;
             // 
             // TitleTB
             // 
             TitleTB.Location = new Point(172, 32);
             TitleTB.Name = "TitleTB";
             TitleTB.Size = new Size(781, 47);
-            TitleTB.TabIndex = 4;
+            TitleTB.TabIndex = 15;
             // 
             // TitleLbl
             // 
@@ -67,16 +99,19 @@
             TitleLbl.Location = new Point(25, 35);
             TitleLbl.Name = "TitleLbl";
             TitleLbl.Size = new Size(74, 41);
-            TitleLbl.TabIndex = 3;
+            TitleLbl.TabIndex = 14;
             TitleLbl.Text = "Title";
             // 
             // TestPropertiesForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(977, 205);
-            Controls.Add(RandomizeSectionsCKB);
-            Controls.Add(PublishCKB);
+            ClientSize = new Size(977, 410);
+            Controls.Add(TitleMessageLbl);
+            Controls.Add(CancelBtn);
+            Controls.Add(SaveBtn);
+            Controls.Add(RandomizeSectionsCkB);
+            Controls.Add(PublishCkB);
             Controls.Add(TitleTB);
             Controls.Add(TitleLbl);
             Name = "TestPropertiesForm";
@@ -87,8 +122,11 @@
 
         #endregion
 
-        private CheckBox RandomizeSectionsCKB;
-        private CheckBox PublishCKB;
+        private Label TitleMessageLbl;
+        private Button CancelBtn;
+        private Button SaveBtn;
+        private CheckBox RandomizeSectionsCkB;
+        private CheckBox PublishCkB;
         private TextBox TitleTB;
         private Label TitleLbl;
     }

@@ -4,6 +4,8 @@ namespace OnlineQuiz.Presentation.WinForms.Helpers
 {
     public interface IFormHelper
     {
-        void SetFromFieldModel(Field<string> field, TextBox textBox, Label messageLabel);
+        void FillForm(Field<string> field, TextBox textBox, Label? messageLabel = null);
+        void FillForm(Field<bool> field, CheckBox checkBox, Label? messageLabel = null);
+        void SetMessage(StatusMessageModel field, Label? messageLabel);
     }
 }
