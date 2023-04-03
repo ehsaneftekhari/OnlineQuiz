@@ -49,9 +49,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             Close();
         }
 
+        private void ApplyBtn_Click(object sender, EventArgs e)
+        {
+            EditTest();
+        }
+
         private void SaveBtn_Click(object sender, EventArgs e)
         {
             EditTest();
+            Close();
         }
 
         Test GetSeedData()

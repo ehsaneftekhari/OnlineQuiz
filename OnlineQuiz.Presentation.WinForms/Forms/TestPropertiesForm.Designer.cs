@@ -30,11 +30,12 @@
         {
             TitleMessageLbl = new Label();
             CancelBtn = new Button();
-            SaveBtn = new Button();
+            ApplyBtn = new Button();
             RandomizeSectionsCkB = new CheckBox();
             PublishCkB = new CheckBox();
             TitleTB = new TextBox();
             TitleLbl = new Label();
+            SaveBtn = new Button();
             SuspendLayout();
             // 
             // TitleMessageLbl
@@ -48,7 +49,7 @@
             // 
             // CancelBtn
             // 
-            CancelBtn.Location = new Point(582, 340);
+            CancelBtn.Location = new Point(388, 340);
             CancelBtn.Name = "CancelBtn";
             CancelBtn.Size = new Size(188, 58);
             CancelBtn.TabIndex = 20;
@@ -56,15 +57,15 @@
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
-            // SaveBtn
+            // ApplyBtn
             // 
-            SaveBtn.Location = new Point(776, 340);
-            SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(188, 58);
-            SaveBtn.TabIndex = 19;
-            SaveBtn.Text = "Save";
-            SaveBtn.UseVisualStyleBackColor = true;
-            SaveBtn.Click += SaveBtn_Click;
+            ApplyBtn.Location = new Point(582, 340);
+            ApplyBtn.Name = "ApplyBtn";
+            ApplyBtn.Size = new Size(188, 58);
+            ApplyBtn.TabIndex = 19;
+            ApplyBtn.Text = "Apply";
+            ApplyBtn.UseVisualStyleBackColor = true;
+            ApplyBtn.Click += ApplyBtn_Click;
             // 
             // RandomizeSectionsCkB
             // 
@@ -102,14 +103,25 @@
             TitleLbl.TabIndex = 14;
             TitleLbl.Text = "Title";
             // 
+            // SaveBtn
+            // 
+            SaveBtn.Location = new Point(776, 340);
+            SaveBtn.Name = "SaveBtn";
+            SaveBtn.Size = new Size(188, 58);
+            SaveBtn.TabIndex = 22;
+            SaveBtn.Text = "Save";
+            SaveBtn.UseVisualStyleBackColor = true;
+            SaveBtn.Click += SaveBtn_Click;
+            // 
             // TestPropertiesForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(977, 410);
+            Controls.Add(SaveBtn);
             Controls.Add(TitleMessageLbl);
             Controls.Add(CancelBtn);
-            Controls.Add(SaveBtn);
+            Controls.Add(ApplyBtn);
             Controls.Add(RandomizeSectionsCkB);
             Controls.Add(PublishCkB);
             Controls.Add(TitleTB);
@@ -124,10 +136,11 @@
 
         private Label TitleMessageLbl;
         private Button CancelBtn;
-        private Button SaveBtn;
+        private Button ApplyBtn;
         private CheckBox RandomizeSectionsCkB;
         private CheckBox PublishCkB;
         private TextBox TitleTB;
         private Label TitleLbl;
+        private Button SaveBtn;
     }
 }
