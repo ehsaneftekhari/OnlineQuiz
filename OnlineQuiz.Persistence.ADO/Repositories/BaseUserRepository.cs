@@ -30,7 +30,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
                 .AddParameter("@Email", baseUserInfo.Email.Value!)
                 .AddParameter("@PhoneNumber", baseUserInfo.PhoneNumber.Value!)
                 .AddOutputParameter("@BaseUserId", System.Data.SqlDbType.Int)
-                .ExecuteNonQuery().GetValueOfOutputParameters("@BaseUserId");
+                .ExecuteNonQuery().GetValueOfOutputParameter("@BaseUserId");
 
             return (int)BaseUserId;
         }

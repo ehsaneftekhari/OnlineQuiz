@@ -105,7 +105,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
                 .AddParameter("@UserName", newUser.Username.Value!)
                 .AddParameter("@PassWord", password)
                 .AddOutputParameter("@BaseUserId", System.Data.SqlDbType.Int)
-                .ExecuteNonQuery().GetValueOfOutputParameters("@BaseUserId");
+                .ExecuteNonQuery().GetValueOfOutputParameter("@BaseUserId");
 
             return (int)baseUserId;
         }

@@ -77,14 +77,14 @@ namespace OnlineQuiz.Persistence.ADO.Builders
             return this;
         }
 
-        public object GetValueOfOutputParameters(string parameterName)
+        public object GetValueOfOutputParameter(string parameterName)
         {
             ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
 
             return _sqlCommand.Parameters[parameterName].Value;
         }
 
-        public Type GetValueOfOutputParameters<Type>(string parameterName)
+        public Type GetValueOfOutputParameter<Type>(string parameterName)
         {
             ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
 
@@ -99,7 +99,7 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 
             foreach (string parameterName in parameterNames)
             {
-                keyValuePairs.Add(parameterName, GetValueOfOutputParameters(parameterName));
+                keyValuePairs.Add(parameterName, GetValueOfOutputParameter(parameterName));
             }
 
             return keyValuePairs;

@@ -27,7 +27,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
                 .AddParameter("@Published", test.Published.Value)
                 .AddParameter("@RandomizeSections", test.RandomizeSections.Value)
                 .AddOutputParameter("@TestId", System.Data.SqlDbType.Int)
-                .ExecuteNonQuery().GetValueOfOutputParameters("@TestId");
+                .ExecuteNonQuery().GetValueOfOutputParameter("@TestId");
 
             return (int)TestId;
         }

@@ -2,9 +2,9 @@
 {
     public interface IADOExecutedSPBuilder
     {
-        object GetValueOfOutputParameters(string parameterName);
+        object GetValueOfOutputParameter(string parameterName);
 
-        Type GetValueOfOutputParameters<Type>(string parameterName);
+        Type GetValueOfOutputParameter<Type>(string parameterName);
 
         IDictionary<string, object> GetValueOfOutputParameters(params string[] parameterNames);
     }
