@@ -31,9 +31,23 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_User_NotEqualPasswordVerify", "Password and it's Verify are not Equal");
 
             Messages.Add("en_Test_EmptyTitle", "Title can not be empty");
-            Messages.Add("en_BTest_LongTitle", "Title can not be longer than 32 characters");
+            Messages.Add("en_Test_LongTitle", "Title can not be longer than 32 characters");
+            Messages.Add("en_Test_SameStart&End", "Start and End can not be same");
+            Messages.Add("en_Test_EarlierEnd", "End can not be Earlier than Start");
+            Messages.Add("en_Test_LateStart", "Start can not be later than End");
+            Messages.Add("en_Test_NotSeatedStart", "Start should be set");
+            Messages.Add("en_Test_NotSeatedEnd", "End should be set");
             Messages.Add("en_Test_AddTestUnknownError", "An unknown Error happened while adding the test");
 
+            Messages.Add("en_Section_EmptyTitle", "Title can not be empty");
+            Messages.Add("en_Section_LongTitle", "Title can not be longer than 32 characters");
+            Messages.Add("en_Section_SameStart&End", "Start and End can not be same");
+            Messages.Add("en_Section_EarlierEnd", "End can not be Earlier than Start");
+            Messages.Add("en_Section_LateStart", "Start can not be later than Start");
+
+            ///////////
+
+            Messages.Add("en_AddTestForm_TestAddedSuccessfully", "Test added successfully");
         }
         public string GetMessage(string messageTitle)
         {

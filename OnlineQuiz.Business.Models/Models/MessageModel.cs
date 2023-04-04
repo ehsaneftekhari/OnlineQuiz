@@ -4,9 +4,9 @@
     {
         public MessageModel()
         {
-            Message = "";
+            ClearMessage();
         }
         public string Message { get; set; }
-        public void ClearMessage() => Message = null;
+        public void ClearMessage() => Message = "";
     }
 }

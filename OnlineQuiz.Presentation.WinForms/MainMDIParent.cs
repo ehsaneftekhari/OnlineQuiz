@@ -83,6 +83,9 @@ namespace OnlineQuiz.Presentation.WinForms
             SetState(State.NotRegistered);
         }
 
+        /////
+
+
         private void AddNewChildForm(Form childForm)
         {
             childForm.MdiParent = this;
@@ -148,15 +151,9 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenAddTestForm()
         {
             AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
-            addTestForm.OnTestAdded -= OnTestAdded;
-            addTestForm.OnTestAdded += OnTestAdded;
+            addTestForm.TestExplorerOpener -= OpenTestExplorerForm;
+            addTestForm.TestExplorerOpener += OpenTestExplorerForm;
             AddNewChildForm(addTestForm);
-        }
-
-        private void OnTestAdded(Test newTest, bool OpenTestExplorer)
-        {
-            if (OpenTestExplorer)
-                OpenTestExplorerForm(newTest.TestId);
         }
 
         private void testListToolStripMenuItem_Click(object sender, EventArgs e)

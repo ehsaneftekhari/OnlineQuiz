@@ -11,8 +11,6 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 
         private ADOSqlCommandBuilder(string cmdText)
         {
-            ThrowHelper.ThrowNullOrEmptyStringException(cmdText, nameof(cmdText));
-
             SqlConnection connection = ADOSqlConnectionCreator.Create();
             _sqlCommand = new SqlCommand(cmdText, connection);
         }
@@ -29,17 +27,28 @@ namespace OnlineQuiz.Persistence.ADO.Builders
 
         public IADONotExecutedSPBuilder AddParameter(string parameterName, object value)
         {
-            ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
-            ThrowHelper.ThrowNullArgumentException(value, nameof(value));
+            return AddParameter(parameterName, value, null);
+        }
 
-            _sqlCommand.Parameters.Add(new SqlParameter(parameterName, value));
+        public IADONotExecutedSPBuilder AddParameter(string parameterName, object value, SqlDbType? dbType)
+        {
+            ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
+
+            if(value == null)
+                value = DBNull.Value;
+
+            SqlParameter sqlParameter = new SqlParameter(parameterName, value);
+
+            if (dbType != null)
+                sqlParameter.SqlDbType = (SqlDbType)dbType;
+
+            _sqlCommand.Parameters.Add(sqlParameter);
             return this;
         }
 
         public IADONotExecutedSPBuilder AddOutputParameter(string parameterName, SqlDbType dbType)
         {
             ThrowHelper.ThrowNullOrEmptyStringException(parameterName, nameof(parameterName));
-            ThrowHelper.ThrowNullArgumentException(dbType, nameof(dbType));
 
             _sqlCommand.Parameters.Add(new SqlParameter(parameterName, dbType));
             _sqlCommand.Parameters[parameterName].Direction = ParameterDirection.Output;

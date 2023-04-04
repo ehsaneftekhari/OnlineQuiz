@@ -17,16 +17,18 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
                 test, nameof(test),
                 test.BaseUserId, nameof(test.BaseUserId),
                 test.Title, nameof(test.Title),
-                test.Published, nameof(test.Published),
-                test.RandomizeSections, nameof(test.RandomizeSections)
+                test.Start, nameof(test.Start),
+                test.End, nameof(test.End)
             );
 
             var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Add]")
                 .AddParameter("@BaseUserId", test.BaseUserId.Value)
                 .AddParameter("@Title", test.Title.Value!)
+                .AddParameter("@Start", test.Start.Value!, SqlDbType.DateTime)
+                .AddParameter("@End", test.End.Value!, SqlDbType.DateTime)
                 .AddParameter("@Published", test.Published.Value)
-                .AddParameter("@RandomizeSections", test.RandomizeSections.Value)
-                .AddOutputParameter("@TestId", System.Data.SqlDbType.Int)
+                .AddParameter("@RandomizeType", test.RandomizeType.Value)
+                .AddOutputParameter("@TestId", SqlDbType.Int)
                 .ExecuteNonQuery().GetValueOfOutputParameter("@TestId");
 
             return (int)TestId;
@@ -37,8 +39,8 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             ThrowHelper.ThrowNullArgumentException(
                 test, nameof(test),
                 test.Title, nameof(test.Title),
-                test.Published, nameof(test.Published),
-                test.RandomizeSections, nameof(test.RandomizeSections)
+                test.Start, nameof(test.Start),
+                test.End, nameof(test.End)
             );
 
             int rowsAffected;
@@ -46,8 +48,10 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Edit]")
                 .AddParameter("@TestId", test.TestId!)
                 .AddParameter("@Title", test.Title.Value!)
+                .AddParameter("@Start", test.Start.Value!, SqlDbType.DateTime)
+                .AddParameter("@End", test.End.Value!, SqlDbType.DateTime)
                 .AddParameter("@Published", test.Published.Value)
-                .AddParameter("@RandomizeSections", test.RandomizeSections.Value)
+                .AddParameter("@RandomizeType", test.RandomizeType.Value)
                 .ExecuteNonQuery(out rowsAffected);
 
             return rowsAffected;
@@ -58,7 +62,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             ThrowHelper.ThrowNullArgumentException(title, nameof(title));
 
             DataTable dataTable;
-            var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_GetList]")
+            ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_GetList]")
                 .AddParameter("@BaseUserId", baseUserId)
                 .AddParameter("@Title", title)
                 .ExecuteReader(out dataTable);
@@ -69,7 +73,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
         public Test Get(int testId)
         {
             DataTable dataTable;
-            var TestId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Get]")
+            ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Test_Get]")
                 .AddParameter("@TestId", testId)
                 .ExecuteReader(out dataTable);
 

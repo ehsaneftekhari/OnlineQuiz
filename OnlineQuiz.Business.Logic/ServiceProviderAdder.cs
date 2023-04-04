@@ -22,6 +22,7 @@ namespace OnlineQuiz.Business.Logic
                 serviceProvider.AddTransient<ITestValidator, TestValidator>();
                 serviceProvider.AddTransient<ISectionController, SectionController>();
                 serviceProvider.AddTransient<IQuestionController, QuestionController>();
+                serviceProvider.AddTransient<IAppMessageController, AppMessageController>();
             }
         }
     }

@@ -5,6 +5,24 @@ namespace OnlineQuiz.Presentation.WinForms.Helpers
 {
     public class FormHelper : IFormHelper
     {
+        public void FillForm(Field<DateTime?> field, DateTimePicker dateTimePicker, Label? messageLabel = null)
+        {
+            ThrowHelper.ThrowNullArgumentException(field, nameof(field), dateTimePicker, nameof(dateTimePicker));
+
+            if (field.Value != null)
+                dateTimePicker.Value = (DateTime)field.Value;
+
+            SetMessage(field, messageLabel);
+        }
+
+        public void FillForm(Field<int> field, ComboBox comboBox, Label? messageLabel = null)
+        {
+            ThrowHelper.ThrowNullArgumentException(field, nameof(field), comboBox, nameof(comboBox));
+
+            comboBox.SelectedIndex = field.Value;
+
+            SetMessage(field, messageLabel);
+        }
 
         public void FillForm(Field<string> field, TextBox textBox, Label? messageLabel = null)
         {
@@ -17,6 +35,8 @@ namespace OnlineQuiz.Presentation.WinForms.Helpers
 
         public void FillForm(Field<bool> field, CheckBox checkBox, Label? messageLabel = null)
         {
+            ThrowHelper.ThrowNullArgumentException(field, nameof(field), checkBox, nameof(checkBox));
+
             checkBox.Checked = field.Value;
 
             SetMessage(field, messageLabel);

@@ -4,21 +4,29 @@
     {
         public TestViewModel(int testId,
                              string title,
+                             DateTime? start,
+                             DateTime? end,
                              bool published,
-                             bool randomizeSections)
+                             RandomizeType randomizeType)
         {
             TestId = testId;
             Title = title;
+            Start = start;
+            End = end;
             Published = published;
-            RandomizeSections = randomizeSections;
+            RandomizeType = randomizeType;
         }
 
         public int TestId { get; set; }
 
         public string Title { get; set; }
 
+        public DateTime? Start { get; set; }
+
+        public DateTime? End { get; set; }
+
         public bool Published { get; set; }
 
-        public bool RandomizeSections { get; set; }
+        public RandomizeType RandomizeType { get; set; }
     }
 }

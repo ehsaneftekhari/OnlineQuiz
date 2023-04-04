@@ -2,7 +2,7 @@
 
 namespace OnlineQuiz.Business.Models.Models
 {
-    public abstract class StatusMessageModel : MessageModel, IFine
+    public class StatusMessageModel : MessageModel, IFine
     {
         public StatusMessageModel() : base() { }
 

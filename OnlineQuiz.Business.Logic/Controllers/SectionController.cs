@@ -1,6 +1,8 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Models.Models.Sections;
+using OnlineQuiz.Library;
 using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
 namespace OnlineQuiz.Business.Logic.Controllers
@@ -9,9 +11,19 @@ namespace OnlineQuiz.Business.Logic.Controllers
     {
         ISectionRepository sectionRepository;
 
+
         public SectionController(ISectionRepository sectionRepository)
         {
             this.sectionRepository = sectionRepository;
+        }
+        
+        public void AddSection(Section section)
+        {
+            ThrowHelper.ThrowNullArgumentException(section, nameof(section));
+
+            int newSectionId = 0;
+
+            //bool sectionValidatorResult = testValidator.ValidateTest(newTest);
         }
 
         public List<SectionViewModel> GetSectionList(int testId)

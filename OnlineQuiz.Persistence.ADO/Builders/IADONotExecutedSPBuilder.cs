@@ -6,6 +6,8 @@ namespace OnlineQuiz.Persistence.ADO.Builders
     {
         IADONotExecutedSPBuilder AddParameter(string parameterName, object value);
 
+        IADONotExecutedSPBuilder AddParameter(string parameterName, object value, SqlDbType? dbType);
+
         IADONotExecutedSPBuilder AddOutputParameter(string parameterName, SqlDbType dbType);
 
         IADOExecutedSPBuilder ExecuteNonQuery(out int rowsAffected);
