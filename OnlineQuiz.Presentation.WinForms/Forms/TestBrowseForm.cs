@@ -65,10 +65,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void testListDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = testListDGV.Rows[e.RowIndex];
-            var testId = row.Cells["TestId"].Value;
-            InvokeOnTestSelect((int)testId);
-            CloseIfAllowed();
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = testListDGV.Rows[e.RowIndex];
+                var testId = row.Cells["TestId"].Value;
+                InvokeOnTestSelect((int)testId);
+                CloseIfAllowed();
+            }
         }
 
         private void InvokeOnTestSelect(int testId)

@@ -44,7 +44,12 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_Section_SameStart&End", "Start and End can not be same");
             Messages.Add("en_Section_EarlierEnd", "End can not be Earlier than Start");
             Messages.Add("en_Section_LateStart", "Start can not be later than Start");
-
+            Messages.Add("en_Section_TestAndSectionNotSameStart", "Start date and time should be equal with sections");
+            Messages.Add("en_Section_TestAndSectionNotSameEnd", "End date and time should be equal with sections");
+            Messages.Add("en_Section_NotEnoughTestDuration", "xxxx");
+            Messages.Add("en_Section_LessThanZeroOrder", "xxxx");
+            Messages.Add("en_Section_ZeroAttemptLimit", "xxxx");
+            
             ///////////
 
             Messages.Add("en_AddTestForm_TestAddedSuccessfully", "Test added successfully");

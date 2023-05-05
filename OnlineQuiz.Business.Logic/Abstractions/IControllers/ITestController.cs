@@ -11,5 +11,7 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
         List<TestViewModel> GetTestsList(int baseUserId, string title);
 
         Test GetTest(int testId);
+
+        TimeSpan GetSectionsDurationSum(int testId);
     }
 }

@@ -25,6 +25,17 @@
 
         public DateTime? End { get; set; }
 
+        public TimeSpan? Duration
+        {
+            get
+            {
+                if (Start != null && End != null)
+                    return End - Start;
+
+                return TimeSpan.Zero;
+            }
+        }
+
         public bool Published { get; set; }
 
         public RandomizeType RandomizeType { get; set; }

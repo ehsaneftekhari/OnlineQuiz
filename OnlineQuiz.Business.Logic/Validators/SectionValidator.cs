@@ -5,7 +5,7 @@ using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
 namespace OnlineQuiz.Business.Logic.Validators
 {
-    public class SectionValidator
+    public class SectionValidator : ISectionValidator
     {
         IValidatorFunctions validatorFunctions;
 
@@ -14,33 +14,23 @@ namespace OnlineQuiz.Business.Logic.Validators
             this.validatorFunctions = validatorFunctions;
         }
 
-        public bool IsValid(Section section)
+        public bool ValidateSection(Section section)
         {
             ThrowHelper.ThrowNullArgumentException(section, nameof(section));
 
             validatorFunctions.CheckStringEmpty(section.SectionTitle, "en_Section_EmptyTitle");
             validatorFunctions.CheckStringMaxLength(section.SectionTitle, 32, "en_Section_LongTitle");
 
-            if(!IsEmptyDataTime(section.Start.Value) && !IsEmptyDataTime(section.End.Value))
-            {
-                validatorFunctions.Check(section.Start, start => start == section.End.Value, "en_Section_SameStart&End", ModelStatusEnum.Error);
-                validatorFunctions.Check(section.End, end => end == section.Start.Value, "en_Section_SameStart&End", ModelStatusEnum.Error);
+            validatorFunctions.Check(section.Start, start => start == section.End.Value, "en_Section_SameStart&End", ModelStatusEnum.Error);
+            validatorFunctions.Check(section.End, end => end == section.Start.Value, "en_Section_SameStart&End", ModelStatusEnum.Error);
 
-                validatorFunctions.Check(section.Start, start => start > section.End.Value, "en_Section_LateStart", ModelStatusEnum.Error);
-                validatorFunctions.Check(section.End, end => end > section.Start.Value, "en_Section_EarlierEnd", ModelStatusEnum.Error);
-            }
-            return false;
-        }
+            validatorFunctions.Check(section.Start, start => section.End.Value < start, "en_Section_LateStart", ModelStatusEnum.Error);
+            validatorFunctions.Check(section.End, end => end < section.Start.Value, "en_Section_EarlierEnd", ModelStatusEnum.Error);
 
-        private bool IsEmptyDataTime(DateTime? dateTime)
-        {
-            if (dateTime == null)
-                return true;
+            validatorFunctions.Check(section.Order, order => order < 0, "en_Section_LessThanZeroOrder", ModelStatusEnum.Error);
+            validatorFunctions.Check(section.AttemptLimit, attemptLimit => attemptLimit < 1, "en_Section_ZeroAttemptLimit", ModelStatusEnum.Error);
 
-            if(dateTime == new DateTime())
-                return true;
-
-            return false;
+            return section.IsFine();
         }
     }
 }

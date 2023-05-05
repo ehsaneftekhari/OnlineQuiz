@@ -1,5 +1,6 @@
 ﻿using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Library;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace OnlineQuiz.Presentation.WinForms.Helpers
 {
@@ -15,11 +16,38 @@ namespace OnlineQuiz.Presentation.WinForms.Helpers
             SetMessage(field, messageLabel);
         }
 
+        public void FillForm(Field<TimeSpan?> field, DateTimePicker dateTimePicker, Label? messageLabel = null)
+        {
+            ThrowHelper.ThrowNullArgumentException(field, nameof(field), dateTimePicker, nameof(dateTimePicker));
+
+            if (field.Value != null)
+            {
+                TimeSpan timeSpan = (TimeSpan)field.Value;
+
+                DateTime dateTime = new DateTime();
+
+                dateTimePicker.Value = new(1, 1, 1, timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            }
+
+            SetMessage(field, messageLabel);
+        }
+
         public void FillForm(Field<int> field, ComboBox comboBox, Label? messageLabel = null)
         {
             ThrowHelper.ThrowNullArgumentException(field, nameof(field), comboBox, nameof(comboBox));
 
+
             comboBox.SelectedIndex = field.Value;
+
+            SetMessage(field, messageLabel);
+        }
+
+        public void FillForm(Field<int?> field, NumericUpDown numericUpDown, Label? messageLabel = null)
+        {
+            ThrowHelper.ThrowNullArgumentException(field, nameof(field), numericUpDown, nameof(numericUpDown));
+
+            if (field.Value != null)
+                numericUpDown.Value = (int)field.Value;
 
             SetMessage(field, messageLabel);
         }
@@ -63,6 +91,12 @@ namespace OnlineQuiz.Presentation.WinForms.Helpers
                     messageLabel.ForeColor = Color.Black;
                 }
             }
+        }
+
+        public DateTime CombineDateTime(DateTime Date, DateTime Time)
+        {
+            DateTime dateTime = new(Date.Year, Date.Month, Date.Day, Time.Hour, Time.Minute, Time.Second);
+            return dateTime;
         }
     }
 }

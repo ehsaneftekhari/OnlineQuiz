@@ -39,6 +39,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             AddSectionToolStripMenuItem.Name = "AddSectionToolStripMenuItem";
             AddSectionToolStripMenuItem.Size = new Size(360, 48);
             AddSectionToolStripMenuItem.Text = "AddSection";
+            AddSectionToolStripMenuItem.Click += AddSectionToolStripMenuItem_Click;
 
             ContextMenuStrip = contextMenuStrip;
             contextMenuStrip.ResumeLayout(false);

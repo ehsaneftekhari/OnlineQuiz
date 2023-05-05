@@ -9,7 +9,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     public partial class AddTestForm : Form
     {
         IAppMessageController appMessageController;
-        IServiceProvider serviceProvider;
         ITestController testController;
         IFormHelper formHelper;
 
@@ -17,7 +16,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private AddTestForm(int userId, IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
             testController = serviceProvider.GetRequiredService<ITestController>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             appMessageController = serviceProvider.GetRequiredService<IAppMessageController>();
@@ -70,8 +68,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             DateTime? end = null;
             if (PickDateTimeCkB.Checked)
             {
-                start = CombineDateTime(StartDateDTP.Value, StartTimeDTP.Value);
-                end = CombineDateTime(EndDateDTP.Value, EndTimeDTP.Value);
+                start = formHelper.CombineDateTime(StartDateDTP.Value, StartTimeDTP.Value);
+                end = formHelper.CombineDateTime(EndDateDTP.Value, EndTimeDTP.Value);
             }
             Test newTest = new Test(UserId,
                                     TitleTB.Text,
@@ -120,12 +118,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             FillForm(new Test(0, "", null, null, false, RandomizeType.FollowSectionsSetting));
             PickDateTimeCkB.Checked = false;
-        }
-
-        DateTime CombineDateTime(DateTime Date, DateTime Time)
-        {
-            DateTime dateTime = new(Date.Year, Date.Month, Date.Day, Time.Hour, Time.Minute, Time.Second);
-            return dateTime;
         }
 
         void InvokeTestAdded(Test newTest)

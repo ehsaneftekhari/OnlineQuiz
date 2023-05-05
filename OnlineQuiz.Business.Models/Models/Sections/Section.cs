@@ -16,7 +16,7 @@ namespace OnlineQuiz.Business.Models.Models.Sections
         public Field<bool> DisplayResult;
         public Field<bool> AllowEdit;
 
-        private Section()
+        public Section()
         {
             SectionId = 0;
             TestId = 0;

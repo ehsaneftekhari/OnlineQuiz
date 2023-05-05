@@ -4,6 +4,8 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
     public interface ISectionController
     {
-        List<SectionViewModel> GetSectionList(int testId);
+        void AddSection(int testId, Section section);
+        List<SectionViewModel> GetSectionViewModelList(int testId);
+        Section GetSection(int sectionId);
     }
 }

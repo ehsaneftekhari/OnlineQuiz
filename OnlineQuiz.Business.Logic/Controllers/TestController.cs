@@ -1,8 +1,10 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
+using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
+using OnlineQuiz.Persistence.ADO.Repositories;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
@@ -10,12 +12,14 @@ namespace OnlineQuiz.Business.Logic.Controllers
     {
         ITestRepository testRepository;
         ITestValidator testValidator;
+        ISectionRepository sectionRepository;
 
 
-        public TestController(ITestRepository testRepository, ITestValidator testValidator)
+        public TestController(ITestRepository testRepository, ITestValidator testValidator, ISectionRepository sectionRepository)
         {
             this.testRepository = testRepository;
             this.testValidator = testValidator;
+            this.sectionRepository = sectionRepository;
         }
 
         public void AddTest(Test newTest)
@@ -62,6 +66,21 @@ namespace OnlineQuiz.Business.Logic.Controllers
             Test getResult = testRepository.Get(testId);
 
             return getResult;
+        }
+
+        public TimeSpan GetSectionsDurationSum(int testId)
+        {
+            List<Section> sections = sectionRepository.GetList(testId);
+
+            TimeSpan durationSum = new TimeSpan();
+
+            foreach (var section in sections)
+            {
+                if (section.Duration.Value != null)
+                    durationSum += section.Duration.Value.Value;
+            }
+
+            return durationSum;
         }
     }
 }

@@ -62,17 +62,30 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         void AddChildNode(SectionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
 
-        void AddChildNode(List<SectionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
+        void AddChildNodeRange(List<SectionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
+
+        List<SectionViewModel> GetSectionViewModelsOfTest() => sectionController.GetSectionViewModelList(TestId);
+
+        SectionViewModel GetSectionViewModel(int sectionId) => sectionController.GetSection(sectionId).ToViewModel();
+        
+        void AddSection(int sectionId)
+        {
+            SectionViewModel section = GetSectionViewModel(sectionId);
+
+            var sectionTreeNode = new SectionTreeNode(questionController, section.SectionTitle, section.Order, section.SectionId);
+
+            AddChildNode(sectionTreeNode);
+        }
 
         void ReLoadSections()
         {
             ClearSectionNodes();
 
-            List<SectionViewModel> sectionViewModelList = sectionController.GetSectionList(TestId);
+            List<SectionViewModel> sectionViewModelList = GetSectionViewModelsOfTest();
 
             List<SectionTreeNode> sectionTreeList = sectionViewModelList.Select(SVM => new SectionTreeNode(questionController, SVM.SectionTitle, SVM.Order, SVM.SectionId)).ToList();
 
-            AddChildNode(sectionTreeList);
+            AddChildNodeRange(sectionTreeList);
         }
 
         void ClearSectionNodes() => Nodes.Clear();
@@ -82,6 +95,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         void OpenTestPropertiesForm()
         {
             TestPropertiesForm testPropertiesForm = TestPropertiesForm.Create(TestId, 0, serviceProvider);
+            testPropertiesForm.OnTestSaved -= SetTestData;
             testPropertiesForm.OnTestSaved += SetTestData;
             InvokeChildFormAdder(testPropertiesForm);
         }
@@ -101,6 +115,14 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         {
             if (TestNodeCloser != null)
                 TestNodeCloser.Invoke(this);
+        }
+
+        private void AddSectionToolStripMenuItem_Click(Object sender, EventArgs e)
+        {
+            AddSectionForm addSectionForm = AddSectionForm.Create(TestId, serviceProvider);
+            addSectionForm.OnSectionAdded -= AddSection;
+            addSectionForm.OnSectionAdded += AddSection;
+            InvokeChildFormAdder(addSectionForm);
         }
     }
 }

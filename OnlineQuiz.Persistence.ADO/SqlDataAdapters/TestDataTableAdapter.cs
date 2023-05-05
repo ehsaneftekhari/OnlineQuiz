@@ -13,6 +13,7 @@ namespace OnlineQuiz.Persistence.ADO.SqlDataAdapters
             SqlDateAdapter adapter = new SqlDateAdapter();
 
             int TestId = adapter.ToInt32(dataRow["TestId"], 0);
+
             int BaseUserId = adapter.ToInt32(dataRow["BaseUserId"], 0);
             string Title = adapter.ToString(dataRow["Title"])!;
             DateTime? Start = adapter.ToDataTime(dataRow["Start"]);
