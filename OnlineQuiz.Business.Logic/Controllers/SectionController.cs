@@ -48,5 +48,19 @@ namespace OnlineQuiz.Business.Logic.Controllers
         }
 
         public Section GetSection(int sectionId) => sectionRepository.GetSection(sectionId);
+
+        public bool EditSection(Section section)
+        {
+            ThrowHelper.ThrowNullArgumentException(section, nameof(section));
+
+            bool sectionValidatorResult = sectionValidator.ValidateSection(section);
+            bool sectionVerifierResult = sectionValidatorResult && sectionVerifier.VerifySection(section);
+
+            bool result = false;
+            if (sectionVerifierResult && sectionValidatorResult)
+                result = sectionRepository.EditSection(section) == 1;
+
+            return result; ;
+        }
     }
 }

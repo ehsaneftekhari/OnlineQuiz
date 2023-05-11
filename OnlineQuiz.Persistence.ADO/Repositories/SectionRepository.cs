@@ -63,5 +63,37 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
             return new SectionDataTableAdapter().DataTableToList(dataTable).FirstOrDefault();
         }
+
+        public int EditSection(Section Section)
+        {
+            ThrowHelper.ThrowNullArgumentException(
+                Section, nameof(Section),
+                Section.SectionTitle, nameof(Section.SectionTitle),
+                Section.Start, nameof(Section.Start),
+                Section.End, nameof(Section.End),
+                Section.Duration, nameof(Section.Duration),
+                Section.Order, nameof(Section.Order),
+                Section.AttemptLimit, nameof(Section.AttemptLimit),
+                Section.RandomizeQuestions, nameof(Section.RandomizeQuestions),
+                Section.DisplayResult, nameof(Section.DisplayResult),
+                Section.AllowEdit, nameof(Section.AllowEdit)
+                );
+
+            int rowsAffected;
+            ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Section_Edit]")
+                .AddParameter("@SectionTitle", Section.SectionTitle.Value)
+                .AddParameter("@Start", Section.Start.Value, SqlDbType.DateTime)
+                .AddParameter("@End", Section.End.Value, SqlDbType.DateTime)
+                .AddParameter("@Duration", Section.Duration.Value, SqlDbType.Time)
+                .AddParameter("@Order", Section.Order.Value)
+                .AddParameter("@AttemptLimit", Section.AttemptLimit.Value)
+                .AddParameter("@RandomizeQuestions", Section.RandomizeQuestions.Value)
+                .AddParameter("@DisplayResult", Section.DisplayResult.Value)
+                .AddParameter("@AllowEdit", Section.AllowEdit.Value)
+                .AddParameter("SectionId", Section.SectionId)
+                .ExecuteNonQuery(out rowsAffected);
+
+            return rowsAffected;
+        }
     }
 }

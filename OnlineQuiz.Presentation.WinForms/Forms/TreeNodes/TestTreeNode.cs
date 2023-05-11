@@ -12,17 +12,19 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         ITestController testController;
         ISectionController sectionController;
         IQuestionController questionController;
+        IContainer container;
 
         public TestTreeNode(IServiceProvider serviceProvider,
                             IContainer container,
                             int testId) : base()
         {
-            InitializeComponent(container);
-            TestId = testId;
             this.serviceProvider = serviceProvider;
             this.testController = serviceProvider.GetRequiredService<ITestController>();
             this.sectionController = serviceProvider.GetRequiredService<ISectionController>();
             this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
+            this.container = container;
+            TestId = testId;
+            InitializeComponent(container);
             ReLoadSections();
         }
 
@@ -67,14 +69,23 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         List<SectionViewModel> GetSectionViewModelsOfTest() => sectionController.GetSectionViewModelList(TestId);
 
         SectionViewModel GetSectionViewModel(int sectionId) => sectionController.GetSection(sectionId).ToViewModel();
-        
-        void AddSection(int sectionId)
+
+        void AddSectionFromSeedDate(int sectionId)
         {
             SectionViewModel section = GetSectionViewModel(sectionId);
 
-            var sectionTreeNode = new SectionTreeNode(questionController, section.SectionTitle, section.Order, section.SectionId);
+            var sectionTreeNode = new SectionTreeNode(serviceProvider,
+                                                      container,
+                                                      section.SectionTitle,
+                                                      section.Order,
+                                                      section.SectionId,
+                                                      TestId);
+            sectionTreeNode.ChildFormAdder = InvokeChildFormAdder;
+            sectionTreeNode.OnSectionEdited += ReLoadSections;
 
             AddChildNode(sectionTreeNode);
+
+            //ReLoadSections();
         }
 
         void ReLoadSections()
@@ -83,7 +94,19 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
             List<SectionViewModel> sectionViewModelList = GetSectionViewModelsOfTest();
 
-            List<SectionTreeNode> sectionTreeList = sectionViewModelList.Select(SVM => new SectionTreeNode(questionController, SVM.SectionTitle, SVM.Order, SVM.SectionId)).ToList();
+            List<SectionTreeNode> sectionTreeList = sectionViewModelList.Select(
+                SVM => {
+                    var sectionTreeNode = new SectionTreeNode(serviceProvider,
+                    container,
+                    SVM.SectionTitle,
+                    SVM.Order,
+                    SVM.SectionId,
+                    TestId);
+                    sectionTreeNode.ChildFormAdder += InvokeChildFormAdder;
+                    sectionTreeNode.OnSectionEdited += ReLoadSections;
+                    return sectionTreeNode;
+                }
+            ).ToList();
 
             AddChildNodeRange(sectionTreeList);
         }
@@ -102,7 +125,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         void InvokeChildFormAdder(Form childForm)
         {
-            if(ChildFormAdder != null)
+            if (ChildFormAdder != null)
                 ChildFormAdder.Invoke(childForm);
         }
 
@@ -120,8 +143,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         private void AddSectionToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             AddSectionForm addSectionForm = AddSectionForm.Create(TestId, serviceProvider);
-            addSectionForm.OnSectionAdded -= AddSection;
-            addSectionForm.OnSectionAdded += AddSection;
+            addSectionForm.OnSectionAdded -= AddSectionFromSeedDate;
+            addSectionForm.OnSectionAdded += AddSectionFromSeedDate;
             InvokeChildFormAdder(addSectionForm);
         }
     }

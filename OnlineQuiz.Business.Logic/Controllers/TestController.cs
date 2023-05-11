@@ -45,7 +45,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
             bool result = false;
 
             if (testValidatorResult)
-                result = testRepository.Edit(editedTest) == 1 ? true : false;
+                result = testRepository.Edit(editedTest) == 1;
 
             return result;
         }

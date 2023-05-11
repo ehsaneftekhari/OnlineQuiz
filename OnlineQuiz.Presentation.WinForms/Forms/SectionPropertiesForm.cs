@@ -6,9 +6,9 @@ using OnlineQuiz.Library;
 using OnlineQuiz.Presentation.WinForms.Helpers;
 using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
-namespace OnlineQuiz.Presentation.WinForms
+namespace OnlineQuiz.Presentation.WinForms.Forms
 {
-    public partial class AddSectionForm : Form
+    public partial class SectionPropertiesForm : Form
     {
         public enum AfterAddEnum { None = 1, ClearForm, CloseForm }
 
@@ -17,11 +17,11 @@ namespace OnlineQuiz.Presentation.WinForms
         readonly IFormHelper formHelper;
 
         Test _test;
+        Section _section;
 
-        static List<AddSectionForm> instances;
+        static List<SectionPropertiesForm> instances;
 
-
-        AddSectionForm(IServiceProvider serviceProvider, int testId)
+        private SectionPropertiesForm(IServiceProvider serviceProvider, int testId, int sectionsId)
         {
             testController = serviceProvider.GetRequiredService<ITestController>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
@@ -29,31 +29,32 @@ namespace OnlineQuiz.Presentation.WinForms
 
             InitializeComponent();
 
-            AfterAddCB.DataSource = Enum.GetValues(typeof(AfterAddEnum));
-            AfterAddCB.SelectedIndex = 1;
+            //AfterAddCB.DataSource = Enum.GetValues(typeof(AfterAddEnum));
+            //AfterAddCB.SelectedIndex = 1;
 
             ClearForm();
             LoadTestSeedData(testId);
             UpdateRemainingTime();
+            LoadSectionSeedData(sectionsId);
         }
 
-        public static AddSectionForm Create(int testId, IServiceProvider serviceProvider)
+        public static SectionPropertiesForm Create(int testId, int sectionsId, IServiceProvider serviceProvider)
         {
             if (instances == null)
-                instances = new List<AddSectionForm>();
+                instances = new List<SectionPropertiesForm>();
 
-            AddSectionForm instance = instances.FirstOrDefault(x => x.Test.TestId == testId)!;
+            SectionPropertiesForm instance = instances.FirstOrDefault(x => x.SectionId == sectionsId)!;
 
             if (instance == null || instance.IsDisposed)
             {
-                instance = new(serviceProvider, testId);
+                instance = new(serviceProvider, testId, sectionsId);
                 instances.Add(instance);
             }
 
             return instance;
         }
 
-        public Action<int> OnSectionAdded { get; set; }
+        public Action<int> OnSectionEdited { get; set; }
 
         bool RemainingTimeVisible
         {
@@ -97,10 +98,13 @@ namespace OnlineQuiz.Presentation.WinForms
             }
         }
 
-        void InvokeOnSectionAdded(Section newSection)
+        int SectionId => _section.SectionId;
+
+
+        void InvokeOnSectionEdited(Section newSection)
         {
-            if (OnSectionAdded != null)
-                OnSectionAdded.Invoke(newSection.SectionId);
+            if (OnSectionEdited != null)
+                OnSectionEdited.Invoke(newSection.SectionId);
         }
 
         bool UpdateRemainingTimeVisible() => RemainingTimeVisible = Test != null && Test.Start.Value != null && Test.End.Value != null;
@@ -109,7 +113,15 @@ namespace OnlineQuiz.Presentation.WinForms
 
         Test GetTestSeedData(int testId) => testController.GetTest(testId);
 
-        void AddSectionSeedData(Section section) => sectionController.AddSection(Test.TestId, section);
+        void LoadSectionSeedData(int sectionId) 
+        {
+            _section = GetSectionSeedData(sectionId);
+            FillSectionForm(_section);
+        }
+
+        void EditSectionSeedData(Section section) => sectionController.EditSection(section);
+
+        Section GetSectionSeedData(int sectionId) => sectionController.GetSection(sectionId);
 
         void FillTestInfoLabels(Test test)
         {
@@ -351,34 +363,29 @@ namespace OnlineQuiz.Presentation.WinForms
                        (int)DurationSecondsNUD.Value);
         }
 
-        void AddSection()
+        void UpdateSection()
         {
-            Section newSection = GetFormValue();
-            AddSectionSeedData(newSection);
-            FillSectionForm(newSection);
+            Section section = GetFormValue();
+            section.SectionId = SectionId;
+            EditSectionSeedData(section);
+            FillSectionForm(section);
 
-            if (newSection.IsFine())
+            if (section.IsFine())
             {
-                InvokeOnSectionAdded(newSection);
-                switch (AfterAddCB.SelectedValue)
-                {
-                    case AfterAddEnum.CloseForm:
-                        Close();
-                        break;
-                    case AfterAddEnum.ClearForm:
-                        ClearForm();
-                        break;
-                }
+                InvokeOnSectionEdited(section);
             }
         }
 
         private void CancelBtn_Click(object sender, EventArgs e) => Close();
 
-        private void ClearFormBtn_Click(object sender, EventArgs e) => ClearForm();
-
         private void Duration_ValueChanged(object sender, EventArgs e) => UpdateRemainingTime();
 
-        private void AddBtn_Click(object sender, EventArgs e) => AddSection();
-    }
+        private void ApplyBtn_Click(object sender, EventArgs e) => UpdateSection();
 
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            UpdateSection();
+            Close();
+        }
+    }
 }
