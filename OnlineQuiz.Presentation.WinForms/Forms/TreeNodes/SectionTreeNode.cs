@@ -1,15 +1,40 @@
-﻿using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Logic.Abstractions.IControllers;
 using OnlineQuiz.Business.Models.Models.Questions;
+using OnlineQuiz.Business.Models.Models.Tests;
+using System.ComponentModel;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
     public partial class SectionTreeNode : TreeNode
     {
-        IQuestionController questionController;
+        readonly IQuestionController questionController;
+        readonly IServiceProvider serviceProvider;
+        int? _Order;
 
-        public int SectionId { get; set; }
+        string _SectionTitle;
 
-        private int? _Order;
+        public SectionTreeNode(IServiceProvider serviceProvider,
+                               IContainer container,
+                               string sectionTitle,
+                               int? order,
+                               int sectionId,
+                               int testId) : base()
+        {
+            InitializeComponent(container);
+            this.serviceProvider = serviceProvider;
+            this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
+            SectionId = sectionId;
+            SectionTitle  = sectionTitle;
+            Order = order;
+            TestId = testId;
+            ReLoadQuestions();
+        }
+
+        int SectionId { get; set; }
+
+        int TestId { get; set; }
+
         public int? Order
         {
             get => _Order;
@@ -20,7 +45,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             }
         }
 
-        private string _SectionTitle;
         public string SectionTitle
         {
             get => _SectionTitle;
@@ -31,14 +55,20 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             }
         }
 
-        public SectionTreeNode(IQuestionController questionController, string sectionTitle, int? order, int sectionId)
-        {
-            SectionId = sectionId;
-            Order = order;
-            SectionTitle = sectionTitle;
-            this.questionController = questionController;
+        public Action<Form> ChildFormAdder { get; set; }
 
-            ReLoadQuestions();
+        public Action OnSectionEdited { get; set; }
+
+        void InvokeChildFormAdder(Form childForm)
+        {
+            if (ChildFormAdder != null)
+                ChildFormAdder.Invoke(childForm);
+        }
+
+        void InvokeSectionEdited()
+        {
+            if (OnSectionEdited != null)
+                OnSectionEdited.Invoke();
         }
 
         public void AddChild(QuestionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
@@ -49,7 +79,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         {
             List<QuestionViewModel> questionViewModelList = questionController.GetQuestionList(SectionId);
 
-            List<QuestionTreeNode> questionTreeNodeList 
+            List<QuestionTreeNode> questionTreeNodeList
                 = questionViewModelList.Select(
                     QVM => new QuestionTreeNode(
                     QVM.QuestionId,
@@ -68,6 +98,19 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                 Text += Order + " _ ";
 
             Text += SectionTitle;
+        }
+
+        private void PropertiesToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            SectionPropertiesForm addSectionForm = SectionPropertiesForm.Create(TestId, SectionId, serviceProvider);
+            addSectionForm.OnSectionEdited -= SectionEdited;
+            addSectionForm.OnSectionEdited += SectionEdited;
+            InvokeChildFormAdder(addSectionForm);
+        }
+
+        private void SectionEdited(int SectionId)
+        {
+            InvokeSectionEdited();
         }
     }
 }

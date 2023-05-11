@@ -7,5 +7,6 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
         void AddSection(int testId, Section section);
         List<SectionViewModel> GetSectionViewModelList(int testId);
         Section GetSection(int sectionId);
+        bool EditSection(Section section);
     }
 }

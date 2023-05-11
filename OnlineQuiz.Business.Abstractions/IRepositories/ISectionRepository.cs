@@ -7,5 +7,6 @@ namespace OnlineQuiz.Business.Abstractions.IRepositories
         int Add(Section newSection);
         List<Section> GetList(int testId);
         Section GetSection(int sectionId);
+        int EditSection(Section Section);
     }
 }
