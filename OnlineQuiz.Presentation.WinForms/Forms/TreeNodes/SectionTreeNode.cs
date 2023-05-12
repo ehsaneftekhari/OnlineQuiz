@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Controllers;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Business.Models.Models.Tests;
 using System.ComponentModel;
@@ -10,6 +12,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
     {
         readonly IQuestionController questionController;
         readonly IServiceProvider serviceProvider;
+        readonly ISectionController sectionController;
         int? _Order;
 
         string _SectionTitle;
@@ -21,13 +24,14 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                                int sectionId,
                                int testId) : base()
         {
-            InitializeComponent(container);
             this.serviceProvider = serviceProvider;
             this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
+            this.sectionController = serviceProvider.GetRequiredService<ISectionController>();
             SectionId = sectionId;
             SectionTitle  = sectionTitle;
             Order = order;
             TestId = testId;
+            InitializeComponent(container);
             ReLoadQuestions();
         }
 
@@ -59,6 +63,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         public Action OnSectionEdited { get; set; }
 
+        public Action OnSectionDelete { get; set; }
+
         void InvokeChildFormAdder(Form childForm)
         {
             if (ChildFormAdder != null)
@@ -69,6 +75,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         {
             if (OnSectionEdited != null)
                 OnSectionEdited.Invoke();
+        }
+
+        void InvokeSectionDelete()
+        {
+            if (OnSectionDelete != null)
+                OnSectionDelete.Invoke();
         }
 
         public void AddChild(QuestionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
@@ -111,6 +123,17 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         private void SectionEdited(int SectionId)
         {
             InvokeSectionEdited();
+        }
+
+        private void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            var result = sectionController.DeleteSection(SectionId);
+
+            if (result.result == DeleteResult.Failed)
+                MessageBox.Show(result.message);
+
+            if (result.result == DeleteResult.Success)
+                InvokeSectionDelete();
         }
     }
 }

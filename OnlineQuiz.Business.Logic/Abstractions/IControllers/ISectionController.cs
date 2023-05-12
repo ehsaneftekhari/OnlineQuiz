@@ -1,4 +1,5 @@
-﻿using OnlineQuiz.Business.Models.Models.Sections;
+﻿using OnlineQuiz.Business.Abstractions.IRepositories;
+using OnlineQuiz.Business.Models.Models.Sections;
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
@@ -8,5 +9,6 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
         List<SectionViewModel> GetSectionViewModelList(int testId);
         Section GetSection(int sectionId);
         bool EditSection(Section section);
+        (DeleteResult result, string message) DeleteSection(int sectionId);
     }
 }

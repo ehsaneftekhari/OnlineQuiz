@@ -8,5 +8,6 @@ namespace OnlineQuiz.Business.Abstractions.IRepositories
         List<Section> GetList(int testId);
         Section GetSection(int sectionId);
         int EditSection(Section Section);
+        DeleteResult DeleteSection(int sectionId);
     }
 }

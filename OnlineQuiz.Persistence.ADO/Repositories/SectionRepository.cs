@@ -95,5 +95,22 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
             return rowsAffected;
         }
+
+        public DeleteResult DeleteSection(int sectionId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Section_Delete]")
+                    .AddParameter("SectionId", sectionId)
+                    .ExecuteNonQuery(out rowsAffected);
+            }
+            catch (Exception ex)
+            {
+                int x = 1;
+            }
+
+            return rowsAffected == 1 ? DeleteResult.Success : DeleteResult.Failed;
+        }
     }
 }

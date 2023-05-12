@@ -9,13 +9,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             contextMenuStrip = new ContextMenuStrip(container);
             AddQuestionToolStripMenuItem = new ToolStripMenuItem();
             PropertiesToolStripMenuItem = new ToolStripMenuItem();
-            CloseToolStripMenuItem = new ToolStripMenuItem();
+            DeleteToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip.SuspendLayout();
             // 
             // contextMenuStrip
             // 
             contextMenuStrip.ImageScalingSize = new Size(40, 40);
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { AddQuestionToolStripMenuItem, CloseToolStripMenuItem, PropertiesToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { AddQuestionToolStripMenuItem, DeleteToolStripMenuItem, PropertiesToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new Size(361, 155);
             // 
@@ -26,18 +26,18 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             PropertiesToolStripMenuItem.Text = "Properties";
             PropertiesToolStripMenuItem.Click += PropertiesToolStripMenuItem_Click;
             // 
-            // CloseToolStripMenuItem
+            // DeleteToolStripMenuItem
             // 
-            CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
-            CloseToolStripMenuItem.Size = new Size(360, 48);
-            CloseToolStripMenuItem.Text = "Close";
-            //CloseToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
+            DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            DeleteToolStripMenuItem.Size = new Size(360, 48);
+            DeleteToolStripMenuItem.Text = "Delete";
+            DeleteToolStripMenuItem.Click += DeleteToolStripMenuItem_Click;
             // 
             // AddQuestionToolStripMenuItem
             // 
             AddQuestionToolStripMenuItem.Name = "AddQuestionToolStripMenuItem";
             AddQuestionToolStripMenuItem.Size = new Size(360, 48);
-            AddQuestionToolStripMenuItem.Text = "AddSection";
+            AddQuestionToolStripMenuItem.Text = "AddQuestion";
             //AddQuestionToolStripMenuItem.Click += AddSectionToolStripMenuItem_Click;
 
             ContextMenuStrip = contextMenuStrip;
@@ -47,6 +47,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem AddQuestionToolStripMenuItem;
         private ToolStripMenuItem PropertiesToolStripMenuItem;
-        private ToolStripMenuItem CloseToolStripMenuItem;
+        private ToolStripMenuItem DeleteToolStripMenuItem;
     }
 }

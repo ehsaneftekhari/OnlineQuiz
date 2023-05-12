@@ -424,6 +424,15 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE [Tests].[Usp_Section_Delete]
+@SectionId INT OUTPUT
+AS
+BEGIN
+	DELETE [Tests].[Section] 
+	WHERE [SectionId] = @SectionId
+END
+GO
+
 --insert into [Tests].[Section]([TestId], [SectionTitle]) values
 --(1, 'Section1_1'),
 --(1, 'Section1_2'),

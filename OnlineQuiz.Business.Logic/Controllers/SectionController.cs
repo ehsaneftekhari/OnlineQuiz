@@ -4,7 +4,6 @@ using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Library;
-using OnlineQuiz.Persistence.ADO.Repositories;
 using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
 namespace OnlineQuiz.Business.Logic.Controllers
@@ -14,7 +13,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
         ISectionRepository sectionRepository;
         ISectionValidator sectionValidator;
         ISectionVerifier sectionVerifier;
-
+        IAppMessageController appMessageController;
 
         public SectionController(ISectionRepository sectionRepository, ISectionValidator sectionValidator, ISectionVerifier sectionVerifier)
         {
@@ -23,7 +22,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
             this.sectionVerifier = sectionVerifier;
         }
 
-        public void AddSection(int testId ,Section section)
+        public void AddSection(int testId, Section section)
         {
             ThrowHelper.ThrowNullArgumentException(section, nameof(section));
 
@@ -32,7 +31,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
             bool sectionValidatorResult = sectionValidator.ValidateSection(section);
             bool sectionVerifierResult = sectionValidatorResult && sectionVerifier.VerifySection(section);
 
-            if(sectionVerifierResult && sectionValidatorResult)
+            if (sectionVerifierResult && sectionValidatorResult)
                 newSectionId = sectionRepository.Add(section);
 
             section.SectionId = newSectionId;
@@ -61,6 +60,16 @@ namespace OnlineQuiz.Business.Logic.Controllers
                 result = sectionRepository.EditSection(section) == 1;
 
             return result; ;
+        }
+
+        public (DeleteResult result, string message) DeleteSection(int sectionId)
+        {
+            DeleteResult result;
+            string message = "";
+            result = sectionRepository.DeleteSection(sectionId);
+            if (result == DeleteResult.Failed)
+                message = appMessageController.GetMessage("en_Section_SectionDidNotDeleted");
+            return (result, message);
         }
     }
 }

@@ -49,7 +49,8 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_Section_NotEnoughTestDuration", "xxxx");
             Messages.Add("en_Section_LessThanZeroOrder", "xxxx");
             Messages.Add("en_Section_ZeroAttemptLimit", "xxxx");
-            
+            Messages.Add("en_Section_SectionDidNotDeleted", "xxxx");
+
             ///////////
 
             Messages.Add("en_AddTestForm_TestAddedSuccessfully", "Test added successfully");
