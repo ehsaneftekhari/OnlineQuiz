@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
-using OnlineQuiz.Business.Logic.Controllers;
+using OnlineQuiz.Business.Logic.Services;
 using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Logic.Verifiers;
 
@@ -16,13 +16,13 @@ namespace OnlineQuiz.Business.Logic
             {
                 serviceProvider.AddTransient<IValidatorFunctions, ValidatorFunctions>();
                 serviceProvider.AddTransient<IUserValidator, UserValidator>();
-                serviceProvider.AddTransient<IUserController, UserController>();
+                serviceProvider.AddTransient<IUserService, UserService>();
                 serviceProvider.AddTransient<IUserVerifier, UserVerifier>();
-                serviceProvider.AddTransient<ITestController, TestController>();
+                serviceProvider.AddTransient<ITestService, TestService>();
                 serviceProvider.AddTransient<ITestValidator, TestValidator>();
-                serviceProvider.AddTransient<ISectionController, SectionController>();
-                serviceProvider.AddTransient<IQuestionController, QuestionController>();
-                serviceProvider.AddTransient<IAppMessageController, AppMessageController>();
+                serviceProvider.AddTransient<ISectionService, SectionService>();
+                serviceProvider.AddTransient<IQuestionService, QuestionService>();
+                serviceProvider.AddTransient<IAppMessageService, AppMessageService>();
                 serviceProvider.AddTransient<ISectionValidator, SectionValidator>();
                 serviceProvider.AddTransient<ISectionVerifier, SectionVerifier>();
             }

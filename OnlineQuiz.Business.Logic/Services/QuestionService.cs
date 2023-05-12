@@ -1,14 +1,14 @@
-﻿using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+﻿using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Persistence.ADO.Repositories;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
-    public class QuestionController : IQuestionController
+    public class QuestionService : IQuestionService
     {
         IQuestionRepository questionRepository;
 
-        public QuestionController(IQuestionRepository questionRepository)
+        public QuestionService(IQuestionRepository questionRepository)
         {
             this.questionRepository = questionRepository;
         }

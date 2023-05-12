@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
-using OnlineQuiz.Business.Logic.Controllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
@@ -10,7 +9,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     public partial class TestPropertiesForm : Form
     {
         IServiceProvider serviceProvider;
-        ITestController testController;
+        ITestService testServices;
         IFormHelper formHelper;
 
         private static List<TestPropertiesForm> instances;
@@ -18,7 +17,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         private TestPropertiesForm(int testId, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             InitializeComponent();
             TestId = testId;
@@ -70,7 +69,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         Test GetSeedData()
         {
-            return testController.GetTest(TestId);
+            return testServices.GetTest(TestId);
         }
 
         void FillForm(Test test)
@@ -105,7 +104,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                                     PublishCkB.Checked,
                                     (RandomizeType)RandomizeTypeCB.SelectedIndex);
 
-            bool editResult = testController.EditTest(editedTest);
+            bool editResult = testServices.EditTest(editedTest);
 
             FillForm(editedTest);
 

@@ -1,21 +1,21 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
-    public class UserController : IUserController
+    public class UserService : IUserService
     {
         IBaseUserRepository baseUserRepository;
         IUserRepository userRepository;
         IUserValidator userValidator;
         IUserVerifier verifier;
 
-        public UserController(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository)
+        public UserService(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository)
         {
             this.baseUserRepository = baseUserRepository;
             this.userValidator = userValidator;

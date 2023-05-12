@@ -1,14 +1,14 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
-    public class AppMessageController : IAppMessageController
+    public class AppMessageService : IAppMessageService
     {
         IAppMessageRepository appMessageRepository;
 
-        public AppMessageController(IAppMessageRepository appMessageRepository)
+        public AppMessageService(IAppMessageRepository appMessageRepository)
         {
             this.appMessageRepository = appMessageRepository;
         }

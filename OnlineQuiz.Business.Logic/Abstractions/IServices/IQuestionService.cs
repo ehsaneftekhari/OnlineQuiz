@@ -1,8 +1,8 @@
 ﻿using OnlineQuiz.Business.Models.Models.Questions;
 
-namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
+namespace OnlineQuiz.Business.Logic.Abstractions.IServices
 {
-    public interface IQuestionController
+    public interface IQuestionService
     {
         List<QuestionViewModel> GetQuestionList(int sectionId);
     }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
 using System;
@@ -8,7 +8,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class TestBrowseForm : Form
     {
-        ITestController testController;
+        ITestService testServices;
 
         static List<TestBrowseForm> instanceList;
 
@@ -16,7 +16,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             InitializeComponent();
 
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             UserId = userId;
 
             LoadListData();
@@ -55,7 +55,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private List<TestViewModel> GetData()
         {
-            return testController.GetTestsList(UserId, TestTitleTB.Text);
+            return testServices.GetTestsList(UserId, TestTitleTB.Text);
         }
 
         private void SearchBtn_Click(object sender, EventArgs e)

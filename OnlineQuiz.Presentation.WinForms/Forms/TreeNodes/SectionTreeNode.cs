@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
-using OnlineQuiz.Business.Logic.Controllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Business.Models.Models.Tests;
 using System.ComponentModel;
@@ -10,9 +9,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
     public partial class SectionTreeNode : TreeNode
     {
-        readonly IQuestionController questionController;
+        readonly IQuestionService questionServices;
         readonly IServiceProvider serviceProvider;
-        readonly ISectionController sectionController;
+        readonly ISectionService sectionServices;
         int? _Order;
 
         string _SectionTitle;
@@ -25,8 +24,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                                int testId) : base()
         {
             this.serviceProvider = serviceProvider;
-            this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
-            this.sectionController = serviceProvider.GetRequiredService<ISectionController>();
+            this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
+            this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
             SectionId = sectionId;
             SectionTitle  = sectionTitle;
             Order = order;
@@ -89,7 +88,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         private void ReLoadQuestions()
         {
-            List<QuestionViewModel> questionViewModelList = questionController.GetQuestionList(SectionId);
+            List<QuestionViewModel> questionViewModelList = questionServices.GetQuestionList(SectionId);
 
             List<QuestionTreeNode> questionTreeNodeList
                 = questionViewModelList.Select(
@@ -127,7 +126,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         private void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            var result = sectionController.DeleteSection(SectionId);
+            var result = sectionServices.DeleteSection(SectionId);
 
             if (result.result == DeleteResult.Failed)
                 MessageBox.Show(result.message);

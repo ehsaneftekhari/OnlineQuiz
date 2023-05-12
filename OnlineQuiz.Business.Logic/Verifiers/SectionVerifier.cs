@@ -1,5 +1,5 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models;
@@ -15,17 +15,17 @@ namespace OnlineQuiz.Business.Logic.Verifiers
         ISectionRepository sectionRepository;
         IAppMessageRepository appMessageRepository;
         IValidatorFunctions validatorFunctions;
-        ITestController testController;
+        ITestService testServices;
 
         public SectionVerifier(ITestRepository testRepository,
                                ISectionRepository sectionRepository,
                                IValidatorFunctions validatorFunctions,
-                               ITestController testController)
+                               ITestService testServices)
         {
             this.testRepository = testRepository;
             this.sectionRepository = sectionRepository;
             this.validatorFunctions = validatorFunctions;
-            this.testController = testController;
+            this.testServices = testServices;
         }
 
 
@@ -55,7 +55,7 @@ namespace OnlineQuiz.Business.Logic.Verifiers
                                          "en_Section_TestAndSectionNotSameEnd",
                                          ModelStatusEnum.Error);
 
-                TimeSpan SectionsDurationSum = testController.GetSectionsDurationSum(section.TestId);
+                TimeSpan SectionsDurationSum = testServices.GetSectionsDurationSum(section.TestId);
 
                 validatorFunctions.Check(section.Duration,
                                          duration => duration >= SectionsDurationSum,

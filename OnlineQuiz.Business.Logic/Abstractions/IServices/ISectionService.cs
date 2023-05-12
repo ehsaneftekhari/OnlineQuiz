@@ -1,9 +1,9 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Models.Models.Sections;
 
-namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
+namespace OnlineQuiz.Business.Logic.Abstractions.IServices
 {
-    public interface ISectionController
+    public interface ISectionService
     {
         void AddSection(int testId, Section section);
         List<SectionViewModel> GetSectionViewModelList(int testId);

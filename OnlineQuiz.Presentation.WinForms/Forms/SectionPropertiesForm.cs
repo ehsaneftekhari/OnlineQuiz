@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
@@ -12,8 +12,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     {
         public enum AfterAddEnum { None = 1, ClearForm, CloseForm }
 
-        readonly ITestController testController;
-        readonly ISectionController sectionController;
+        readonly ITestService testServices;
+        readonly ISectionService sectionServices;
         readonly IFormHelper formHelper;
 
         Test _test;
@@ -23,9 +23,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private SectionPropertiesForm(IServiceProvider serviceProvider, int testId, int sectionsId)
         {
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            sectionController = serviceProvider.GetRequiredService<ISectionController>();
+            sectionServices = serviceProvider.GetRequiredService<ISectionService>();
 
             InitializeComponent();
 
@@ -111,7 +111,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         void LoadTestSeedData(int testId) => Test = GetTestSeedData(testId);
 
-        Test GetTestSeedData(int testId) => testController.GetTest(testId);
+        Test GetTestSeedData(int testId) => testServices.GetTest(testId);
 
         void LoadSectionSeedData(int sectionId) 
         {
@@ -119,9 +119,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             FillSectionForm(_section);
         }
 
-        void EditSectionSeedData(Section section) => sectionController.EditSection(section);
+        void EditSectionSeedData(Section section) => sectionServices.EditSection(section);
 
-        Section GetSectionSeedData(int sectionId) => sectionController.GetSection(sectionId);
+        Section GetSectionSeedData(int sectionId) => sectionServices.GetSection(sectionId);
 
         void FillTestInfoLabels(Test test)
         {
@@ -249,7 +249,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
             if (Test != null)
             {
-                RemainingTimeOfTestDuration = testController.GetSectionsDurationSum(Test.TestId);
+                RemainingTimeOfTestDuration = testServices.GetSectionsDurationSum(Test.TestId);
                 TestDuration = Test.ToViewModel().Duration;
             }
 

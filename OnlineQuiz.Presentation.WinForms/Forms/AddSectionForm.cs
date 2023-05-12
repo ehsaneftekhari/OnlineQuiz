@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
@@ -12,8 +12,8 @@ namespace OnlineQuiz.Presentation.WinForms
     {
         public enum AfterAddEnum { None = 1, ClearForm, CloseForm }
 
-        readonly ITestController testController;
-        readonly ISectionController sectionController;
+        readonly ITestService testServices;
+        readonly ISectionService sectionServices;
         readonly IFormHelper formHelper;
 
         Test _test;
@@ -23,9 +23,9 @@ namespace OnlineQuiz.Presentation.WinForms
 
         AddSectionForm(IServiceProvider serviceProvider, int testId)
         {
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            sectionController = serviceProvider.GetRequiredService<ISectionController>();
+            sectionServices = serviceProvider.GetRequiredService<ISectionService>();
 
             InitializeComponent();
 
@@ -107,9 +107,9 @@ namespace OnlineQuiz.Presentation.WinForms
 
         void LoadTestSeedData(int testId) => Test = GetTestSeedData(testId);
 
-        Test GetTestSeedData(int testId) => testController.GetTest(testId);
+        Test GetTestSeedData(int testId) => testServices.GetTest(testId);
 
-        void AddSectionSeedData(Section section) => sectionController.AddSection(Test.TestId, section);
+        void AddSectionSeedData(Section section) => sectionServices.AddSection(Test.TestId, section);
 
         void FillTestInfoLabels(Test test)
         {
@@ -237,7 +237,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
             if (Test != null)
             {
-                RemainingTimeOfTestDuration = testController.GetSectionsDurationSum(Test.TestId);
+                RemainingTimeOfTestDuration = testServices.GetSectionsDurationSum(Test.TestId);
                 TestDuration = Test.ToViewModel().Duration;
             }
 

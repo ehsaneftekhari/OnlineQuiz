@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
@@ -8,17 +8,17 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class AddTestForm : Form
     {
-        IAppMessageController appMessageController;
-        ITestController testController;
+        IAppMessageService appMessageServices;
+        ITestService testServices;
         IFormHelper formHelper;
 
         private static AddTestForm instance;
 
         private AddTestForm(int userId, IServiceProvider serviceProvider)
         {
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            appMessageController = serviceProvider.GetRequiredService<IAppMessageController>();
+            appMessageServices = serviceProvider.GetRequiredService<IAppMessageService>();
 
             InitializeComponent();
             RandomizeTypeCB.SelectedIndex = 0;
@@ -78,7 +78,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                                     PublishCkB.Checked,
                                     (RandomizeType)RandomizeTypeCB.SelectedIndex);
 
-            testController.AddTest(newTest);
+            testServices.AddTest(newTest);
 
             bool hasId = newTest.HasId();
 
@@ -96,7 +96,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 FillForm(newTest);
 
             if (hasId && !close)
-                MessageBox.Show(appMessageController.GetMessage("en_AddTestForm_TestAddedSuccessfully"));
+                MessageBox.Show(appMessageServices.GetMessage("en_AddTestForm_TestAddedSuccessfully"));
         }
 
         void FillForm(Test newTest)

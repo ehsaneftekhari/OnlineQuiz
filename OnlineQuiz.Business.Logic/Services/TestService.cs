@@ -1,21 +1,21 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
 using OnlineQuiz.Persistence.ADO.Repositories;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
-    public class TestController : ITestController
+    public class TestService : ITestService
     {
         ITestRepository testRepository;
         ITestValidator testValidator;
         ISectionRepository sectionRepository;
 
 
-        public TestController(ITestRepository testRepository, ITestValidator testValidator, ISectionRepository sectionRepository)
+        public TestService(ITestRepository testRepository, ITestValidator testValidator, ISectionRepository sectionRepository)
         {
             this.testRepository = testRepository;
             this.testValidator = testValidator;

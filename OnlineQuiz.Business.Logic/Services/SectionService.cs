@@ -1,21 +1,21 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Library;
 using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
-    public class SectionController : ISectionController
+    public class SectionService : ISectionService
     {
         ISectionRepository sectionRepository;
         ISectionValidator sectionValidator;
         ISectionVerifier sectionVerifier;
-        IAppMessageController appMessageController;
+        IAppMessageService appMessageServices;
 
-        public SectionController(ISectionRepository sectionRepository, ISectionValidator sectionValidator, ISectionVerifier sectionVerifier)
+        public SectionService(ISectionRepository sectionRepository, ISectionValidator sectionValidator, ISectionVerifier sectionVerifier)
         {
             this.sectionRepository = sectionRepository;
             this.sectionValidator = sectionValidator;
@@ -68,7 +68,7 @@ namespace OnlineQuiz.Business.Logic.Controllers
             string message = "";
             result = sectionRepository.DeleteSection(sectionId);
             if (result == DeleteResult.Failed)
-                message = appMessageController.GetMessage("en_Section_SectionDidNotDeleted");
+                message = appMessageServices.GetMessage("en_Section_SectionDidNotDeleted");
             return (result, message);
         }
     }

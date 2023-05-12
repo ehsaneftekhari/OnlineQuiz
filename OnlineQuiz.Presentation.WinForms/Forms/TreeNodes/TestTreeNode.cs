@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
 using System.ComponentModel;
@@ -9,9 +9,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
     public partial class TestTreeNode : TreeNode
     {
         IServiceProvider serviceProvider;
-        ITestController testController;
-        ISectionController sectionController;
-        IQuestionController questionController;
+        ITestService testServices;
+        ISectionService sectionServices;
+        IQuestionService questionServices;
         IContainer container;
 
         public TestTreeNode(IServiceProvider serviceProvider,
@@ -19,9 +19,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                             int testId) : base()
         {
             this.serviceProvider = serviceProvider;
-            this.testController = serviceProvider.GetRequiredService<ITestController>();
-            this.sectionController = serviceProvider.GetRequiredService<ISectionController>();
-            this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
+            this.testServices = serviceProvider.GetRequiredService<ITestService>();
+            this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
+            this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
             this.container = container;
             TestId = testId;
             InitializeComponent(container);
@@ -59,16 +59,16 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         Test GetTestSeedData(int testId)
         {
-            return testController.GetTest(testId);
+            return testServices.GetTest(testId);
         }
 
         void AddChildNode(SectionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
 
         void AddChildNodeRange(List<SectionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
 
-        List<SectionViewModel> GetSectionViewModelsOfTest() => sectionController.GetSectionViewModelList(TestId);
+        List<SectionViewModel> GetSectionViewModelsOfTest() => sectionServices.GetSectionViewModelList(TestId);
 
-        SectionViewModel GetSectionViewModel(int sectionId) => sectionController.GetSection(sectionId).ToViewModel();
+        SectionViewModel GetSectionViewModel(int sectionId) => sectionServices.GetSection(sectionId).ToViewModel();
 
         SectionTreeNode CreateNewSectionTreeNode(SectionViewModel SectionViewModel)
         {
