@@ -6,7 +6,7 @@ using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Library;
 using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
     public class SectionService : ISectionService
     {

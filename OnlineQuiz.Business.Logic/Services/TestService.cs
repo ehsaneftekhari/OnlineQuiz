@@ -6,7 +6,7 @@ using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
 using OnlineQuiz.Persistence.ADO.Repositories;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
     public class TestService : ITestService
     {

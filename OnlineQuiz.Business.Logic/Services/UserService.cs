@@ -6,7 +6,7 @@ using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
     public class UserService : IUserService
     {

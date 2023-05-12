@@ -2,7 +2,7 @@
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Persistence.ADO.Repositories;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
     public class QuestionService : IQuestionService
     {

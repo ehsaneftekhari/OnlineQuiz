@@ -2,7 +2,7 @@
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
-using OnlineQuiz.Business.Logic.Controllers;
+using OnlineQuiz.Business.Logic.Services;
 using OnlineQuiz.Business.Logic.Validators;
 using OnlineQuiz.Business.Logic.Verifiers;
 

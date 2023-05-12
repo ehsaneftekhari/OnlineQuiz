@@ -2,7 +2,7 @@
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Library;
 
-namespace OnlineQuiz.Business.Logic.Controllers
+namespace OnlineQuiz.Business.Logic.Services
 {
     public class AppMessageService : IAppMessageService
     {
