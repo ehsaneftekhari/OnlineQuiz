@@ -8,7 +8,7 @@ using OnlineQuiz.Persistence.ADO.Repositories;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class TestService : ITestController
+    public class TestService : ITestService
     {
         ITestRepository testRepository;
         ITestValidator testValidator;

@@ -10,7 +10,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     public partial class TestPropertiesForm : Form
     {
         IServiceProvider serviceProvider;
-        ITestController testController;
+        ITestService testController;
         IFormHelper formHelper;
 
         private static List<TestPropertiesForm> instances;
@@ -18,7 +18,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         private TestPropertiesForm(int testId, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testController = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             InitializeComponent();
             TestId = testId;

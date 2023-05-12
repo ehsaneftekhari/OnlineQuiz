@@ -12,8 +12,8 @@ namespace OnlineQuiz.Presentation.WinForms
     {
         public enum AfterAddEnum { None = 1, ClearForm, CloseForm }
 
-        readonly ITestController testController;
-        readonly ISectionController sectionController;
+        readonly ITestService testController;
+        readonly ISectionService sectionController;
         readonly IFormHelper formHelper;
 
         Test _test;
@@ -23,9 +23,9 @@ namespace OnlineQuiz.Presentation.WinForms
 
         AddSectionForm(IServiceProvider serviceProvider, int testId)
         {
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testController = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            sectionController = serviceProvider.GetRequiredService<ISectionController>();
+            sectionController = serviceProvider.GetRequiredService<ISectionService>();
 
             InitializeComponent();
 

@@ -15,12 +15,12 @@ namespace OnlineQuiz.Business.Logic.Verifiers
         ISectionRepository sectionRepository;
         IAppMessageRepository appMessageRepository;
         IValidatorFunctions validatorFunctions;
-        ITestController testController;
+        ITestService testController;
 
         public SectionVerifier(ITestRepository testRepository,
                                ISectionRepository sectionRepository,
                                IValidatorFunctions validatorFunctions,
-                               ITestController testController)
+                               ITestService testController)
         {
             this.testRepository = testRepository;
             this.sectionRepository = sectionRepository;

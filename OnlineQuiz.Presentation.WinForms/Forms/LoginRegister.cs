@@ -13,12 +13,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     {
         IUserVerifier verifier;
         IFormHelper formHelper;
-        IUserController userController;
+        IUserService userController;
         IAppMessageRepository appMessageRepository;
 
         static LoginRegister instance;
 
-        private LoginRegister(IUserVerifier verifier, IFormHelper formHelper, IUserController userController, IAppMessageRepository appMessageRepository)
+        private LoginRegister(IUserVerifier verifier, IFormHelper formHelper, IUserService userController, IAppMessageRepository appMessageRepository)
         {
             InitializeComponent();
             this.verifier = verifier;
@@ -31,7 +31,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             IUserVerifier verifier = serviceProvider.GetRequiredService<IUserVerifier>();
             IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            IUserController userController = serviceProvider.GetRequiredService<IUserController>();
+            IUserService userController = serviceProvider.GetRequiredService<IUserService>();
             IAppMessageRepository appMessageRepository = serviceProvider.GetRequiredService<IAppMessageRepository>();
 
             if (instance == null || instance.IsDisposed)

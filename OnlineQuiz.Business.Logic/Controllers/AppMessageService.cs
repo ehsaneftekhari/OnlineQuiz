@@ -4,7 +4,7 @@ using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class AppMessageService : IAppMessageController
+    public class AppMessageService : IAppMessageService
     {
         IAppMessageRepository appMessageRepository;
 

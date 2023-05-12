@@ -8,12 +8,12 @@ using Section = OnlineQuiz.Business.Models.Models.Sections.Section;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class SectionService : ISectionController
+    public class SectionService : ISectionService
     {
         ISectionRepository sectionRepository;
         ISectionValidator sectionValidator;
         ISectionVerifier sectionVerifier;
-        IAppMessageController appMessageController;
+        IAppMessageService appMessageController;
 
         public SectionService(ISectionRepository sectionRepository, ISectionValidator sectionValidator, ISectionVerifier sectionVerifier)
         {

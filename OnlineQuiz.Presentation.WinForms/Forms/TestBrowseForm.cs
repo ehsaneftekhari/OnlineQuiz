@@ -8,7 +8,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class TestBrowseForm : Form
     {
-        ITestController testController;
+        ITestService testController;
 
         static List<TestBrowseForm> instanceList;
 
@@ -16,7 +16,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             InitializeComponent();
 
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testController = serviceProvider.GetRequiredService<ITestService>();
             UserId = userId;
 
             LoadListData();

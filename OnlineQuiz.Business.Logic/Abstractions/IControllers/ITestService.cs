@@ -2,7 +2,7 @@
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
-    public interface ITestController
+    public interface ITestService
     {
         void AddTest(Test newTest);
 

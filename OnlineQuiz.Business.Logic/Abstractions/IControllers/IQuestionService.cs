@@ -2,7 +2,7 @@
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
-    public interface IQuestionController
+    public interface IQuestionService
     {
         List<QuestionViewModel> GetQuestionList(int sectionId);
     }

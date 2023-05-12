@@ -10,9 +10,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
     public partial class SectionTreeNode : TreeNode
     {
-        readonly IQuestionController questionController;
+        readonly IQuestionService questionController;
         readonly IServiceProvider serviceProvider;
-        readonly ISectionController sectionController;
+        readonly ISectionService sectionController;
         int? _Order;
 
         string _SectionTitle;
@@ -25,8 +25,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                                int testId) : base()
         {
             this.serviceProvider = serviceProvider;
-            this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
-            this.sectionController = serviceProvider.GetRequiredService<ISectionController>();
+            this.questionController = serviceProvider.GetRequiredService<IQuestionService>();
+            this.sectionController = serviceProvider.GetRequiredService<ISectionService>();
             SectionId = sectionId;
             SectionTitle  = sectionTitle;
             Order = order;

@@ -9,9 +9,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
     public partial class TestTreeNode : TreeNode
     {
         IServiceProvider serviceProvider;
-        ITestController testController;
-        ISectionController sectionController;
-        IQuestionController questionController;
+        ITestService testController;
+        ISectionService sectionController;
+        IQuestionService questionController;
         IContainer container;
 
         public TestTreeNode(IServiceProvider serviceProvider,
@@ -19,9 +19,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                             int testId) : base()
         {
             this.serviceProvider = serviceProvider;
-            this.testController = serviceProvider.GetRequiredService<ITestController>();
-            this.sectionController = serviceProvider.GetRequiredService<ISectionController>();
-            this.questionController = serviceProvider.GetRequiredService<IQuestionController>();
+            this.testController = serviceProvider.GetRequiredService<ITestService>();
+            this.sectionController = serviceProvider.GetRequiredService<ISectionService>();
+            this.questionController = serviceProvider.GetRequiredService<IQuestionService>();
             this.container = container;
             TestId = testId;
             InitializeComponent(container);

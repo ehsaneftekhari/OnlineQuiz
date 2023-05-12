@@ -8,7 +8,7 @@ using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class UserService : IUserController
+    public class UserService : IUserService
     {
         IBaseUserRepository baseUserRepository;
         IUserRepository userRepository;

@@ -1,6 +1,6 @@
 ﻿namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
-    public interface IAppMessageController
+    public interface IAppMessageService
     {
         string GetMessage(string messageName);
     }

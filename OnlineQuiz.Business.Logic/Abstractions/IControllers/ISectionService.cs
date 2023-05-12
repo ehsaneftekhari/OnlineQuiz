@@ -3,7 +3,7 @@ using OnlineQuiz.Business.Models.Models.Sections;
 
 namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
 {
-    public interface ISectionController
+    public interface ISectionService
     {
         void AddSection(int testId, Section section);
         List<SectionViewModel> GetSectionViewModelList(int testId);

@@ -8,17 +8,17 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class AddTestForm : Form
     {
-        IAppMessageController appMessageController;
-        ITestController testController;
+        IAppMessageService appMessageController;
+        ITestService testController;
         IFormHelper formHelper;
 
         private static AddTestForm instance;
 
         private AddTestForm(int userId, IServiceProvider serviceProvider)
         {
-            testController = serviceProvider.GetRequiredService<ITestController>();
+            testController = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            appMessageController = serviceProvider.GetRequiredService<IAppMessageController>();
+            appMessageController = serviceProvider.GetRequiredService<IAppMessageService>();
 
             InitializeComponent();
             RandomizeTypeCB.SelectedIndex = 0;

@@ -4,7 +4,7 @@ using OnlineQuiz.Persistence.ADO.Repositories;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class QuestionService : IQuestionController
+    public class QuestionService : IQuestionService
     {
         IQuestionRepository questionRepository;
 
