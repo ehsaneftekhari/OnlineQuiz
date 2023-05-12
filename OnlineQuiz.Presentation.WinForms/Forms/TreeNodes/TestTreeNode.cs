@@ -70,18 +70,25 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         SectionViewModel GetSectionViewModel(int sectionId) => sectionController.GetSection(sectionId).ToViewModel();
 
+        SectionTreeNode CreateNewSectionTreeNode(SectionViewModel SectionViewModel)
+        {
+            var sectionTreeNode = new SectionTreeNode(serviceProvider,
+                    container,
+                    SectionViewModel.SectionTitle,
+                    SectionViewModel.Order,
+                    SectionViewModel.SectionId,
+                    TestId);
+            sectionTreeNode.ChildFormAdder += InvokeChildFormAdder;
+            sectionTreeNode.OnSectionEdited += ReLoadSections;
+            sectionTreeNode.OnSectionDelete += ReLoadSections;
+            return sectionTreeNode;
+        }
+
         void AddSectionFromSeedDate(int sectionId)
         {
             SectionViewModel section = GetSectionViewModel(sectionId);
 
-            var sectionTreeNode = new SectionTreeNode(serviceProvider,
-                                                      container,
-                                                      section.SectionTitle,
-                                                      section.Order,
-                                                      section.SectionId,
-                                                      TestId);
-            sectionTreeNode.ChildFormAdder = InvokeChildFormAdder;
-            sectionTreeNode.OnSectionEdited += ReLoadSections;
+            var sectionTreeNode = CreateNewSectionTreeNode(section);
 
             AddChildNode(sectionTreeNode);
 
@@ -94,19 +101,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
             List<SectionViewModel> sectionViewModelList = GetSectionViewModelsOfTest();
 
-            List<SectionTreeNode> sectionTreeList = sectionViewModelList.Select(
-                SVM => {
-                    var sectionTreeNode = new SectionTreeNode(serviceProvider,
-                    container,
-                    SVM.SectionTitle,
-                    SVM.Order,
-                    SVM.SectionId,
-                    TestId);
-                    sectionTreeNode.ChildFormAdder += InvokeChildFormAdder;
-                    sectionTreeNode.OnSectionEdited += ReLoadSections;
-                    return sectionTreeNode;
-                }
-            ).ToList();
+            List<SectionTreeNode> sectionTreeList = sectionViewModelList.Select(SVM => CreateNewSectionTreeNode(SVM)).ToList();
 
             AddChildNodeRange(sectionTreeList);
         }
