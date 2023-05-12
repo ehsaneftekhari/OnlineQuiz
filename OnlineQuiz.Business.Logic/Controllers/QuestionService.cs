@@ -4,11 +4,11 @@ using OnlineQuiz.Persistence.ADO.Repositories;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class QuestionController : IQuestionController
+    public class QuestionService : IQuestionController
     {
         IQuestionRepository questionRepository;
 
-        public QuestionController(IQuestionRepository questionRepository)
+        public QuestionService(IQuestionRepository questionRepository)
         {
             this.questionRepository = questionRepository;
         }

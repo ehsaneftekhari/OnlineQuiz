@@ -4,11 +4,11 @@ using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class AppMessageController : IAppMessageController
+    public class AppMessageService : IAppMessageController
     {
         IAppMessageRepository appMessageRepository;
 
-        public AppMessageController(IAppMessageRepository appMessageRepository)
+        public AppMessageService(IAppMessageRepository appMessageRepository)
         {
             this.appMessageRepository = appMessageRepository;
         }

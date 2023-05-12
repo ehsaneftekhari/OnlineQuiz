@@ -16,13 +16,13 @@ namespace OnlineQuiz.Business.Logic
             {
                 serviceProvider.AddTransient<IValidatorFunctions, ValidatorFunctions>();
                 serviceProvider.AddTransient<IUserValidator, UserValidator>();
-                serviceProvider.AddTransient<IUserController, UserController>();
+                serviceProvider.AddTransient<IUserController, UserService>();
                 serviceProvider.AddTransient<IUserVerifier, UserVerifier>();
-                serviceProvider.AddTransient<ITestController, TestController>();
+                serviceProvider.AddTransient<ITestController, TestService>();
                 serviceProvider.AddTransient<ITestValidator, TestValidator>();
-                serviceProvider.AddTransient<ISectionController, SectionController>();
-                serviceProvider.AddTransient<IQuestionController, QuestionController>();
-                serviceProvider.AddTransient<IAppMessageController, AppMessageController>();
+                serviceProvider.AddTransient<ISectionController, SectionService>();
+                serviceProvider.AddTransient<IQuestionController, QuestionService>();
+                serviceProvider.AddTransient<IAppMessageController, AppMessageService>();
                 serviceProvider.AddTransient<ISectionValidator, SectionValidator>();
                 serviceProvider.AddTransient<ISectionVerifier, SectionVerifier>();
             }

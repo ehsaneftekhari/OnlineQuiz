@@ -8,14 +8,14 @@ using OnlineQuiz.Library;
 
 namespace OnlineQuiz.Business.Logic.Controllers
 {
-    public class UserController : IUserController
+    public class UserService : IUserController
     {
         IBaseUserRepository baseUserRepository;
         IUserRepository userRepository;
         IUserValidator userValidator;
         IUserVerifier verifier;
 
-        public UserController(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository)
+        public UserService(IBaseUserRepository baseUserRepository, IUserValidator userValidator, IUserVerifier verifier, IUserRepository userRepository)
         {
             this.baseUserRepository = baseUserRepository;
             this.userValidator = userValidator;
