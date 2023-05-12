@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
 using System;

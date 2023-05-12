@@ -1,7 +1,7 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Models.Models.Sections;
 
-namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
+namespace OnlineQuiz.Business.Logic.Abstractions.IServices
 {
     public interface ISectionService
     {

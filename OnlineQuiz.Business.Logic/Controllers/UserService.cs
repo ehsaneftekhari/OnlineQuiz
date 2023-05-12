@@ -1,5 +1,5 @@
 ﻿using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models;

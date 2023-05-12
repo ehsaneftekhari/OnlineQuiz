@@ -1,4 +1,4 @@
-﻿namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
+﻿namespace OnlineQuiz.Business.Logic.Abstractions.IServices
 {
     public interface IAppMessageService
     {

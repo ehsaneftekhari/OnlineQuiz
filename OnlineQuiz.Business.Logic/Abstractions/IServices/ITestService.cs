@@ -1,6 +1,6 @@
 ﻿using OnlineQuiz.Business.Models.Models.Tests;
 
-namespace OnlineQuiz.Business.Logic.Abstractions.IControllers
+namespace OnlineQuiz.Business.Logic.Abstractions.IServices
 {
     public interface ITestService
     {

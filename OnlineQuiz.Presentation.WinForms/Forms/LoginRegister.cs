@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Abstractions.IRepositories;
-using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Users;

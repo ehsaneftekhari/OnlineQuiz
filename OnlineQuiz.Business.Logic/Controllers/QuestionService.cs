@@ -1,4 +1,4 @@
-﻿using OnlineQuiz.Business.Logic.Abstractions.IControllers;
+﻿using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Persistence.ADO.Repositories;
 
