@@ -9,9 +9,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
     public partial class SectionTreeNode : TreeNode
     {
-        readonly IQuestionService questionController;
+        readonly IQuestionService questionServices;
         readonly IServiceProvider serviceProvider;
-        readonly ISectionService sectionController;
+        readonly ISectionService sectionServices;
         int? _Order;
 
         string _SectionTitle;
@@ -24,8 +24,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                                int testId) : base()
         {
             this.serviceProvider = serviceProvider;
-            this.questionController = serviceProvider.GetRequiredService<IQuestionService>();
-            this.sectionController = serviceProvider.GetRequiredService<ISectionService>();
+            this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
+            this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
             SectionId = sectionId;
             SectionTitle  = sectionTitle;
             Order = order;
@@ -88,7 +88,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         private void ReLoadQuestions()
         {
-            List<QuestionViewModel> questionViewModelList = questionController.GetQuestionList(SectionId);
+            List<QuestionViewModel> questionViewModelList = questionServices.GetQuestionList(SectionId);
 
             List<QuestionTreeNode> questionTreeNodeList
                 = questionViewModelList.Select(
@@ -126,7 +126,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         private void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            var result = sectionController.DeleteSection(SectionId);
+            var result = sectionServices.DeleteSection(SectionId);
 
             if (result.result == DeleteResult.Failed)
                 MessageBox.Show(result.message);

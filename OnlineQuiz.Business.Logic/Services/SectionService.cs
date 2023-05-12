@@ -13,7 +13,7 @@ namespace OnlineQuiz.Business.Logic.Services
         ISectionRepository sectionRepository;
         ISectionValidator sectionValidator;
         ISectionVerifier sectionVerifier;
-        IAppMessageService appMessageController;
+        IAppMessageService appMessageServices;
 
         public SectionService(ISectionRepository sectionRepository, ISectionValidator sectionValidator, ISectionVerifier sectionVerifier)
         {
@@ -68,7 +68,7 @@ namespace OnlineQuiz.Business.Logic.Services
             string message = "";
             result = sectionRepository.DeleteSection(sectionId);
             if (result == DeleteResult.Failed)
-                message = appMessageController.GetMessage("en_Section_SectionDidNotDeleted");
+                message = appMessageServices.GetMessage("en_Section_SectionDidNotDeleted");
             return (result, message);
         }
     }

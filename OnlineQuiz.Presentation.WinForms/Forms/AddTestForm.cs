@@ -8,17 +8,17 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class AddTestForm : Form
     {
-        IAppMessageService appMessageController;
-        ITestService testController;
+        IAppMessageService appMessageServices;
+        ITestService testServices;
         IFormHelper formHelper;
 
         private static AddTestForm instance;
 
         private AddTestForm(int userId, IServiceProvider serviceProvider)
         {
-            testController = serviceProvider.GetRequiredService<ITestService>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            appMessageController = serviceProvider.GetRequiredService<IAppMessageService>();
+            appMessageServices = serviceProvider.GetRequiredService<IAppMessageService>();
 
             InitializeComponent();
             RandomizeTypeCB.SelectedIndex = 0;
@@ -78,7 +78,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                                     PublishCkB.Checked,
                                     (RandomizeType)RandomizeTypeCB.SelectedIndex);
 
-            testController.AddTest(newTest);
+            testServices.AddTest(newTest);
 
             bool hasId = newTest.HasId();
 
@@ -96,7 +96,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 FillForm(newTest);
 
             if (hasId && !close)
-                MessageBox.Show(appMessageController.GetMessage("en_AddTestForm_TestAddedSuccessfully"));
+                MessageBox.Show(appMessageServices.GetMessage("en_AddTestForm_TestAddedSuccessfully"));
         }
 
         void FillForm(Test newTest)

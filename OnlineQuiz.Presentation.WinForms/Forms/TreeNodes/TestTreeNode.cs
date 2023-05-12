@@ -9,9 +9,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
     public partial class TestTreeNode : TreeNode
     {
         IServiceProvider serviceProvider;
-        ITestService testController;
-        ISectionService sectionController;
-        IQuestionService questionController;
+        ITestService testServices;
+        ISectionService sectionServices;
+        IQuestionService questionServices;
         IContainer container;
 
         public TestTreeNode(IServiceProvider serviceProvider,
@@ -19,9 +19,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                             int testId) : base()
         {
             this.serviceProvider = serviceProvider;
-            this.testController = serviceProvider.GetRequiredService<ITestService>();
-            this.sectionController = serviceProvider.GetRequiredService<ISectionService>();
-            this.questionController = serviceProvider.GetRequiredService<IQuestionService>();
+            this.testServices = serviceProvider.GetRequiredService<ITestService>();
+            this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
+            this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
             this.container = container;
             TestId = testId;
             InitializeComponent(container);
@@ -59,16 +59,16 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         Test GetTestSeedData(int testId)
         {
-            return testController.GetTest(testId);
+            return testServices.GetTest(testId);
         }
 
         void AddChildNode(SectionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
 
         void AddChildNodeRange(List<SectionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
 
-        List<SectionViewModel> GetSectionViewModelsOfTest() => sectionController.GetSectionViewModelList(TestId);
+        List<SectionViewModel> GetSectionViewModelsOfTest() => sectionServices.GetSectionViewModelList(TestId);
 
-        SectionViewModel GetSectionViewModel(int sectionId) => sectionController.GetSection(sectionId).ToViewModel();
+        SectionViewModel GetSectionViewModel(int sectionId) => sectionServices.GetSection(sectionId).ToViewModel();
 
         SectionTreeNode CreateNewSectionTreeNode(SectionViewModel SectionViewModel)
         {

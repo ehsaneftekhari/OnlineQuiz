@@ -13,17 +13,17 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     {
         IUserVerifier verifier;
         IFormHelper formHelper;
-        IUserService userController;
+        IUserService userServices;
         IAppMessageRepository appMessageRepository;
 
         static LoginRegister instance;
 
-        private LoginRegister(IUserVerifier verifier, IFormHelper formHelper, IUserService userController, IAppMessageRepository appMessageRepository)
+        private LoginRegister(IUserVerifier verifier, IFormHelper formHelper, IUserService userServices, IAppMessageRepository appMessageRepository)
         {
             InitializeComponent();
             this.verifier = verifier;
             this.formHelper = formHelper;
-            this.userController = userController;
+            this.userServices = userServices;
             this.appMessageRepository = appMessageRepository;
         }
 
@@ -31,11 +31,11 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             IUserVerifier verifier = serviceProvider.GetRequiredService<IUserVerifier>();
             IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
-            IUserService userController = serviceProvider.GetRequiredService<IUserService>();
+            IUserService userServices = serviceProvider.GetRequiredService<IUserService>();
             IAppMessageRepository appMessageRepository = serviceProvider.GetRequiredService<IAppMessageRepository>();
 
             if (instance == null || instance.IsDisposed)
-                instance = new LoginRegister(verifier, formHelper, userController, appMessageRepository);
+                instance = new LoginRegister(verifier, formHelper, userServices, appMessageRepository);
 
             return instance;
         }
@@ -74,7 +74,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 RegisterPhoneNumberTB.Text
                 );
 
-            newUserInfo = userController.AddBaseUser(newUserInfo);
+            newUserInfo = userServices.AddBaseUser(newUserInfo);
 
             clearBaseUserRegisterFields();
             SetBaseUserRegisterFields(newUserInfo);
@@ -121,7 +121,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             Field<string> tempPasswordField = new Field<string>(RegisterPasswordTB.Text);
             Field<string> tempPasswordVerifyField = new Field<string>(RegisterPasswordVerifyTB.Text);
 
-            newUser = userController.AddUser(newUser, tempPasswordField, tempPasswordVerifyField);
+            newUser = userServices.AddUser(newUser, tempPasswordField, tempPasswordVerifyField);
 
             clearUserRegisterFields();
             SetUserRegisterFields(newUser, tempPasswordField, tempPasswordVerifyField);

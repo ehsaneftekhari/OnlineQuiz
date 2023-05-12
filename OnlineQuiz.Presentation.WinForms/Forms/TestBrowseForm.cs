@@ -8,7 +8,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 {
     public partial class TestBrowseForm : Form
     {
-        ITestService testController;
+        ITestService testServices;
 
         static List<TestBrowseForm> instanceList;
 
@@ -16,7 +16,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             InitializeComponent();
 
-            testController = serviceProvider.GetRequiredService<ITestService>();
+            testServices = serviceProvider.GetRequiredService<ITestService>();
             UserId = userId;
 
             LoadListData();
@@ -55,7 +55,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private List<TestViewModel> GetData()
         {
-            return testController.GetTestsList(UserId, TestTitleTB.Text);
+            return testServices.GetTestsList(UserId, TestTitleTB.Text);
         }
 
         private void SearchBtn_Click(object sender, EventArgs e)
