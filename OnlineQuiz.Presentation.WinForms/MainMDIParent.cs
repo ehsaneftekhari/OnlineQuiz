@@ -190,9 +190,20 @@ namespace OnlineQuiz.Presentation.WinForms
             AddNewChildForm(testExplorerForm);
         }
 
+        private void OpenQuestionDesignerForm()
+        {
+            QuestionDesignForm questionDesignForm = QuestionDesignForm.Crete(serviceProvider, User.BaseUserId);
+            AddNewChildForm(questionDesignForm);
+        }
+
         private void testExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenTestExplorerForm();
+        }
+
+        private void questionDesignerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenQuestionDesignerForm();
         }
     }
 }

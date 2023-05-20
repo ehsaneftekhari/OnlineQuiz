@@ -33,7 +33,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
             ApplicationConfiguration.Initialize();
             Application.Run(new MainMDIParent(ServiceProvider));
-
+            //Application.Run(new QuestionDesignForm());
             ShoutDown();
         }
     }

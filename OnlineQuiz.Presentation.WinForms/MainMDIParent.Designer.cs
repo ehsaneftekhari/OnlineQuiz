@@ -42,6 +42,7 @@
             addTestToolStripMenuItem = new ToolStripMenuItem();
             testListToolStripMenuItem = new ToolStripMenuItem();
             testExplorerToolStripMenuItem = new ToolStripMenuItem();
+            questionDesignerToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -120,7 +121,7 @@
             // 
             // testToolStripMenuItem
             // 
-            testToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addTestToolStripMenuItem, testListToolStripMenuItem, testExplorerToolStripMenuItem });
+            testToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addTestToolStripMenuItem, testListToolStripMenuItem, testExplorerToolStripMenuItem, questionDesignerToolStripMenuItem });
             testToolStripMenuItem.Name = "testToolStripMenuItem";
             testToolStripMenuItem.Size = new Size(94, 48);
             testToolStripMenuItem.Text = "Test";
@@ -145,6 +146,13 @@
             testExplorerToolStripMenuItem.Size = new Size(448, 54);
             testExplorerToolStripMenuItem.Text = "Test Explorer";
             testExplorerToolStripMenuItem.Click += testExplorerToolStripMenuItem_Click;
+            // 
+            // questionDesignerToolStripMenuItem
+            // 
+            questionDesignerToolStripMenuItem.Name = "questionDesignerToolStripMenuItem";
+            questionDesignerToolStripMenuItem.Size = new Size(448, 54);
+            questionDesignerToolStripMenuItem.Text = "QuestionDesigner";
+            questionDesignerToolStripMenuItem.Click += questionDesignerToolStripMenuItem_Click;
             // 
             // MainMDIParent
             // 
@@ -179,6 +187,7 @@
         private ToolStripMenuItem addTestToolStripMenuItem;
         private ToolStripMenuItem testListToolStripMenuItem;
         private ToolStripMenuItem testExplorerToolStripMenuItem;
+        private ToolStripMenuItem questionDesignerToolStripMenuItem;
     }
 }
 
