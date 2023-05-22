@@ -2,14 +2,6 @@
 {
     public class QuestionViewModel
     {
-        public int QuestionId;
-        public int SectionId;
-        public string Text;
-        public string ImageAddress;
-        public double? Score;
-        public TimeSpan? Duration;
-        public int? Order;
-
         public QuestionViewModel(int questionId,
                                  int sectionId,
                                  string text,
@@ -26,5 +18,19 @@
             Duration = duration;
             Order = order;
         }
+
+        public int QuestionId { get; set; }
+
+        public int SectionId { get; set; }
+
+        public string Text { get; set; }
+
+        public string ImageAddress { get; set; }
+
+        public double? Score { get; set; }
+
+        public TimeSpan? Duration { get; set; }
+
+        public int? Order { get; set; }
     }
 }
