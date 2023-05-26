@@ -75,20 +75,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 RegisterPhoneNumberTB.Text
                 );
 
-            newUserInfo = userServices.AddBaseUser(newUserInfo);
+            newUserInfo = userServices.AddBaseUserAsync(newUserInfo).Result;
 
             clearBaseUserRegisterFields();
             SetBaseUserRegisterFields(newUserInfo);
 
             if (newUserInfo.HasId())
-            {
-                PublishBaseUserAddEvent(newUserInfo);
                 Close();
-            }
         }
 
-        private void PublishBaseUserAddEvent(BaseUser baseUser)
-            => customEventAggregator.Publish<BaseUserAddEvent, BaseUserEventsPayload>(new() { baseUser = baseUser });
 
 
         private void clearBaseUserRegisterFields()
