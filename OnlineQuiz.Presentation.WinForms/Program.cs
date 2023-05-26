@@ -12,10 +12,11 @@ namespace OnlineQuiz.Presentation.WinForms
         {
             ServiceCollection serviceDescriptors = new ServiceCollection();
 
-            Business.Logic.ServiceProviderAdder.Add(serviceDescriptors);
+            Business.Logic.ServiceProviderAdder.RegisterServices(serviceDescriptors);
             Persistence.ADO.ServiceProviderAdder.Add(serviceDescriptors);
 
             serviceDescriptors.AddTransient(LoginRegister.Create);
+            serviceDescriptors.AddSingleton<MainMDIParent>();
             serviceDescriptors.AddTransient<IFormHelper, FormHelper>();
             
             ServiceProvider = serviceDescriptors.BuildServiceProvider();
@@ -32,7 +33,7 @@ namespace OnlineQuiz.Presentation.WinForms
             Config();
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainMDIParent(ServiceProvider));
+            Application.Run(ServiceProvider.GetRequiredService<MainMDIParent>());
 
             ShoutDown();
         }
