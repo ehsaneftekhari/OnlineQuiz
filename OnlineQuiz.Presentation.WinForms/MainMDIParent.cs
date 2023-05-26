@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.UserEvents;
+using OnlineQuiz.Business.Logic.Events.UserEvents;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Forms;
@@ -11,12 +14,13 @@ namespace OnlineQuiz.Presentation.WinForms
 
         State state;
         IServiceProvider serviceProvider;
+        ICustomEventAggregator customEventAggregator;
         //public MainMDIParent()
         //{
         //    InitializeComponent();
         //}
 
-        public MainMDIParent(IServiceProvider serviceProvider)
+        public MainMDIParent(IServiceProvider serviceProvider, ICustomEventAggregator customEventAggregator)
         {
             InitializeComponent();
 
@@ -25,6 +29,10 @@ namespace OnlineQuiz.Presentation.WinForms
             SetState(State.NotRegistered);
 
             OpenLogin();
+            this.customEventAggregator = customEventAggregator;
+
+
+            customEventAggregator.Subscribe<BaseUserAddEvent, BaseUserEventsPayload>(OnBaseUserAddEvent);
         }
 
         User User { get; set; }
@@ -70,9 +78,9 @@ namespace OnlineQuiz.Presentation.WinForms
             SetState(State.LoggedIn);
         }
 
-        private void GuestRegister(BaseUser guest)
+        private void OnBaseUserAddEvent(IBaseUserEventsPayload payload)
         {
-            Guest = guest;
+            Guest = payload.baseUser;
             SetState(State.GuestRegistered);
         }
 
@@ -131,8 +139,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenLogin()
         {
             LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
-            StartForm.OnBaseUserRegister -= GuestRegister;
-            StartForm.OnBaseUserRegister += GuestRegister;
             StartForm.OnLogIn -= LogIn;
             StartForm.OnLogIn += LogIn;
             AddNewChildForm(StartForm);

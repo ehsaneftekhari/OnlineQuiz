@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IVerifiers;
+using OnlineQuiz.Business.Logic.Events.UserEvents;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Helpers;
@@ -15,16 +17,22 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         IFormHelper formHelper;
         IUserService userServices;
         IAppMessageRepository appMessageRepository;
+        ICustomEventAggregator customEventAggregator;
 
         static LoginRegister instance;
 
-        private LoginRegister(IUserVerifier verifier, IFormHelper formHelper, IUserService userServices, IAppMessageRepository appMessageRepository)
+        private LoginRegister(IUserVerifier verifier,
+                              IFormHelper formHelper,
+                              IUserService userServices,
+                              IAppMessageRepository appMessageRepository,
+                              ICustomEventAggregator customEventAggregator)
         {
             InitializeComponent();
             this.verifier = verifier;
             this.formHelper = formHelper;
             this.userServices = userServices;
             this.appMessageRepository = appMessageRepository;
+            this.customEventAggregator = customEventAggregator;
         }
 
         public static LoginRegister Create(IServiceProvider serviceProvider)
@@ -33,18 +41,14 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             IFormHelper formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             IUserService userServices = serviceProvider.GetRequiredService<IUserService>();
             IAppMessageRepository appMessageRepository = serviceProvider.GetRequiredService<IAppMessageRepository>();
-
+            ICustomEventAggregator customEventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
             if (instance == null || instance.IsDisposed)
-                instance = new LoginRegister(verifier, formHelper, userServices, appMessageRepository);
+                instance = new LoginRegister(verifier, formHelper, userServices, appMessageRepository, customEventAggregator);
 
             return instance;
         }
 
         public Action<User> OnLogIn { get; set; }
-
-        public Action<BaseUser> OnBaseUserRegister { get; set; }
-
-        public Action<User> OnUserRegister { get; set; }
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
@@ -80,16 +84,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             SetBaseUserRegisterFields(newUserInfo);
 
             if (newUserInfo.HasId())
-                InvokeOnBaseUserRegister(newUserInfo);
+            {
+                PublishBaseUserAddEvent(newUserInfo);
+                Close();
+            }
         }
 
-        private void InvokeOnBaseUserRegister(BaseUser baseUser)
-        {
-            if (OnBaseUserRegister != null)
-                OnBaseUserRegister.Invoke(baseUser);
+        private void PublishBaseUserAddEvent(BaseUser baseUser)
+            => customEventAggregator.Publish<BaseUserAddEvent, BaseUserEventsPayload>(new() { baseUser = baseUser });
 
-            Close();
-        }
 
         private void clearBaseUserRegisterFields()
         {
