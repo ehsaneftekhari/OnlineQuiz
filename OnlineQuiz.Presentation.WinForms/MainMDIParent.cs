@@ -33,6 +33,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
 
             customEventAggregator.Subscribe<BaseUserAddEvent, BaseUserEventsPayload>(OnBaseUserAddEvent);
+            customEventAggregator.Subscribe<LogInEvent, UserEventsPayload>(OnLogInEvent);
         }
 
         User User { get; set; }
@@ -72,9 +73,9 @@ namespace OnlineQuiz.Presentation.WinForms
             Exit
         }
 
-        private void LogIn(User newUser)
+        private void OnLogInEvent(IUserEventsPayload payLoad)
         {
-            User = newUser;
+            User = payLoad.User;
             SetState(State.LoggedIn);
         }
 
@@ -92,7 +93,6 @@ namespace OnlineQuiz.Presentation.WinForms
         }
 
         /////
-
 
         private void AddNewChildForm(Form childForm)
         {
@@ -139,8 +139,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenLogin()
         {
             LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
-            StartForm.OnLogIn -= LogIn;
-            StartForm.OnLogIn += LogIn;
             AddNewChildForm(StartForm);
         }
 

@@ -48,8 +48,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             return instance;
         }
 
-        public Action<User> OnLogIn { get; set; }
-
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             UserCredential credential = new UserCredential(LoginUsernameTB.Text, LoginPasswordTB.Text);
@@ -58,16 +56,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             formHelper.FillForm(user.Username, LoginUsernameTB, LoginMessageLb);
 
             if (user.HasId())
-                InvokeOnLogIn(user);
+            {
+                PublishLogInEvent(user);
+                Close();
+            }
         }
 
-        private void InvokeOnLogIn(User user)
-        {
-            if (OnLogIn != null)
-                OnLogIn.Invoke(user);
+        private void PublishLogInEvent(User user)
+            => customEventAggregator.Publish<LogInEvent, UserEventsPayload>(new() { User = user });
 
-            Close();
-        }
 
         private void RegisterBaseUserBtn_Click(object sender, EventArgs e)
         {
@@ -130,7 +127,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             SetUserRegisterFields(newUser, tempPasswordField, tempPasswordVerifyField);
 
             if (newUser.HasId())
-                InvokeOnLogIn(newUser);
+                PublishLogInEvent(newUser);
         }
 
         private void clearUserRegisterFields()
