@@ -4,6 +4,6 @@ namespace OnlineQuiz.Business.Abstractions.Events.UserEvents
 {
     public interface IBaseUserEventsPayload
     {
-        BaseUser baseUser { get; set; }
+        BaseUser baseUser { get; }
     }
 }
