@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.EventAggregators;
+using OnlineQuiz.Business.Logic.Events.TestEvents;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
@@ -48,8 +51,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         int UserId { get; set; }
 
-        public Action<int> OnTestAdded { get; set; }
-
         public Action<int> TestExplorerOpener { get; set; }
 
         private void CancelBtn_Click(object sender, EventArgs e)
@@ -81,9 +82,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             testServices.AddTest(newTest);
 
             bool hasId = newTest.HasId();
-
-            if (hasId)
-                InvokeTestAdded(newTest);
 
             if (hasId && OpenInTestExplorerCkB.Checked)
                 InvokeTestExplorerOpener(newTest);
@@ -118,12 +116,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         {
             FillForm(new Test(0, "", null, null, false, RandomizeType.FollowSectionsSetting));
             PickDateTimeCkB.Checked = false;
-        }
-
-        void InvokeTestAdded(Test newTest)
-        {
-            if (OnTestAdded != null)
-                OnTestAdded.Invoke(newTest.TestId);
         }
 
         void InvokeTestExplorerOpener(Test newTest)

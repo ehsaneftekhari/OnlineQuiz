@@ -4,7 +4,7 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IServices
 {
     public interface ITestService
     {
-        void AddTest(Test newTest);
+        bool AddTest(Test newTest);
 
         bool EditTest(Test editedTest);
 
