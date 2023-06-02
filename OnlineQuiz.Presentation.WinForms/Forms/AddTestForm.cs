@@ -14,6 +14,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         IAppMessageService appMessageServices;
         ITestService testServices;
         IFormHelper formHelper;
+        IDelegateContainer delegateContainer;
 
         private static AddTestForm instance;
 
@@ -22,6 +23,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             appMessageServices = serviceProvider.GetRequiredService<IAppMessageService>();
+            delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
 
             InitializeComponent();
             RandomizeTypeCB.SelectedIndex = 0;
@@ -38,6 +40,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             RandomizeTypeMessageLbl.Text = string.Empty;
             StartDateTimeMessageLbl.Text = string.Empty;
             EndDateTimeMessageLbl.Text = string.Empty;
+            this.delegateContainer = delegateContainer;
         }
 
         public static AddTestForm Create(int userId, IServiceProvider serviceProvider)
@@ -50,8 +53,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         }
 
         int UserId { get; set; }
-
-        public Action<int> TestExplorerOpener { get; set; }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
@@ -120,8 +121,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         void InvokeTestExplorerOpener(Test newTest)
         {
-            if (TestExplorerOpener != null)
-                TestExplorerOpener.Invoke(newTest.TestId);
+            if (delegateContainer.TestExplorerFormOpener != null)
+                delegateContainer.TestExplorerFormOpener.Invoke(newTest.TestId);
         }
 
         void RandomizeTypeCB_SelectedIndexChanged(object sender, EventArgs e)

@@ -14,6 +14,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     {
         ITestService testServices;
         ICustomEventAggregator customEventAggregator;
+        IDelegateContainer delegateContainer;
 
         static List<TestBrowseForm> instanceList;
 
@@ -23,6 +24,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
             testServices = serviceProvider.GetRequiredService<ITestService>();
             customEventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
+            delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
 
             UserId = userId;
 
@@ -30,6 +32,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             OwnerName = ownerName;
 
             customEventAggregator.Subscribe<TestAddedEvent, TestEventsPayload>(OnTestAddEvent);
+            this.delegateContainer = delegateContainer;
         }
 
         public static TestBrowseForm Create(IServiceProvider serviceProvider, int userId, string ownerName)
@@ -51,8 +54,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         public string OwnerName { get; private set; }
 
         int UserId { get; set; }
-
-        public Action<int> OnTestSelect { get; set; }
 
         public bool CloseAfterSelect { get; set; }
 
@@ -87,8 +88,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void InvokeOnTestSelect(int testId)
         {
-            if (OnTestSelect != null)
-                OnTestSelect.Invoke(testId);
+            if (delegateContainer.TestExplorerFormOpener != null)
+                delegateContainer.TestExplorerFormOpener.Invoke(testId);
         }
 
         private void CloseIfAllowed()

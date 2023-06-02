@@ -1,4 +1,5 @@
-﻿using OnlineQuiz.Library;
+﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Library;
 using OnlineQuiz.Presentation.WinForms.Forms.TreeNodes;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
@@ -6,7 +7,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     public partial class TestExplorerForm : Form
     {
         IServiceProvider serviceProvider;
-
         private TestExplorerForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
@@ -25,8 +25,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         static TestExplorerForm instance;
 
         public Action<bool, string> TestBrowseFormOpener { get; set; }
-
-        public Action<Form> ChildFormAdder { get; set; }
 
         public void OpenTest(int testId = 0)
         {

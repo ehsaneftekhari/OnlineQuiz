@@ -15,12 +15,14 @@ namespace OnlineQuiz.Presentation.WinForms
         State state;
         IServiceProvider serviceProvider;
         ICustomEventAggregator customEventAggregator;
+        IDelegateContainer delegateContainer;
+
         //public MainMDIParent()
         //{
         //    InitializeComponent();
         //}
 
-        public MainMDIParent(IServiceProvider serviceProvider, ICustomEventAggregator customEventAggregator)
+        public MainMDIParent(IServiceProvider serviceProvider, ICustomEventAggregator customEventAggregator, IDelegateContainer delegateContainer)
         {
             InitializeComponent();
 
@@ -30,7 +32,10 @@ namespace OnlineQuiz.Presentation.WinForms
 
             OpenLogin();
             this.customEventAggregator = customEventAggregator;
+            this.delegateContainer = delegateContainer;
 
+            delegateContainer.TestExplorerFormOpener = OpenTestExplorerForm;
+            delegateContainer.NewChildFormAdder = AddNewChildForm;
 
             customEventAggregator.Subscribe<BaseUserAddEvent, BaseUserEventsPayload>(OnBaseUserAddEvent);
             customEventAggregator.Subscribe<LogInEvent, UserEventsPayload>(OnLogInEvent);
@@ -155,8 +160,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenAddTestForm()
         {
             AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
-            addTestForm.TestExplorerOpener -= OpenTestExplorerForm;
-            addTestForm.TestExplorerOpener += OpenTestExplorerForm;
             AddNewChildForm(addTestForm);
         }
 
@@ -173,9 +176,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenTestBrowseForm(bool closeAfterSelect, string ownerName)
         {
             TestBrowseForm TestList = TestBrowseForm.Create(serviceProvider, User.BaseUserId, ownerName);
-            TestList.OnTestSelect -= OpenTestExplorerForm;
-            TestList.OnTestSelect += OpenTestExplorerForm;
-
             TestList.CloseAfterSelect = closeAfterSelect;
 
             AddNewChildForm(TestList);

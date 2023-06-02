@@ -13,6 +13,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         ISectionService sectionServices;
         IQuestionService questionServices;
         IContainer container;
+        IDelegateContainer delegateContainer;
 
         public TestTreeNode(IServiceProvider serviceProvider,
                             IContainer container,
@@ -22,13 +23,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             this.testServices = serviceProvider.GetRequiredService<ITestService>();
             this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
             this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
+            this.delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
+
             this.container = container;
             TestId = testId;
             InitializeComponent(container);
             ReLoadSections();
         }
-
-        public Action<Form> ChildFormAdder { get; set; }
 
         public Action<TestTreeNode> TestNodeCloser { get; set; }
 
@@ -120,8 +121,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         void InvokeChildFormAdder(Form childForm)
         {
-            if (ChildFormAdder != null)
-                ChildFormAdder.Invoke(childForm);
+            if (delegateContainer.NewChildFormAdder != null)
+                delegateContainer.NewChildFormAdder.Invoke(childForm);
         }
 
         private void CloseToolStripMenuItem_Click(Object sender, EventArgs e)
