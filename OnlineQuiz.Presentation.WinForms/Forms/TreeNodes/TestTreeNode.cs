@@ -1,8 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.SectionEvents;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.SectionEvents;
+using OnlineQuiz.Business.Logic.Events.TestEvents;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
 using System.ComponentModel;
+using static System.Collections.Specialized.BitVector32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 {
@@ -13,6 +19,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         ISectionService sectionServices;
         IQuestionService questionServices;
         IContainer container;
+        ICustomEventAggregator eventAggregator;
 
         public TestTreeNode(IServiceProvider serviceProvider,
                             IContainer container,
@@ -22,15 +29,25 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             this.testServices = serviceProvider.GetRequiredService<ITestService>();
             this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
             this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
+            this.eventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
+
+            this.sectionTreeNodes = new();
+
             this.container = container;
             TestId = testId;
             InitializeComponent(container);
             ReLoadSections();
+
+            eventAggregator.Subscribe<TestUpdatedEvent, TestEventsPayload>(SetTestData);
+            eventAggregator.Subscribe<SectionDeleteEvent, SectionEventsPayload>(OnSectionDelete);
+            eventAggregator.Subscribe<SectionAddEvent, SectionEventsPayload>(OnSectionAdded);
         }
 
         public Action<Form> ChildFormAdder { get; set; }
 
         public Action<TestTreeNode> TestNodeCloser { get; set; }
+
+        private List<SectionTreeNode> sectionTreeNodes { get; set; }
 
         public int TestId { get; set; }
 
@@ -48,23 +65,35 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
         public void LoadTestData()
         {
-            Test test = GetTestSeedData(TestId);
+            Test test = GetTestFromDatabase(TestId);
             SetTestData(test);
         }
 
-        void SetTestData(Test test)
+        void SetTestData(TestEventsPayload payload) => SetTestData(payload.Test);
+
+        void SetTestData(Test test) => TestTitle = test.Title.Value!;
+
+        Test GetTestFromDatabase(int testId) => testServices.GetTest(testId);
+
+        void AddChildNode(SectionTreeNode sectionTreeNode) 
         {
-            TestTitle = test.Title.Value!;
+            sectionTreeNodes.Add(sectionTreeNode);
+            Nodes.Add(sectionTreeNode);
         }
 
-        Test GetTestSeedData(int testId)
+        void RemoveChildNode(int sectionId)
         {
-            return testServices.GetTest(testId);
+            //todo: Use remove instead of RemoveAt
+            int index = sectionTreeNodes.Select((STN, index) => (STN, index)).First(x => x.STN.SectionId == sectionId).index;
+            Nodes.RemoveAt(index);
+            sectionTreeNodes.RemoveAt(index);
         }
 
-        void AddChildNode(SectionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
-
-        void AddChildNodeRange(List<SectionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
+        void AddChildNodeRange(List<SectionTreeNode> sectionTreeNodeList) 
+        {
+            sectionTreeNodes.AddRange(sectionTreeNodeList);
+            Nodes.AddRange(sectionTreeNodeList.ToArray()); 
+        }
 
         List<SectionViewModel> GetSectionViewModelsOfTest() => sectionServices.GetSectionViewModelList(TestId);
 
@@ -79,9 +108,23 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                     SectionViewModel.SectionId,
                     TestId);
             sectionTreeNode.ChildFormAdder += InvokeChildFormAdder;
-            sectionTreeNode.OnSectionEdited += ReLoadSections;
-            sectionTreeNode.OnSectionDelete += ReLoadSections;
             return sectionTreeNode;
+        }
+
+        void OnSectionAdded(SectionEventsPayload payload)
+        {
+            if (payload == null || payload.Section.TestId != TestId)
+                return;
+
+            AddSectionFromSeedDate(payload.Section.SectionId);
+        }
+
+        void OnSectionDelete(SectionEventsPayload payload)
+        {
+            if (payload == null || payload.Section.TestId != TestId)
+                return;
+
+            RemoveChildNode(payload.Section.SectionId);
         }
 
         void AddSectionFromSeedDate(int sectionId)
@@ -91,8 +134,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             var sectionTreeNode = CreateNewSectionTreeNode(section);
 
             AddChildNode(sectionTreeNode);
-
-            //ReLoadSections();
         }
 
         void ReLoadSections()
@@ -113,8 +154,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         void OpenTestPropertiesForm()
         {
             TestPropertiesForm testPropertiesForm = TestPropertiesForm.Create(TestId, 0, serviceProvider);
-            testPropertiesForm.OnTestSaved -= SetTestData;
-            testPropertiesForm.OnTestSaved += SetTestData;
             InvokeChildFormAdder(testPropertiesForm);
         }
 
@@ -138,8 +177,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         private void AddSectionToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             AddSectionForm addSectionForm = AddSectionForm.Create(TestId, serviceProvider);
-            addSectionForm.OnSectionAdded -= AddSectionFromSeedDate;
-            addSectionForm.OnSectionAdded += AddSectionFromSeedDate;
             InvokeChildFormAdder(addSectionForm);
         }
     }

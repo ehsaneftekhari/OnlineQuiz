@@ -58,6 +58,9 @@ namespace OnlineQuiz.Business.Logic.Services
             if (testValidatorResult)
                 result = testRepository.Edit(editedTest) == 1;
 
+            if(result)
+                customEventAggregator.Publish<TestUpdatedEvent, TestEventsPayload>(new() { Test = editedTest });
+
             return result;
         }
 

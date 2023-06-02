@@ -54,8 +54,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             return instance;
         }
 
-        public Action<int> OnSectionEdited { get; set; }
-
         bool RemainingTimeVisible
         {
             get
@@ -99,13 +97,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         }
 
         int SectionId => _section.SectionId;
-
-
-        void InvokeOnSectionEdited(Section newSection)
-        {
-            if (OnSectionEdited != null)
-                OnSectionEdited.Invoke(newSection.SectionId);
-        }
 
         bool UpdateRemainingTimeVisible() => RemainingTimeVisible = Test != null && Test.Start.Value != null && Test.End.Value != null;
 
@@ -244,16 +235,16 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         void UpdateRemainingTime()
         {
-            TimeSpan RemainingTimeOfTestDuration = TimeSpan.Zero;
+            TimeSpan SumDurationOfOtherSections = TimeSpan.Zero;
             TimeSpan? TestDuration = null;
 
             if (Test != null)
             {
-                RemainingTimeOfTestDuration = testServices.GetSectionsDurationSum(Test.TestId);
+                SumDurationOfOtherSections = testServices.GetSectionsDurationSum(Test.TestId);
                 TestDuration = Test.ToViewModel().Duration;
             }
 
-            TimeSpan TotalRemainingDuration = RemainingTimeOfTestDuration + GetDurationFromForm();
+            TimeSpan TotalRemainingDuration = SumDurationOfOtherSections + GetDurationFromForm();
 
             SetRemainingTime(TotalRemainingDuration, TestDuration);
         }
@@ -369,11 +360,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             section.SectionId = SectionId;
             EditSectionSeedData(section);
             FillSectionForm(section);
-
-            if (section.IsFine())
-            {
-                InvokeOnSectionEdited(section);
-            }
         }
 
         private void CancelBtn_Click(object sender, EventArgs e) => Close();
