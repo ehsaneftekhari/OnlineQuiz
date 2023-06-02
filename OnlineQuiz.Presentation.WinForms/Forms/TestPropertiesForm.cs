@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.TestEvents;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
+using Prism.Events;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
 {
@@ -19,6 +22,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             this.serviceProvider = serviceProvider;
             testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
+
             InitializeComponent();
             TestId = testId;
 
@@ -27,7 +31,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             StartDateTimeMessageLbl.Text = string.Empty;
             EndDateTimeMessageLbl.Text = string.Empty;
 
-            var test = GetSeedData();
+            var test = GetDataFromService();
             FillForm(test);
         }
 
@@ -49,8 +53,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         int TestId { get; set; }
 
-        public Action<Test> OnTestSaved { get; set; }
-
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             Close();
@@ -67,7 +69,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             Close();
         }
 
-        Test GetSeedData()
+        Test GetDataFromService()
         {
             return testServices.GetTest(TestId);
         }
@@ -107,23 +109,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             bool editResult = testServices.EditTest(editedTest);
 
             FillForm(editedTest);
-
-            if (editResult)
-                InvokeOnTestSaved(editedTest);
         }
 
         DateTime CombineDateTime(DateTime Date, DateTime Time)
         {
             DateTime dateTime = new(Date.Year, Date.Month, Date.Day, Time.Hour, Time.Minute, Time.Second);
             return dateTime;
-        }
-
-        private void InvokeOnTestSaved(Test saveTest)
-        {
-            if (OnTestSaved != null)
-            {
-                OnTestSaved.Invoke(saveTest);
-            }
         }
 
         void RandomizeTypeCB_SelectedIndexChanged(object sender, EventArgs e)

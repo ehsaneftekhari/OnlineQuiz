@@ -55,6 +55,7 @@ namespace OnlineQuiz.Business.Logic.Verifiers
                                          "en_Section_TestAndSectionNotSameEnd",
                                          ModelStatusEnum.Error);
 
+                //todo: Fix the bug
                 TimeSpan SectionsDurationSum = testServices.GetSectionsDurationSum(section.TestId);
 
                 validatorFunctions.Check(section.Duration,
