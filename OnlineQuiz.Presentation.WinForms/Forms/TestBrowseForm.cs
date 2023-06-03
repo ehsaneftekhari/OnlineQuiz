@@ -32,7 +32,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             OwnerName = ownerName;
 
             customEventAggregator.Subscribe<TestAddedEvent, TestEventsPayload>(OnTestAddEvent);
-            this.delegateContainer = delegateContainer;
         }
 
         public static TestBrowseForm Create(IServiceProvider serviceProvider, int userId, string ownerName)

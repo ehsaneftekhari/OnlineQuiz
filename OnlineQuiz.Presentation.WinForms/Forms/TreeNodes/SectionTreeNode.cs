@@ -16,6 +16,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         readonly IServiceProvider serviceProvider;
         readonly ISectionService sectionServices;
         readonly ICustomEventAggregator eventAggregator;
+        readonly IDelegateContainer delegateContainer;
         int? _Order;
 
         string _SectionTitle;
@@ -31,6 +32,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
             this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
             this.eventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
+            this.delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
 
             eventAggregator.Subscribe<SectionUpdateEvent, SectionEventsPayload>(OnSectionEdited);
 
@@ -66,12 +68,10 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             }
         }
 
-        public Action<Form> ChildFormAdder { get; set; }
-
         void InvokeChildFormAdder(Form childForm)
         {
-            if (ChildFormAdder != null)
-                ChildFormAdder.Invoke(childForm);
+            if (delegateContainer.NewChildFormAdder != null)
+                delegateContainer.NewChildFormAdder.Invoke(childForm);
         }
 
         void OnSectionEdited(SectionEventsPayload payload)

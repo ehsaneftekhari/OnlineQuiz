@@ -7,10 +7,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     public partial class TestExplorerForm : Form
     {
         IServiceProvider serviceProvider;
+        IDelegateContainer delegateContainer;
         private TestExplorerForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
             this.serviceProvider = serviceProvider;
+            this.delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
         }
 
         public static TestExplorerForm Crete(IServiceProvider serviceProvider)
@@ -24,14 +26,11 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         static TestExplorerForm instance;
 
-        public Action<bool, string> TestBrowseFormOpener { get; set; }
-
         public void OpenTest(int testId = 0)
         {
             if (testId != 0 && HasTestId(testId))
             {
                 TestTreeNode testTreeNode = new TestTreeNode(serviceProvider, components, testId);
-                testTreeNode.ChildFormAdder += ChildFormAdder;
                 testTreeNode.TestNodeCloser += RemoveTestTreeNode;
                 OneTimeAddTestTreeNode(testTreeNode);
             }
@@ -77,8 +76,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         private void InvokeTestBrowseFormOpener()
         {
             bool closeTestBrowseAfterSelect = true;
-            if (TestBrowseFormOpener != null)
-                TestBrowseFormOpener.Invoke(closeTestBrowseAfterSelect, nameof(TestExplorerForm));
+            if (delegateContainer.TestBrowseFormOpener != null)
+                delegateContainer.TestBrowseFormOpener.Invoke(closeTestBrowseAfterSelect, nameof(TestExplorerForm));
         }
 
         private void clearExplorerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,3 +86,4 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         }
     }
 }
+

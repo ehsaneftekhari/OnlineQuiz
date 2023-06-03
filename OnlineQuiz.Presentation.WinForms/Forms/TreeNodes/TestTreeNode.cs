@@ -17,7 +17,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         IServiceProvider serviceProvider;
         ITestService testServices;
         ISectionService sectionServices;
-        IQuestionService questionServices;
         IContainer container;
         ICustomEventAggregator eventAggregator;
         IDelegateContainer delegateContainer;
@@ -29,7 +28,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             this.serviceProvider = serviceProvider;
             this.testServices = serviceProvider.GetRequiredService<ITestService>();
             this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
-            this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
             this.eventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
             this.sectionTreeNodes = new();
             this.delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
@@ -105,7 +103,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                     SectionViewModel.Order,
                     SectionViewModel.SectionId,
                     TestId);
-            sectionTreeNode.ChildFormAdder += InvokeChildFormAdder;
             return sectionTreeNode;
         }
 

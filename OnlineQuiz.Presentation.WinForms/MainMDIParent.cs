@@ -36,6 +36,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
             delegateContainer.TestExplorerFormOpener = OpenTestExplorerForm;
             delegateContainer.NewChildFormAdder = AddNewChildForm;
+            delegateContainer.TestBrowseFormOpener = OpenTestBrowseForm;
 
             customEventAggregator.Subscribe<BaseUserAddEvent, BaseUserEventsPayload>(OnBaseUserAddEvent);
             customEventAggregator.Subscribe<LogInEvent, UserEventsPayload>(OnLogInEvent);
@@ -184,10 +185,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenTestExplorerForm(int testId = 0)
         {
             TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider);
-            testExplorerForm.ChildFormAdder -= AddNewChildForm;
-            testExplorerForm.ChildFormAdder += AddNewChildForm;
-            testExplorerForm.TestBrowseFormOpener -= OpenTestBrowseForm;
-            testExplorerForm.TestBrowseFormOpener += OpenTestBrowseForm;
             testExplorerForm.OpenTest(testId);
 
 
