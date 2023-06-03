@@ -53,8 +53,6 @@ namespace OnlineQuiz.Presentation.WinForms
             return instance;
         }
 
-        public Action<int> OnSectionAdded { get; set; }
-
         bool RemainingTimeVisible
         {
             get
@@ -95,12 +93,6 @@ namespace OnlineQuiz.Presentation.WinForms
                 FillTestInfoLabels(_test);
                 SetDateTimeSettings(_test);
             }
-        }
-
-        void InvokeOnSectionAdded(Section newSection)
-        {
-            if (OnSectionAdded != null)
-                OnSectionAdded.Invoke(newSection.SectionId);
         }
 
         bool UpdateRemainingTimeVisible() => RemainingTimeVisible = Test != null && Test.Start.Value != null && Test.End.Value != null;
@@ -359,7 +351,6 @@ namespace OnlineQuiz.Presentation.WinForms
 
             if (newSection.IsFine())
             {
-                InvokeOnSectionAdded(newSection);
                 switch (AfterAddCB.SelectedValue)
                 {
                     case AfterAddEnum.CloseForm:

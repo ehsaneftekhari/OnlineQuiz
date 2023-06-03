@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.UserEvents;
+using OnlineQuiz.Business.Logic.Events.UserEvents;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Business.Models.Models.Users;
 using OnlineQuiz.Presentation.WinForms.Forms;
@@ -11,12 +14,15 @@ namespace OnlineQuiz.Presentation.WinForms
 
         State state;
         IServiceProvider serviceProvider;
+        ICustomEventAggregator customEventAggregator;
+        IDelegateContainer delegateContainer;
+
         //public MainMDIParent()
         //{
         //    InitializeComponent();
         //}
 
-        public MainMDIParent(IServiceProvider serviceProvider)
+        public MainMDIParent(IServiceProvider serviceProvider, ICustomEventAggregator customEventAggregator, IDelegateContainer delegateContainer)
         {
             InitializeComponent();
 
@@ -25,6 +31,15 @@ namespace OnlineQuiz.Presentation.WinForms
             SetState(State.NotRegistered);
 
             OpenLogin();
+            this.customEventAggregator = customEventAggregator;
+            this.delegateContainer = delegateContainer;
+
+            delegateContainer.TestExplorerFormOpener = OpenTestExplorerForm;
+            delegateContainer.NewChildFormAdder = AddNewChildForm;
+            delegateContainer.TestBrowseFormOpener = OpenTestBrowseForm;
+
+            customEventAggregator.Subscribe<BaseUserAddEvent, BaseUserEventsPayload>(OnBaseUserAddEvent);
+            customEventAggregator.Subscribe<LogInEvent, UserEventsPayload>(OnLogInEvent);
         }
 
         User User { get; set; }
@@ -64,15 +79,15 @@ namespace OnlineQuiz.Presentation.WinForms
             Exit
         }
 
-        private void LogIn(User newUser)
+        private void OnLogInEvent(IUserEventsPayload payLoad)
         {
-            User = newUser;
+            User = payLoad.User;
             SetState(State.LoggedIn);
         }
 
-        private void GuestRegister(BaseUser guest)
+        private void OnBaseUserAddEvent(IBaseUserEventsPayload payload)
         {
-            Guest = guest;
+            Guest = payload.baseUser;
             SetState(State.GuestRegistered);
         }
 
@@ -84,7 +99,6 @@ namespace OnlineQuiz.Presentation.WinForms
         }
 
         /////
-
 
         private void AddNewChildForm(Form childForm)
         {
@@ -131,10 +145,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenLogin()
         {
             LoginRegister StartForm = serviceProvider.GetRequiredService<LoginRegister>();
-            StartForm.OnBaseUserRegister -= GuestRegister;
-            StartForm.OnBaseUserRegister += GuestRegister;
-            StartForm.OnLogIn -= LogIn;
-            StartForm.OnLogIn += LogIn;
             AddNewChildForm(StartForm);
         }
 
@@ -151,8 +161,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenAddTestForm()
         {
             AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
-            addTestForm.TestExplorerOpener -= OpenTestExplorerForm;
-            addTestForm.TestExplorerOpener += OpenTestExplorerForm;
             AddNewChildForm(addTestForm);
         }
 
@@ -169,9 +177,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenTestBrowseForm(bool closeAfterSelect, string ownerName)
         {
             TestBrowseForm TestList = TestBrowseForm.Create(serviceProvider, User.BaseUserId, ownerName);
-            TestList.OnTestSelect -= OpenTestExplorerForm;
-            TestList.OnTestSelect += OpenTestExplorerForm;
-
             TestList.CloseAfterSelect = closeAfterSelect;
 
             AddNewChildForm(TestList);
@@ -180,10 +185,6 @@ namespace OnlineQuiz.Presentation.WinForms
         private void OpenTestExplorerForm(int testId = 0)
         {
             TestExplorerForm testExplorerForm = TestExplorerForm.Crete(serviceProvider);
-            testExplorerForm.ChildFormAdder -= AddNewChildForm;
-            testExplorerForm.ChildFormAdder += AddNewChildForm;
-            testExplorerForm.TestBrowseFormOpener -= OpenTestBrowseForm;
-            testExplorerForm.TestBrowseFormOpener += OpenTestBrowseForm;
             testExplorerForm.OpenTest(testId);
 
 

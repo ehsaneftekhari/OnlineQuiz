@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.TestEvents;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.EventAggregators;
+using OnlineQuiz.Business.Logic.Events.TestEvents;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
 using System;
@@ -9,6 +13,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
     public partial class TestBrowseForm : Form
     {
         ITestService testServices;
+        ICustomEventAggregator customEventAggregator;
+        IDelegateContainer delegateContainer;
 
         static List<TestBrowseForm> instanceList;
 
@@ -17,10 +23,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             InitializeComponent();
 
             testServices = serviceProvider.GetRequiredService<ITestService>();
+            customEventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
+            delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
+
             UserId = userId;
 
             LoadListData();
             OwnerName = ownerName;
+
+            customEventAggregator.Subscribe<TestAddedEvent, TestEventsPayload>(OnTestAddEvent);
         }
 
         public static TestBrowseForm Create(IServiceProvider serviceProvider, int userId, string ownerName)
@@ -43,17 +54,17 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         int UserId { get; set; }
 
-        public Action<int> OnTestSelect { get; set; }
-
         public bool CloseAfterSelect { get; set; }
+
+        private void OnTestAddEvent(ITestEventsPayload payload) => LoadListData();
 
         private void LoadListData()
         {
-            testListDGV.DataSource = GetData();
+            testListDGV.DataSource = GetFilteredData();
             testListDGV.Columns["TestId"].Visible = false;
         }
 
-        private List<TestViewModel> GetData()
+        private List<TestViewModel> GetFilteredData()
         {
             return testServices.GetTestsList(UserId, TestTitleTB.Text);
         }
@@ -76,8 +87,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void InvokeOnTestSelect(int testId)
         {
-            if (OnTestSelect != null)
-                OnTestSelect.Invoke(testId);
+            if (delegateContainer.TestExplorerFormOpener != null)
+                delegateContainer.TestExplorerFormOpener.Invoke(testId);
         }
 
         private void CloseIfAllowed()
@@ -85,5 +96,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             if(CloseAfterSelect)
                 base.Close();
         }
+
+        
     }
 }

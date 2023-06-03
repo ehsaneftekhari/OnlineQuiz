@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.EventAggregators;
+using OnlineQuiz.Business.Logic.Events.TestEvents;
 using OnlineQuiz.Business.Models.Models;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.Helpers;
@@ -11,6 +14,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         IAppMessageService appMessageServices;
         ITestService testServices;
         IFormHelper formHelper;
+        IDelegateContainer delegateContainer;
 
         private static AddTestForm instance;
 
@@ -19,6 +23,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             appMessageServices = serviceProvider.GetRequiredService<IAppMessageService>();
+            delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
 
             InitializeComponent();
             RandomizeTypeCB.SelectedIndex = 0;
@@ -35,6 +40,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             RandomizeTypeMessageLbl.Text = string.Empty;
             StartDateTimeMessageLbl.Text = string.Empty;
             EndDateTimeMessageLbl.Text = string.Empty;
+            this.delegateContainer = delegateContainer;
         }
 
         public static AddTestForm Create(int userId, IServiceProvider serviceProvider)
@@ -47,10 +53,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         }
 
         int UserId { get; set; }
-
-        public Action<int> OnTestAdded { get; set; }
-
-        public Action<int> TestExplorerOpener { get; set; }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
@@ -81,9 +83,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             testServices.AddTest(newTest);
 
             bool hasId = newTest.HasId();
-
-            if (hasId)
-                InvokeTestAdded(newTest);
 
             if (hasId && OpenInTestExplorerCkB.Checked)
                 InvokeTestExplorerOpener(newTest);
@@ -120,16 +119,10 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             PickDateTimeCkB.Checked = false;
         }
 
-        void InvokeTestAdded(Test newTest)
-        {
-            if (OnTestAdded != null)
-                OnTestAdded.Invoke(newTest.TestId);
-        }
-
         void InvokeTestExplorerOpener(Test newTest)
         {
-            if (TestExplorerOpener != null)
-                TestExplorerOpener.Invoke(newTest.TestId);
+            if (delegateContainer.TestExplorerFormOpener != null)
+                delegateContainer.TestExplorerFormOpener.Invoke(newTest.TestId);
         }
 
         void RandomizeTypeCB_SelectedIndexChanged(object sender, EventArgs e)

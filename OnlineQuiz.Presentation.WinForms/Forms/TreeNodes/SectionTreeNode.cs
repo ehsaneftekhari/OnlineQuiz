@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.SectionEvents;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Business.Models.Models.Tests;
+using Prism.Events;
 using System.ComponentModel;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
@@ -12,6 +15,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         readonly IQuestionService questionServices;
         readonly IServiceProvider serviceProvider;
         readonly ISectionService sectionServices;
+        readonly ICustomEventAggregator eventAggregator;
+        readonly IDelegateContainer delegateContainer;
         int? _Order;
 
         string _SectionTitle;
@@ -26,6 +31,11 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             this.serviceProvider = serviceProvider;
             this.questionServices = serviceProvider.GetRequiredService<IQuestionService>();
             this.sectionServices = serviceProvider.GetRequiredService<ISectionService>();
+            this.eventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
+            this.delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
+
+            eventAggregator.Subscribe<SectionUpdateEvent, SectionEventsPayload>(OnSectionEdited);
+
             SectionId = sectionId;
             SectionTitle  = sectionTitle;
             Order = order;
@@ -34,7 +44,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             ReLoadQuestions();
         }
 
-        int SectionId { get; set; }
+        public int SectionId { get; set; }
 
         int TestId { get; set; }
 
@@ -58,28 +68,19 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             }
         }
 
-        public Action<Form> ChildFormAdder { get; set; }
-
-        public Action OnSectionEdited { get; set; }
-
-        public Action OnSectionDelete { get; set; }
-
         void InvokeChildFormAdder(Form childForm)
         {
-            if (ChildFormAdder != null)
-                ChildFormAdder.Invoke(childForm);
+            if (delegateContainer.NewChildFormAdder != null)
+                delegateContainer.NewChildFormAdder.Invoke(childForm);
         }
 
-        void InvokeSectionEdited()
+        void OnSectionEdited(SectionEventsPayload payload)
         {
-            if (OnSectionEdited != null)
-                OnSectionEdited.Invoke();
-        }
+            if (payload == null || payload.Section.SectionId != SectionId)
+                return;
 
-        void InvokeSectionDelete()
-        {
-            if (OnSectionDelete != null)
-                OnSectionDelete.Invoke();
+            SectionTitle = payload.Section.SectionTitle.Value ?? "";
+            Order = payload.Section.Order.Value ?? 0;
         }
 
         public void AddChild(QuestionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
@@ -114,14 +115,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         private void PropertiesToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             SectionPropertiesForm addSectionForm = SectionPropertiesForm.Create(TestId, SectionId, serviceProvider);
-            addSectionForm.OnSectionEdited -= SectionEdited;
-            addSectionForm.OnSectionEdited += SectionEdited;
             InvokeChildFormAdder(addSectionForm);
-        }
-
-        private void SectionEdited(int SectionId)
-        {
-            InvokeSectionEdited();
         }
 
         private void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
@@ -130,9 +124,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
 
             if (result.result == DeleteResult.Failed)
                 MessageBox.Show(result.message);
-
-            if (result.result == DeleteResult.Success)
-                InvokeSectionDelete();
         }
     }
 }

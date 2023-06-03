@@ -1,6 +1,9 @@
-﻿using OnlineQuiz.Business.Abstractions.IRepositories;
+﻿using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.TestEvents;
+using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Abstractions.IValidators;
+using OnlineQuiz.Business.Logic.Events.TestEvents;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Library;
@@ -13,16 +16,20 @@ namespace OnlineQuiz.Business.Logic.Services
         ITestRepository testRepository;
         ITestValidator testValidator;
         ISectionRepository sectionRepository;
+        ICustomEventAggregator customEventAggregator;
 
-
-        public TestService(ITestRepository testRepository, ITestValidator testValidator, ISectionRepository sectionRepository)
+        public TestService(ITestRepository testRepository,
+                           ITestValidator testValidator,
+                           ISectionRepository sectionRepository,
+                           ICustomEventAggregator customEventAggregator)
         {
             this.testRepository = testRepository;
             this.testValidator = testValidator;
             this.sectionRepository = sectionRepository;
+            this.customEventAggregator = customEventAggregator;
         }
 
-        public void AddTest(Test newTest)
+        public bool AddTest(Test newTest)
         {
             ThrowHelper.ThrowNullArgumentException(newTest, nameof(newTest));
 
@@ -34,6 +41,10 @@ namespace OnlineQuiz.Business.Logic.Services
                 newTestId = testRepository.Add(newTest);
 
             newTest.TestId = newTestId;
+            if (newTestId > 0)
+                customEventAggregator.Publish<TestAddedEvent, TestEventsPayload>(new(){ Test = newTest });
+
+            return newTestId > 0;
         }
 
         public bool EditTest(Test editedTest)
@@ -46,6 +57,9 @@ namespace OnlineQuiz.Business.Logic.Services
 
             if (testValidatorResult)
                 result = testRepository.Edit(editedTest) == 1;
+
+            if(result)
+                customEventAggregator.Publish<TestUpdatedEvent, TestEventsPayload>(new() { Test = editedTest });
 
             return result;
         }
