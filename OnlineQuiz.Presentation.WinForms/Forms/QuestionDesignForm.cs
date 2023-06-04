@@ -16,7 +16,9 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         readonly ITestService testService;
         readonly ISectionService sectionService;
         readonly IQuestionService questionService;
-        readonly int baseUserId;
+        ICurrentUserInfoContainer currentUserInfoContainer;
+
+        readonly int userId;
 
         #region Test Select ComboBox
         List<TestViewModel> AllTestsViewModels;
@@ -28,43 +30,68 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         List<SectionViewModel> ComboBoxSections;
         #endregion
 
-        QuestionDesignForm(IServiceProvider serviceProvider, int baseUserId)
+        QuestionDesignForm(IServiceProvider serviceProvider)
         {
-            this.baseUserId = baseUserId;
+            this.currentUserInfoContainer = serviceProvider.GetRequiredService<ICurrentUserInfoContainer>();
             this.testService = serviceProvider.GetRequiredService<ITestService>();
             this.sectionService = serviceProvider.GetRequiredService<ISectionService>();
             this.questionService = serviceProvider.GetRequiredService<IQuestionService>();
+
+            userId = currentUserInfoContainer.User.BaseUserId;
+
             InitializeComponent();
 
             TestSelectComboBoxInitialize();
             SectionSelectComboBoxInitialize();
         }
 
-        QuestionDesignForm(IServiceProvider serviceProvider, int baseUserId, TestViewModel selectedTest, SectionViewModel selectedSection) : this(serviceProvider, baseUserId)
+        public QuestionDesignForm(IServiceProvider serviceProvider, TestViewModel selectedTest, SectionViewModel selectedSection) : this(serviceProvider)
         {
-            SelectedTest = selectedTest;
-            SelectedSection = selectedSection;
+            if(SelectedTest != null)
+                SelectedTest = selectedTest;
+
+            if (SelectedSection != null)
+                SelectedSection = selectedSection;
         }
 
+        public QuestionDesignForm(IServiceProvider serviceProvider, int? selectedTestId = null, int? selectedSectionId = null) : this(serviceProvider)
+        {
+            if (selectedTestId != null && selectedTestId.HasValue)
+                SelectedTest = testService.GetTest(selectedTestId.Value).ToViewModel();
+
+            if (selectedSectionId != null && selectedTestId.HasValue)
+                SelectedSection = sectionService.GetSection(selectedSectionId.Value).ToViewModel();
+        }
 
         #region singelton
-        public static QuestionDesignForm Crete(IServiceProvider serviceProvider, int baseUserId)
+
+        public static QuestionDesignForm Crete(IServiceProvider serviceProvider)
         {
             if (instance == null || instance.IsDisposed)
             {
-                instance = new QuestionDesignForm(serviceProvider, baseUserId);
+                instance = new QuestionDesignForm(serviceProvider);
             }
             return instance;
         }
 
-        public static QuestionDesignForm Crete(IServiceProvider serviceProvider, int baseUserId, TestViewModel selectedTest, SectionViewModel selectedSection)
+        public static QuestionDesignForm Crete(IServiceProvider serviceProvider, TestViewModel selectedTest, SectionViewModel selectedSection = null)
         {
             if (instance == null || instance.IsDisposed)
             {
-                instance = new QuestionDesignForm(serviceProvider, baseUserId, selectedTest, selectedSection);
+                instance = new QuestionDesignForm(serviceProvider, selectedTest, selectedSection);
             }
             return instance;
         }
+
+        public static QuestionDesignForm Crete(IServiceProvider serviceProvider, int? selectedTestId, int? selectedSectionId = null)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new QuestionDesignForm(serviceProvider, selectedTestId, selectedSectionId);
+            }
+            return instance;
+        }
+
         #endregion
 
 
@@ -131,7 +158,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             AllTestsViewModels.AddRange(this.GetTestsSeedData());
         }
 
-        List<TestViewModel> GetTestsSeedData(string TestTitle = "") => testService.GetTestsList(baseUserId, TestTitle);
+        List<TestViewModel> GetTestsSeedData(string TestTitle = "") => testService.GetTestsList(userId, TestTitle);
 
         bool HasTestComboBoxItems() => ComboBoxTests.Count > 0;
 

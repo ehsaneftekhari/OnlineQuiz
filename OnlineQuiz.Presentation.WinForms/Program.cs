@@ -19,6 +19,7 @@ namespace OnlineQuiz.Presentation.WinForms
             serviceDescriptors.AddSingleton<MainMDIParent>();
             serviceDescriptors.AddTransient<IFormHelper, FormHelper>();
             serviceDescriptors.AddSingleton<IDelegateContainer, DelegateContainer>();
+            serviceDescriptors.AddSingleton<ICurrentUserInfoContainer, CurrentUserInfoContainer>();
 
 
             ServiceProvider = serviceDescriptors.BuildServiceProvider();

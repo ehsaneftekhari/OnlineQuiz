@@ -15,7 +15,12 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             // contextMenuStrip
             // 
             contextMenuStrip.ImageScalingSize = new Size(40, 40);
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { AddQuestionToolStripMenuItem, DeleteToolStripMenuItem, PropertiesToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[]
+            {
+                AddQuestionToolStripMenuItem,
+                DeleteToolStripMenuItem,
+                PropertiesToolStripMenuItem
+            });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new Size(361, 155);
             // 
@@ -38,7 +43,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             AddQuestionToolStripMenuItem.Name = "AddQuestionToolStripMenuItem";
             AddQuestionToolStripMenuItem.Size = new Size(360, 48);
             AddQuestionToolStripMenuItem.Text = "AddQuestion";
-            //AddQuestionToolStripMenuItem.Click += AddSectionToolStripMenuItem_Click;
+            AddQuestionToolStripMenuItem.Click += AddSectionToolStripMenuItem_Click;
 
             ContextMenuStrip = contextMenuStrip;
             contextMenuStrip.ResumeLayout(false);

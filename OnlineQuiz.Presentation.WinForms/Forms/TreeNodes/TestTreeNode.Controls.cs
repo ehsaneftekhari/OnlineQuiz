@@ -11,12 +11,19 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             AddSectionToolStripMenuItem = new ToolStripMenuItem();
             PropertiesToolStripMenuItem = new ToolStripMenuItem();
             CloseToolStripMenuItem = new ToolStripMenuItem();
+            DesignQuestionsMenuItem = new ToolStripMenuItem();
             contextMenuStrip.SuspendLayout();
             // 
             // contextMenuStrip
             // 
             contextMenuStrip.ImageScalingSize = new Size(40, 40);
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { AddSectionToolStripMenuItem, CloseToolStripMenuItem, PropertiesToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[]
+            {
+                AddSectionToolStripMenuItem,
+                CloseToolStripMenuItem,
+                PropertiesToolStripMenuItem,
+                DesignQuestionsMenuItem
+            });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new Size(361, 155);
             // 
@@ -38,8 +45,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             // 
             AddSectionToolStripMenuItem.Name = "AddSectionToolStripMenuItem";
             AddSectionToolStripMenuItem.Size = new Size(360, 48);
-            AddSectionToolStripMenuItem.Text = "AddSection";
+            AddSectionToolStripMenuItem.Text = "Add Section";
             AddSectionToolStripMenuItem.Click += AddSectionToolStripMenuItem_Click;
+            //
+            //DesignQuestionsMenuItem
+            //
+            DesignQuestionsMenuItem.Name = "DesignQuestionsMenuItem";
+            DesignQuestionsMenuItem.Size = new Size(360, 48);
+            DesignQuestionsMenuItem.Text = "Design Questions";
+            DesignQuestionsMenuItem.Click += DesignQuestionsMenuItem_Click;
 
             ContextMenuStrip = contextMenuStrip;
             contextMenuStrip.ResumeLayout(false);
@@ -49,5 +63,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
         private ToolStripMenuItem AddSectionToolStripMenuItem;
         private ToolStripMenuItem PropertiesToolStripMenuItem;
         private ToolStripMenuItem CloseToolStripMenuItem;
+        private ToolStripMenuItem DesignQuestionsMenuItem;
     }
 }

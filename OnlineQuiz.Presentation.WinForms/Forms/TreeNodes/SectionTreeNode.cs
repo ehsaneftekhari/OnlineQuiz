@@ -125,5 +125,11 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             if (result.result == DeleteResult.Failed)
                 MessageBox.Show(result.message);
         }
+
+        private void AddSectionToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            QuestionDesignForm questionDesignForm = QuestionDesignForm.Crete(serviceProvider, TestId, SectionId);
+            InvokeChildFormAdder(questionDesignForm);
+        }
     }
 }

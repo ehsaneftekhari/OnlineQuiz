@@ -15,18 +15,20 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         ITestService testServices;
         ICustomEventAggregator customEventAggregator;
         IDelegateContainer delegateContainer;
+        ICurrentUserInfoContainer currentUserInfoContainer; 
 
         static List<TestBrowseForm> instanceList;
 
-        private TestBrowseForm(IServiceProvider serviceProvider, int userId, string ownerName)
+        private TestBrowseForm(IServiceProvider serviceProvider, string ownerName)
         {
             InitializeComponent();
 
             testServices = serviceProvider.GetRequiredService<ITestService>();
             customEventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
             delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
+            currentUserInfoContainer = serviceProvider.GetRequiredService<ICurrentUserInfoContainer>();
 
-            UserId = userId;
+            UserId = currentUserInfoContainer.User.BaseUserId; ;
 
             LoadListData();
             OwnerName = ownerName;
@@ -34,7 +36,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             customEventAggregator.Subscribe<TestAddedEvent, TestEventsPayload>(OnTestAddEvent);
         }
 
-        public static TestBrowseForm Create(IServiceProvider serviceProvider, int userId, string ownerName)
+        public static TestBrowseForm Create(IServiceProvider serviceProvider, string ownerName)
         {
             if (instanceList == null)
                 instanceList = new();
@@ -43,7 +45,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
             if(instance == null || instance.IsDisposed)
             {
-                instance = new(serviceProvider, userId, ownerName);
+                instance = new(serviceProvider, ownerName);
                 instanceList.Add(instance);
             }
 

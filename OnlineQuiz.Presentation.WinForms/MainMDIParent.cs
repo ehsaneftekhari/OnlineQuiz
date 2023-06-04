@@ -16,13 +16,14 @@ namespace OnlineQuiz.Presentation.WinForms
         IServiceProvider serviceProvider;
         ICustomEventAggregator customEventAggregator;
         IDelegateContainer delegateContainer;
+        ICurrentUserInfoContainer currentUserInfoContainer;
 
         //public MainMDIParent()
         //{
         //    InitializeComponent();
         //}
 
-        public MainMDIParent(IServiceProvider serviceProvider, ICustomEventAggregator customEventAggregator, IDelegateContainer delegateContainer)
+        public MainMDIParent(IServiceProvider serviceProvider, ICustomEventAggregator customEventAggregator, IDelegateContainer delegateContainer, ICurrentUserInfoContainer currentUserInfoContainer)
         {
             InitializeComponent();
 
@@ -40,11 +41,8 @@ namespace OnlineQuiz.Presentation.WinForms
 
             customEventAggregator.Subscribe<BaseUserAddEvent, BaseUserEventsPayload>(OnBaseUserAddEvent);
             customEventAggregator.Subscribe<LogInEvent, UserEventsPayload>(OnLogInEvent);
+            this.currentUserInfoContainer = currentUserInfoContainer;
         }
-
-        User User { get; set; }
-
-        BaseUser Guest { get; set; }
 
         private void SetState(State nexState)
         {
@@ -81,20 +79,20 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OnLogInEvent(IUserEventsPayload payLoad)
         {
-            User = payLoad.User;
+            currentUserInfoContainer.User = payLoad.User;
             SetState(State.LoggedIn);
         }
 
         private void OnBaseUserAddEvent(IBaseUserEventsPayload payload)
         {
-            Guest = payload.baseUser;
+            currentUserInfoContainer.Guest = payload.baseUser;
             SetState(State.GuestRegistered);
         }
 
         private void LogOut()
         {
-            User = null;
-            Guest = null;
+            currentUserInfoContainer.User = null;
+            currentUserInfoContainer.Guest = null;
             SetState(State.NotRegistered);
         }
 
@@ -160,7 +158,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenAddTestForm()
         {
-            AddTestForm addTestForm = AddTestForm.Create(User.BaseUserId, serviceProvider);
+            AddTestForm addTestForm = AddTestForm.Create(serviceProvider);
             AddNewChildForm(addTestForm);
         }
 
@@ -176,7 +174,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenTestBrowseForm(bool closeAfterSelect, string ownerName)
         {
-            TestBrowseForm TestList = TestBrowseForm.Create(serviceProvider, User.BaseUserId, ownerName);
+            TestBrowseForm TestList = TestBrowseForm.Create(serviceProvider, ownerName);
             TestList.CloseAfterSelect = closeAfterSelect;
 
             AddNewChildForm(TestList);
@@ -193,7 +191,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
         private void OpenQuestionDesignerForm()
         {
-            QuestionDesignForm questionDesignForm = QuestionDesignForm.Crete(serviceProvider, User.BaseUserId);
+            QuestionDesignForm questionDesignForm = QuestionDesignForm.Crete(serviceProvider);
             AddNewChildForm(questionDesignForm);
         }
 

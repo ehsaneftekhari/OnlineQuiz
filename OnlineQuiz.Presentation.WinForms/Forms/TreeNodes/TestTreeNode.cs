@@ -174,5 +174,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             AddSectionForm addSectionForm = AddSectionForm.Create(TestId, serviceProvider);
             InvokeChildFormAdder(addSectionForm);
         }
+
+        #region DesignQuestionsMenuItem
+
+        private void DesignQuestionsMenuItem_Click(Object sender, EventArgs e)
+        {
+            QuestionDesignForm questionDesignForm = QuestionDesignForm.Crete(serviceProvider, TestId);
+            InvokeChildFormAdder(questionDesignForm);
+        }
+
+        #endregion
     }
 }
