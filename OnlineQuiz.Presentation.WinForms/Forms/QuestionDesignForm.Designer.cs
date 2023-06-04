@@ -34,6 +34,7 @@
             button2 = new Button();
             button3 = new Button();
             RemoveQuestionBTN = new Button();
+            AddQuestionBtn = new Button();
             panel3 = new Panel();
             SectionSelectCB = new ComboBox();
             SectionLbl = new Label();
@@ -45,7 +46,6 @@
             panel2 = new Panel();
             label4 = new Label();
             comboBox4 = new ComboBox();
-            AddQuestionBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
@@ -66,8 +66,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(tableLayoutPanel1);
-            splitContainer1.Size = new Size(2279, 1376);
-            splitContainer1.SplitterDistance = 1382;
+            splitContainer1.Size = new Size(2564, 1509);
+            splitContainer1.SplitterDistance = 1554;
             splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -80,13 +80,14 @@
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Margin = new Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(893, 1376);
+            tableLayoutPanel1.Size = new Size(1006, 1509);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -101,11 +102,12 @@
             tableLayoutPanel4.Controls.Add(RemoveQuestionBTN, 2, 0);
             tableLayoutPanel4.Controls.Add(AddQuestionBtn, 3, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(3, 1309);
+            tableLayoutPanel4.Location = new Point(0, 1445);
+            tableLayoutPanel4.Margin = new Padding(0);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new Size(887, 64);
+            tableLayoutPanel4.Size = new Size(1006, 64);
             tableLayoutPanel4.TabIndex = 6;
             // 
             // button2
@@ -113,7 +115,7 @@
             button2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             button2.Location = new Point(3, 3);
             button2.Name = "button2";
-            button2.Size = new Size(215, 58);
+            button2.Size = new Size(245, 58);
             button2.TabIndex = 0;
             button2.Text = "Down";
             button2.UseVisualStyleBackColor = true;
@@ -121,9 +123,9 @@
             // button3
             // 
             button3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            button3.Location = new Point(224, 3);
+            button3.Location = new Point(254, 3);
             button3.Name = "button3";
-            button3.Size = new Size(215, 58);
+            button3.Size = new Size(245, 58);
             button3.TabIndex = 0;
             button3.Text = "UP";
             button3.UseVisualStyleBackColor = true;
@@ -131,12 +133,23 @@
             // RemoveQuestionBTN
             // 
             RemoveQuestionBTN.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            RemoveQuestionBTN.Location = new Point(445, 3);
+            RemoveQuestionBTN.Location = new Point(505, 3);
             RemoveQuestionBTN.Name = "RemoveQuestionBTN";
-            RemoveQuestionBTN.Size = new Size(215, 58);
+            RemoveQuestionBTN.Size = new Size(245, 58);
             RemoveQuestionBTN.TabIndex = 0;
             RemoveQuestionBTN.Text = "Remove";
             RemoveQuestionBTN.UseVisualStyleBackColor = true;
+            // 
+            // AddQuestionBtn
+            // 
+            AddQuestionBtn.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            AddQuestionBtn.Location = new Point(756, 3);
+            AddQuestionBtn.Name = "AddQuestionBtn";
+            AddQuestionBtn.Size = new Size(247, 58);
+            AddQuestionBtn.TabIndex = 0;
+            AddQuestionBtn.Text = "Add";
+            AddQuestionBtn.UseVisualStyleBackColor = true;
+            AddQuestionBtn.Click += AddQuestionBtn_Click;
             // 
             // panel3
             // 
@@ -146,7 +159,7 @@
             panel3.Location = new Point(0, 60);
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(893, 60);
+            panel3.Size = new Size(1006, 60);
             panel3.TabIndex = 2;
             // 
             // SectionSelectCB
@@ -155,7 +168,7 @@
             SectionSelectCB.FormattingEnabled = true;
             SectionSelectCB.Location = new Point(126, 8);
             SectionSelectCB.Name = "SectionSelectCB";
-            SectionSelectCB.Size = new Size(764, 49);
+            SectionSelectCB.Size = new Size(877, 49);
             SectionSelectCB.TabIndex = 2;
             SectionSelectCB.SelectedIndexChanged += SectionSelectCB_SelectedIndexChanged;
             // 
@@ -179,7 +192,7 @@
             QuestionGV.ReadOnly = true;
             QuestionGV.RowHeadersWidth = 102;
             QuestionGV.RowTemplate.Height = 49;
-            QuestionGV.Size = new Size(887, 1180);
+            QuestionGV.Size = new Size(1000, 1319);
             QuestionGV.TabIndex = 3;
             // 
             // panel1
@@ -190,7 +203,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(893, 60);
+            panel1.Size = new Size(1006, 60);
             panel1.TabIndex = 2;
             // 
             // TestLbl
@@ -209,7 +222,7 @@
             TestSelectCB.FormattingEnabled = true;
             TestSelectCB.Location = new Point(126, 3);
             TestSelectCB.Name = "TestSelectCB";
-            TestSelectCB.Size = new Size(764, 49);
+            TestSelectCB.Size = new Size(877, 49);
             TestSelectCB.TabIndex = 0;
             TestSelectCB.SelectedIndexChanged += TestSelectCB_SelectedIndexChanged;
             TestSelectCB.TextUpdate += TestSelectCB_OnTextUpdate;
@@ -257,21 +270,11 @@
             comboBox4.Size = new Size(426, 49);
             comboBox4.TabIndex = 0;
             // 
-            // AddQuestionBtn
-            // 
-            AddQuestionBtn.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            AddQuestionBtn.Location = new Point(666, 3);
-            AddQuestionBtn.Name = "AddQuestionBtn";
-            AddQuestionBtn.Size = new Size(218, 58);
-            AddQuestionBtn.TabIndex = 0;
-            AddQuestionBtn.Text = "Add";
-            AddQuestionBtn.UseVisualStyleBackColor = true;
-            // 
             // QuestionDesignForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2279, 1376);
+            ClientSize = new Size(2564, 1509);
             Controls.Add(splitContainer1);
             Name = "QuestionDesignForm";
             splitContainer1.Panel2.ResumeLayout(false);

@@ -3,6 +3,7 @@ using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
+using OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls;
 using static System.Collections.Specialized.BitVector32;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
@@ -13,10 +14,11 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         static QuestionDesignForm instance;
         #endregion
 
+        readonly IServiceProvider serviceProvider;
         readonly ITestService testService;
         readonly ISectionService sectionService;
         readonly IQuestionService questionService;
-        ICurrentUserInfoContainer currentUserInfoContainer;
+        readonly ICurrentUserInfoContainer currentUserInfoContainer;
 
         readonly int userId;
 
@@ -32,6 +34,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         QuestionDesignForm(IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             this.currentUserInfoContainer = serviceProvider.GetRequiredService<ICurrentUserInfoContainer>();
             this.testService = serviceProvider.GetRequiredService<ITestService>();
             this.sectionService = serviceProvider.GetRequiredService<ISectionService>();
@@ -283,5 +286,34 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         List<QuestionViewModel> GetQuestionSeedData() => questionService.GetQuestionList(SelectedSection.SectionId).ToList();
 
         #endregion
+
+        #region QuestionUserControl
+
+        private void AddAddQuestionUserControlToPanel1IfIsEmpty()
+        {
+            if (splitContainer1.Panel1.Controls.Count == 0)
+            {
+                var addQuestionUserControl = CreateAddQuestionUserControl();
+                splitContainer1.Panel1.Controls.Add(addQuestionUserControl);
+            }
+        }
+
+        private AddQuestionUserControl CreateAddQuestionUserControl()
+        {
+            var addQuestionUserControl = new AddQuestionUserControl(ServiceProvider, SelectedSection);
+            addQuestionUserControl.Dock = DockStyle.Fill;
+            addQuestionUserControl.Location = new Point(0, 0);
+            addQuestionUserControl.Name = "addQuestionUserControl";
+            //addQuestionUserControl.Size = new Size(1554, 1509);
+            addQuestionUserControl.TabIndex = 0;
+            return addQuestionUserControl;
+        }
+
+        #endregion
+
+        private void AddQuestionBtn_Click(object sender, EventArgs e)
+        {
+            AddAddQuestionUserControlToPanel1IfIsEmpty();
+        }
     }
 }
