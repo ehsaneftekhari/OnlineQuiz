@@ -15,19 +15,21 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         ITestService testServices;
         IFormHelper formHelper;
         IDelegateContainer delegateContainer;
+        ICurrentUserInfoContainer currentUserInfoContainer;
 
         private static AddTestForm instance;
 
-        private AddTestForm(int userId, IServiceProvider serviceProvider)
+        private AddTestForm(IServiceProvider serviceProvider)
         {
             testServices = serviceProvider.GetRequiredService<ITestService>();
             formHelper = serviceProvider.GetRequiredService<IFormHelper>();
             appMessageServices = serviceProvider.GetRequiredService<IAppMessageService>();
             delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
+            currentUserInfoContainer = serviceProvider.GetRequiredService<ICurrentUserInfoContainer>();
+            UserId = currentUserInfoContainer.User.BaseUserId;
 
             InitializeComponent();
             RandomizeTypeCB.SelectedIndex = 0;
-            UserId = userId;
 
             DateTime Now = DateTime.Now;
             StartDateDTP.Value = Now;
@@ -40,14 +42,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             RandomizeTypeMessageLbl.Text = string.Empty;
             StartDateTimeMessageLbl.Text = string.Empty;
             EndDateTimeMessageLbl.Text = string.Empty;
-            this.delegateContainer = delegateContainer;
         }
 
-        public static AddTestForm Create(int userId, IServiceProvider serviceProvider)
+        public static AddTestForm Create(IServiceProvider serviceProvider)
         {
             if (instance == null || instance.IsDisposed)
             {
-                instance = new AddTestForm(userId, serviceProvider);
+                instance = new AddTestForm(serviceProvider);
             }
             return instance;
         }
@@ -164,9 +165,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             DateTimeGB.Enabled = checkBox.Checked;
         }
 
-        private void ClearFormBtn_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-        }
+        private void ClearFormBtn_Click(object sender, EventArgs e) => ClearForm();
+
     }
 }
