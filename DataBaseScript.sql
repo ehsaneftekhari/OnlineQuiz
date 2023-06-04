@@ -433,23 +433,6 @@ BEGIN
 END
 GO
 
---insert into [Tests].[Section]([TestId], [SectionTitle]) values
---(1, 'Section1_1'),
---(1, 'Section1_2'),
---(1, 'Section1_3'),
---(1, 'Section1_4'),
---(1, 'Section1_5'),
---(2, 'Section2_1'),
---(2, 'Section2_2'),
---(2, 'Section2_3'),
---(2, 'Section2_4'),
---(2, 'Section2_5'),
---(3, 'Section3_1'),
---(3, 'Section3_2'),
---(3, 'Section3_3'),
---(3, 'Section3_4'),
---(3, 'Section3_5')
-
 CREATE OR ALTER PROCEDURE [Tests].[Usp_Question_GetList]
 @SectionId INT
 AS
@@ -459,19 +442,17 @@ BEGIN
 END
 GO
 
---insert into [Tests].[Question]([SectionId], [Text]) values
---(1, 'Question1_1'),
---(1, 'Question1_2'),
---(1, 'Question1_3'),
---(1, 'Question1_4'),
---(1, 'Question1_5'),
---(2, 'Question2_1'),
---(2, 'Question2_2'),
---(2, 'Question2_3'),
---(2, 'Question2_4'),
---(2, 'Question2_5'),
---(3, 'Question3_1'),
---(3, 'Question3_2'),
---(3, 'Question3_3'),
---(3, 'Question3_4'),
---(3, 'Question3_5')
+CREATE OR ALTER PROCEDURE [Tests].[Usp_Question_Add]
+@SectionId INT,
+@Text NVARCHAR(4000),
+@ImageAddress NVARCHAR(256),
+@Score float(24),
+@Duration TIME,
+@Order INT,
+@QuestionId INT OUTPUT
+AS
+BEGIN
+	INSERT INTO [Tests].[Question]([SectionId], [Text] , [ImageAddress], [Score], [Duration], [Order]) VALUES (@SectionId ,@Text , @ImageAddress, @Score, @Duration, @Order)
+	SET @QuestionId = (SELECT SCOPE_IDENTITY())
+END
+GO

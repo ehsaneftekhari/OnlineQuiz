@@ -19,5 +19,29 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
 
             return new QuestionDataTableAdapter().DataTableToList(dataTable);
         }
+
+        public int Add(Question newQuestion)
+        {
+            ThrowHelper.ThrowNullArgumentException(
+                newQuestion, nameof(newQuestion),
+                newQuestion.Text, nameof(newQuestion.Text),
+                newQuestion.ImageAddress, nameof(newQuestion.ImageAddress),
+                newQuestion.Score, nameof(newQuestion.Score),
+                newQuestion.Duration, nameof(newQuestion.Duration),
+                newQuestion.Order, nameof(newQuestion.Order)
+                );
+
+            int questionId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Question_Add]")
+                .AddParameter("@SectionId", newQuestion)
+                .AddParameter("@Text", newQuestion.Text.Value!)
+                .AddParameter("@ImageAddress", newQuestion.ImageAddress.Value!)
+                .AddParameter("@End", newQuestion.Score.Value!)
+                .AddParameter("@Duration", newQuestion.Duration.Value!)
+                .AddParameter("@Order", newQuestion.Order.Value!)
+                .AddOutputParameter("QuestionId", SqlDbType.Int)
+                .ExecuteNonQuery().GetValueOfOutputParameter<int>("QuestionId");
+
+            return questionId;
+        }
     }
 }
