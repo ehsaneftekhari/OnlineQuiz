@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            splitContainer2 = new SplitContainer();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            panel4 = new Panel();
-            label2 = new Label();
-            comboBox2 = new ComboBox();
             tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            button2 = new Button();
+            button3 = new Button();
+            RemoveQuestionBTN = new Button();
             panel3 = new Panel();
             SectionSelectCB = new ComboBox();
             SectionLbl = new Label();
@@ -46,16 +45,12 @@
             panel2 = new Panel();
             label4 = new Label();
             comboBox4 = new ComboBox();
+            AddQuestionBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
-            splitContainer2.Panel1.SuspendLayout();
-            splitContainer2.Panel2.SuspendLayout();
-            splitContainer2.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
-            panel4.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)QuestionGV).BeginInit();
             panel1.SuspendLayout();
@@ -70,98 +65,88 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(splitContainer2);
-            splitContainer1.Size = new Size(1644, 1376);
-            splitContainer1.SplitterDistance = 723;
+            splitContainer1.Panel2.Controls.Add(tableLayoutPanel1);
+            splitContainer1.Size = new Size(2279, 1376);
+            splitContainer1.SplitterDistance = 1382;
             splitContainer1.TabIndex = 0;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.Controls.Add(tableLayoutPanel3);
-            // 
-            // splitContainer2.Panel2
-            // 
-            splitContainer2.Panel2.Controls.Add(tableLayoutPanel1);
-            splitContainer2.Size = new Size(917, 1376);
-            splitContainer2.SplitterDistance = 439;
-            splitContainer2.TabIndex = 0;
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.ColumnCount = 1;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel3.Controls.Add(panel4, 0, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(0, 0);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(439, 1376);
-            tableLayoutPanel3.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            panel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            panel4.Controls.Add(label2);
-            panel4.Controls.Add(comboBox2);
-            panel4.Location = new Point(3, 5);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(433, 60);
-            panel4.TabIndex = 2;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Location = new Point(3, 6);
-            label2.Name = "label2";
-            label2.Size = new Size(81, 41);
-            label2.TabIndex = 1;
-            label2.Text = "Type";
-            // 
-            // comboBox2
-            // 
-            comboBox2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(125, 3);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(299, 49);
-            comboBox2.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel4, 0, 3);
             tableLayoutPanel1.Controls.Add(panel3, 0, 1);
             tableLayoutPanel1.Controls.Add(QuestionGV, 0, 2);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(474, 1376);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.Size = new Size(893, 1376);
             tableLayoutPanel1.TabIndex = 2;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 4;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel4.Controls.Add(button2, 0, 0);
+            tableLayoutPanel4.Controls.Add(button3, 1, 0);
+            tableLayoutPanel4.Controls.Add(RemoveQuestionBTN, 2, 0);
+            tableLayoutPanel4.Controls.Add(AddQuestionBtn, 3, 0);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(3, 1309);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 1;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.Size = new Size(887, 64);
+            tableLayoutPanel4.TabIndex = 6;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            button2.Location = new Point(3, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(215, 58);
+            button2.TabIndex = 0;
+            button2.Text = "Down";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            button3.Location = new Point(224, 3);
+            button3.Name = "button3";
+            button3.Size = new Size(215, 58);
+            button3.TabIndex = 0;
+            button3.Text = "UP";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // RemoveQuestionBTN
+            // 
+            RemoveQuestionBTN.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            RemoveQuestionBTN.Location = new Point(445, 3);
+            RemoveQuestionBTN.Name = "RemoveQuestionBTN";
+            RemoveQuestionBTN.Size = new Size(215, 58);
+            RemoveQuestionBTN.TabIndex = 0;
+            RemoveQuestionBTN.Text = "Remove";
+            RemoveQuestionBTN.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             panel3.Controls.Add(SectionSelectCB);
             panel3.Controls.Add(SectionLbl);
-            panel3.Location = new Point(3, 75);
+            panel3.Location = new Point(0, 60);
+            panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(468, 60);
+            panel3.Size = new Size(893, 60);
             panel3.TabIndex = 2;
             // 
             // SectionSelectCB
@@ -170,7 +155,7 @@
             SectionSelectCB.FormattingEnabled = true;
             SectionSelectCB.Location = new Point(126, 8);
             SectionSelectCB.Name = "SectionSelectCB";
-            SectionSelectCB.Size = new Size(333, 49);
+            SectionSelectCB.Size = new Size(764, 49);
             SectionSelectCB.TabIndex = 2;
             SectionSelectCB.SelectedIndexChanged += SectionSelectCB_SelectedIndexChanged;
             // 
@@ -189,12 +174,12 @@
             QuestionGV.AllowUserToAddRows = false;
             QuestionGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             QuestionGV.Dock = DockStyle.Fill;
-            QuestionGV.Location = new Point(3, 143);
+            QuestionGV.Location = new Point(3, 123);
             QuestionGV.Name = "QuestionGV";
             QuestionGV.ReadOnly = true;
             QuestionGV.RowHeadersWidth = 102;
             QuestionGV.RowTemplate.Height = 49;
-            QuestionGV.Size = new Size(468, 1230);
+            QuestionGV.Size = new Size(887, 1180);
             QuestionGV.TabIndex = 3;
             // 
             // panel1
@@ -202,9 +187,10 @@
             panel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(TestLbl);
             panel1.Controls.Add(TestSelectCB);
-            panel1.Location = new Point(3, 5);
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(468, 60);
+            panel1.Size = new Size(893, 60);
             panel1.TabIndex = 2;
             // 
             // TestLbl
@@ -223,7 +209,7 @@
             TestSelectCB.FormattingEnabled = true;
             TestSelectCB.Location = new Point(126, 3);
             TestSelectCB.Name = "TestSelectCB";
-            TestSelectCB.Size = new Size(333, 49);
+            TestSelectCB.Size = new Size(764, 49);
             TestSelectCB.TabIndex = 0;
             TestSelectCB.SelectedIndexChanged += TestSelectCB_SelectedIndexChanged;
             TestSelectCB.TextUpdate += TestSelectCB_OnTextUpdate;
@@ -271,24 +257,28 @@
             comboBox4.Size = new Size(426, 49);
             comboBox4.TabIndex = 0;
             // 
+            // AddQuestionBtn
+            // 
+            AddQuestionBtn.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            AddQuestionBtn.Location = new Point(666, 3);
+            AddQuestionBtn.Name = "AddQuestionBtn";
+            AddQuestionBtn.Size = new Size(218, 58);
+            AddQuestionBtn.TabIndex = 0;
+            AddQuestionBtn.Text = "Add";
+            AddQuestionBtn.UseVisualStyleBackColor = true;
+            // 
             // QuestionDesignForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1644, 1376);
+            ClientSize = new Size(2279, 1376);
             Controls.Add(splitContainer1);
             Name = "QuestionDesignForm";
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            splitContainer2.Panel1.ResumeLayout(false);
-            splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
-            splitContainer2.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)QuestionGV).EndInit();
@@ -312,12 +302,13 @@
         private Panel panel2;
         private Label label4;
         private ComboBox comboBox4;
-        private SplitContainer splitContainer2;
-        private TableLayoutPanel tableLayoutPanel3;
-        private Panel panel4;
-        private Label label2;
-        private ComboBox comboBox2;
         private ComboBox SectionSelectCB;
         private DataGridView QuestionGV;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button RemoveQuestionBTN;
+        private Button button3;
+        private Button button2;
+        private TableLayoutPanel tableLayoutPanel4;
+        private Button AddQuestionBtn;
     }
 }

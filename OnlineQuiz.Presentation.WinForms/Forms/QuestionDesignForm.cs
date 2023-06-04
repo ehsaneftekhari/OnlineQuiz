@@ -47,7 +47,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         public QuestionDesignForm(IServiceProvider serviceProvider, TestViewModel selectedTest, SectionViewModel selectedSection) : this(serviceProvider)
         {
-            if(SelectedTest != null)
+            if (SelectedTest != null)
                 SelectedTest = selectedTest;
 
             if (SelectedSection != null)
