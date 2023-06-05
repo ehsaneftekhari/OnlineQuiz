@@ -26,6 +26,8 @@ namespace OnlineQuiz.Business.Logic
                 serviceCollection.AddTransient<ITestValidator, TestValidator>();
                 serviceCollection.AddTransient<ISectionService, SectionService>();
                 serviceCollection.AddTransient<IQuestionService, QuestionService>();
+                serviceCollection.AddTransient<IQuestionValidator, QuestionValidator>();
+                serviceCollection.AddTransient<IQuestionVerifier, QuestionVerifier>();
                 serviceCollection.AddTransient<IAppMessageService, AppMessageService>();
                 serviceCollection.AddTransient<ISectionValidator, SectionValidator>();
                 serviceCollection.AddTransient<ISectionVerifier, SectionVerifier>();
