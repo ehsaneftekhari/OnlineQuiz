@@ -4,60 +4,91 @@ namespace OnlineQuiz.Business.Models.Models.Questions
 {
     public class Question : IFine, IIdContainer
     {
-        int QuestionId;
-        int SectionId;
-        Field<string> Text;
-        Field<string> ImageAddress;
-        Field<double?> Score;
-        Field<TimeSpan?> Duration;
-        Field<int?> Order;
+        public int questionId;
+        public int sectionId;
+        public Field<string> text;
+        public Field<string> imageAddress;
+        public Field<double?> score;
+        public Field<TimeSpan?> duration;
+        public Field<int?> order;
 
-        private Question()
+        public Question()
         {
-            Text = new Field<string?>(string.Empty)!;
-            ImageAddress = new Field<string?>(string.Empty)!;
-            Score = new Field<double?>(0);
-            Duration = new Field<TimeSpan?>(null);
-            Order = new Field<int?>(null);
+            text = new Field<string?>(string.Empty)!;
+            imageAddress = new Field<string?>(string.Empty)!;
+            score = new Field<double?>(0);
+            duration = new Field<TimeSpan?>(null);
+            order = new Field<int?>(null);
         }
 
-        public Question(int questionId,
-                        int sectionId,
+        public Question(int sectionId,
                         string text,
                         string imageAddress,
                         double? score,
                         TimeSpan? duration,
                         int? order) : this()
         {
-            QuestionId = questionId;
-            SectionId = sectionId;
-            Text!.Value = text;
-            ImageAddress!.Value = imageAddress;
-            Score!.Value = score;
-            Duration!.Value = duration;
-            Order!.Value = order;
+            this.sectionId = sectionId;
+            this.text!.Value = text;
+            this.imageAddress!.Value = imageAddress;
+            this.score!.Value = score;
+            this.duration!.Value = duration;
+            this.order!.Value = order;
+        }
+
+        public Question(int questionId,
+                int sectionId,
+                string text,
+                string imageAddress,
+                double? score,
+                TimeSpan? duration,
+                int? order) : this(sectionId,
+                                   text,
+                                   imageAddress,
+                                   score,
+                                   duration,
+                                   order)
+        {
+            this.questionId = questionId;
+        }
+
+        public List<string> Messages
+        {
+            get 
+            {
+                var messages = new List<string>();
+
+                if (!text.IsFine())
+                    messages.Add(text.Message);
+
+                if(!imageAddress.IsFine())
+                    messages.Add(imageAddress.Message);
+
+                if (!score.IsFine())
+                    messages.Add(score.Message);
+
+                if (!duration.IsFine())
+                    messages.Add(duration.Message);
+
+                if (!order.IsFine())
+                    messages.Add(order.Message);
+
+                return messages;
+            }
         }
 
         public QuestionViewModel ToViewModel()
         {
-            return new(QuestionId, SectionId, Text.Value!, ImageAddress.Value!, Score.Value, Duration.Value, Order.Value);
+            return new(questionId, sectionId, text.Value!, imageAddress.Value!, score.Value, duration.Value, order.Value);
         }
 
-        public bool HasId() => QuestionId != 0;
+        public bool HasId() => questionId != 0;
 
-        public bool IsFine() => Text.IsFine()
-                                && ImageAddress.IsFine()
-                                && Score.IsFine()
-                                && Duration.IsFine()
-                                && Order.IsFine();
+        public bool IsFine() => text.IsFine()
+                                && imageAddress.IsFine()
+                                && score.IsFine()
+                                && duration.IsFine()
+                                && order.IsFine();
 
-
-        //[QuestionId] INT IDENTITY(1,1) PRIMARY KEY,
-        //[SectionId] INT NOT NULL,
-        //[Text] NVARCHAR(4000),
-        //[ImageAddress] NVARCHAR(256),
-        //[Score] float (24),
-        //[Duration] TIME,
-        //[Order] INT,
     }
 }

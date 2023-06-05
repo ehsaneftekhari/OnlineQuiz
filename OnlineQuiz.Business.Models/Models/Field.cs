@@ -6,6 +6,8 @@ namespace OnlineQuiz.Business.Models.Models
     {
         private Type? _value;
 
+        public bool HasValue => _value != null;
+
         public Type? Value
         {
             get => _value;
