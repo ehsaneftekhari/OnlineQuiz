@@ -3,6 +3,7 @@ using OnlineQuiz.Library;
 using OnlineQuiz.Persistence.ADO.Builders;
 using OnlineQuiz.Persistence.ADO.SqlDataAdapters;
 using System.Data;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace OnlineQuiz.Persistence.ADO.Repositories
 {
@@ -24,20 +25,20 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
         {
             ThrowHelper.ThrowNullArgumentException(
                 newQuestion, nameof(newQuestion),
-                newQuestion.Text, nameof(newQuestion.Text),
-                newQuestion.ImageAddress, nameof(newQuestion.ImageAddress),
-                newQuestion.Score, nameof(newQuestion.Score),
-                newQuestion.Duration, nameof(newQuestion.Duration),
-                newQuestion.Order, nameof(newQuestion.Order)
+                newQuestion.text, nameof(newQuestion.text),
+                newQuestion.imageAddress, nameof(newQuestion.imageAddress),
+                newQuestion.score, nameof(newQuestion.score),
+                newQuestion.duration, nameof(newQuestion.duration),
+                newQuestion.order, nameof(newQuestion.order)
                 );
 
             int questionId = ADOSqlCommandBuilder.CreateSP("[Tests].[Usp_Question_Add]")
-                .AddParameter("@SectionId", newQuestion)
-                .AddParameter("@Text", newQuestion.Text.Value!)
-                .AddParameter("@ImageAddress", newQuestion.ImageAddress.Value!)
-                .AddParameter("@End", newQuestion.Score.Value!)
-                .AddParameter("@Duration", newQuestion.Duration.Value!)
-                .AddParameter("@Order", newQuestion.Order.Value!)
+                .AddParameter("@SectionId", newQuestion.sectionId)
+                .AddParameter("@Text", newQuestion.text.Value!, SqlDbType.NVarChar)
+                .AddParameter("@ImageAddress", newQuestion.imageAddress.Value!, SqlDbType.VarChar)
+                .AddParameter("@Score", newQuestion.score.Value!)
+                .AddParameter("@Duration", newQuestion.duration.Value!, SqlDbType.Time)
+                .AddParameter("@Order", newQuestion.order.Value!)
                 .AddOutputParameter("QuestionId", SqlDbType.Int)
                 .ExecuteNonQuery().GetValueOfOutputParameter<int>("QuestionId");
 
