@@ -101,7 +101,7 @@ namespace OnlineQuiz.Presentation.WinForms
 
         Test GetTestSeedData(int testId) => testServices.GetTest(testId);
 
-        void AddSectionSeedData(Section section) => sectionServices.AddSection(Test.TestId, section);
+        void AddSection(Section section) => sectionServices.AddSection(Test.TestId, section);
 
         void FillTestInfoLabels(Test test)
         {
@@ -346,7 +346,7 @@ namespace OnlineQuiz.Presentation.WinForms
         void AddSection()
         {
             Section newSection = GetFormValue();
-            AddSectionSeedData(newSection);
+            AddSection(newSection);
             FillSectionForm(newSection);
 
             if (newSection.IsFine())
