@@ -17,11 +17,11 @@ namespace OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls
             this.serviceProvider = serviceProvider;
             this.questionService = serviceProvider.GetRequiredService<IQuestionService>();
             this.sectionService = serviceProvider.GetRequiredService<ISectionService>();
-
             this.Section = section;
 
             InitializeComponent();
-            this.sectionService = sectionService;
+            UpdateRemainingTime();
+            ClearAfterAddRBtn.Checked = true;
         }
 
         SectionViewModel Section { get; set; }
@@ -61,11 +61,20 @@ namespace OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls
             }
         }
 
-        Question GetFormData()
+        Question GetDataFromForm()
         {
             var question = new Question(Section.SectionId, Text, ImageAddress, Score, Duration, Order);
 
             return question;
+        }
+
+        void ClearForm()
+        {
+            Text = string.Empty;
+            ImageAddress = string.Empty;
+            Score = 0;
+            Duration = TimeSpan.Zero;
+            Order = 0;
         }
 
         #region Duration
@@ -112,14 +121,19 @@ namespace OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls
         void SetRemainingTimeValuePB(TimeSpan? durationCapacity, TimeSpan? questionDuration)
         {
 
-            if (durationCapacity != null && questionDuration != null && questionDuration.Value != TimeSpan.Zero && durationCapacity.Value != TimeSpan.Zero)
+            if (durationCapacity != null && questionDuration != null && questionDuration.Value != TimeSpan.Zero)
             {
-                double percent = questionDuration.Value / durationCapacity.Value * 100;
-                if (percent > 100)
-                    percent = 100;
-                if (percent == double.NaN)
-                    percent = 0;
-                RemainingTimeValuePB.Value = (int)percent;
+                if (durationCapacity.Value != TimeSpan.Zero)
+                    RemainingTimeValuePB.Value = 100;
+                else
+                {
+                    double percent = questionDuration.Value / durationCapacity.Value * 100;
+                    if (percent > 100)
+                        percent = 100;
+                    if (percent == double.NaN)
+                        percent = 0;
+                    RemainingTimeValuePB.Value = (int)percent;
+                }
             }
             else
                 RemainingTimeValuePB.Value = 0;
@@ -128,7 +142,7 @@ namespace OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls
         void SetRemainingTimeValueLbl(TimeSpan? durationCapacity, TimeSpan? questionDuration)
         {
             RemainingTimeValueLbl.Text = string.Empty;
-            if (durationCapacity != null && questionDuration != null && questionDuration.Value != TimeSpan.Zero && durationCapacity.Value != TimeSpan.Zero)
+            if (durationCapacity != null && questionDuration != null)
                 RemainingTimeValueLbl.Text = (durationCapacity.Value - questionDuration).ToString();
         }
 
@@ -142,22 +156,51 @@ namespace OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls
         #endregion
 
         #region UI Actions
-        private void AddBtn_Click(object sender, EventArgs e) => ReadDataAndAddNewQuestion();
+        public void RemoveThisControl()
+        {
+            this.Parent.Controls.Remove(this);
+        }
+
+        private void AddBtn_Click(object sender, EventArgs e)
+        {
+            var newQuestion = GetDataFromForm();
+
+            var addResult = AddNewQuestion(newQuestion);
+
+            if (addResult && CloseAfterAddRBtn.Checked)
+                RemoveThisControl();
+
+            if (addResult && ClearAfterAddRBtn.Checked)
+                ClearForm();
+        }
 
         private void DurationNUD_ValueChanged(object sender, EventArgs e) => UpdateRemainingTime();
 
-        #endregion
-
-        void ReadDataAndAddNewQuestion()
+        private void CloseAfterAddRBtn_CheckedChanged(object sender, EventArgs e)
         {
-            var newQuestion = GetFormData();
+            if (CloseAfterAddRBtn.Checked)
+                ClearAfterAddRBtn.Checked = false;
+        }
+
+        private void ClearAfterAddRBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ClearAfterAddRBtn.Checked)
+                CloseAfterAddRBtn.Checked = false;
+        }
+        #endregion UI Actions
+
+
+        bool AddNewQuestion(Question newQuestion)
+        {
             AddQuestion(newQuestion);
 
             if (!newQuestion.IsFine())
             {
                 var messages = string.Concat(newQuestion.Messages.Select(message => message + "\n"));
                 MessageBox.Show(messages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
+            return true;
         }
     }
 }

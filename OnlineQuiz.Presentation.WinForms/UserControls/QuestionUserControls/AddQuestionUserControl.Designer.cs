@@ -59,6 +59,8 @@
             ImageAddressTB = new TextBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel9 = new Panel();
+            ClearAfterAddRBtn = new RadioButton();
+            CloseAfterAddRBtn = new RadioButton();
             AddBtn = new Button();
             CancelBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -229,6 +231,7 @@
             DurationSecondsNUD.Name = "DurationSecondsNUD";
             DurationSecondsNUD.Size = new Size(81, 47);
             DurationSecondsNUD.TabIndex = 34;
+            DurationSecondsNUD.ValueChanged += DurationNUD_ValueChanged;
             // 
             // DurationSecondsLbl
             // 
@@ -246,6 +249,7 @@
             DurationMinutesNUD.Name = "DurationMinutesNUD";
             DurationMinutesNUD.Size = new Size(81, 47);
             DurationMinutesNUD.TabIndex = 34;
+            DurationMinutesNUD.ValueChanged += DurationNUD_ValueChanged;
             // 
             // DurationMinutesLbl
             // 
@@ -418,6 +422,8 @@
             // 
             panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel9.BorderStyle = BorderStyle.Fixed3D;
+            panel9.Controls.Add(ClearAfterAddRBtn);
+            panel9.Controls.Add(CloseAfterAddRBtn);
             panel9.Controls.Add(AddBtn);
             panel9.Controls.Add(CancelBtn);
             panel9.Location = new Point(0, 1485);
@@ -425,6 +431,34 @@
             panel9.Name = "panel9";
             panel9.Size = new Size(2537, 64);
             panel9.TabIndex = 3;
+            // 
+            // ClearAfterAddRBtn
+            // 
+            ClearAfterAddRBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            ClearAfterAddRBtn.AutoSize = true;
+            ClearAfterAddRBtn.Location = new Point(1632, 10);
+            ClearAfterAddRBtn.Name = "ClearAfterAddRBtn";
+            ClearAfterAddRBtn.RightToLeft = RightToLeft.Yes;
+            ClearAfterAddRBtn.Size = new Size(249, 45);
+            ClearAfterAddRBtn.TabIndex = 2;
+            ClearAfterAddRBtn.TabStop = true;
+            ClearAfterAddRBtn.Text = "Clear after add";
+            ClearAfterAddRBtn.UseVisualStyleBackColor = true;
+            ClearAfterAddRBtn.CheckedChanged += ClearAfterAddRBtn_CheckedChanged;
+            // 
+            // CloseAfterAddRBtn
+            // 
+            CloseAfterAddRBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CloseAfterAddRBtn.AutoSize = true;
+            CloseAfterAddRBtn.Location = new Point(1887, 10);
+            CloseAfterAddRBtn.Name = "CloseAfterAddRBtn";
+            CloseAfterAddRBtn.RightToLeft = RightToLeft.Yes;
+            CloseAfterAddRBtn.Size = new Size(255, 45);
+            CloseAfterAddRBtn.TabIndex = 2;
+            CloseAfterAddRBtn.TabStop = true;
+            CloseAfterAddRBtn.Text = "Close after add";
+            CloseAfterAddRBtn.UseVisualStyleBackColor = true;
+            CloseAfterAddRBtn.CheckedChanged += CloseAfterAddRBtn_CheckedChanged;
             // 
             // AddBtn
             // 
@@ -480,6 +514,7 @@
             tableLayoutPanel5.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -518,5 +553,7 @@
         private Panel panel9;
         private Button AddBtn;
         private Button CancelBtn;
+        private RadioButton ClearAfterAddRBtn;
+        private RadioButton CloseAfterAddRBtn;
     }
 }

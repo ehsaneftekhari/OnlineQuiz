@@ -9,6 +9,7 @@ using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls;
 using Prism.Events;
 using System;
+using System.Windows.Forms;
 using static System.Collections.Specialized.BitVector32;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
@@ -307,12 +308,26 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void AddAddQuestionUserControlToPanel1IfIsEmpty()
         {
-            if (splitContainer1.Panel1.Controls.Count == 0 && SelectedSection != null)
+            if (IsPanel1Empty() && SelectedSection != null)
             {
                 var addQuestionUserControl = CreateAddQuestionUserControl(serviceProvider, SelectedSection);
-                splitContainer1.Panel1.Controls.Add(addQuestionUserControl);
+                AddControlToPanel1(addQuestionUserControl);
             }
         }
+
+        private bool IsPanel1Empty() => splitContainer1.Panel1.Controls.Count == 0;
+
+        private void AddControlToPanel1(Control control)
+        {
+            if (IsPanel1Empty())
+            {
+                splitContainer1.Panel1.Controls.Add(control);
+            }
+        }
+
+        private void RemovePanel1InnerControl()
+            => splitContainer1.Panel1.Controls.Clear();
+
 
         private AddQuestionUserControl CreateAddQuestionUserControl(IServiceProvider serviceProvider, SectionViewModel SelectedSection)
         {
@@ -331,9 +346,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         #endregion
 
+        #region Ui Actions
         private void AddQuestionBtn_Click(object sender, EventArgs e)
         {
+            RemovePanel1InnerControl();
             AddAddQuestionUserControlToPanel1IfIsEmpty();
         }
+
+        #endregion
     }
 }
