@@ -10,5 +10,7 @@ namespace OnlineQuiz.Business.Logic.Abstractions.IServices
         Section GetSection(int sectionId);
         bool EditSection(Section section);
         (DeleteResult result, string message) DeleteSection(int sectionId);
+        TimeSpan GetQuestionsDurationSum(int sectionId);
+        TimeSpan GetRemainingDuration(int sectionId, out Section section);
     }
 }
