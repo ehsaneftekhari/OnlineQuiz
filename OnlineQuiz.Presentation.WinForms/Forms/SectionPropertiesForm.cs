@@ -104,7 +104,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         Test GetTestSeedData(int testId) => testServices.GetTest(testId);
 
-        void LoadSectionSeedData(int sectionId) 
+        void LoadSectionSeedData(int sectionId)
         {
             _section = GetSectionSeedData(sectionId);
             FillSectionForm(_section);
@@ -208,6 +208,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             formHelper.FillForm(section.AllowEdit, AllowEditCkB);
         }
 
+        #region Duration
         void SetDuration(Field<TimeSpan?> field)
         {
             ThrowHelper.ThrowNullArgumentException(field, nameof(field));
@@ -279,6 +280,15 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                 RemainingTimeValueLbl.Text = (testDuration.Value - duration).ToString();
         }
 
+        TimeSpan GetDurationFromForm()
+        {
+            return new((int)DurationHoursNUD.Value,
+                       (int)DurationMinutesNUD.Value,
+                       (int)DurationSecondsNUD.Value);
+        }
+
+        #endregion
+
         void SetStartDateTime(DateTime dateTime)
         {
             ThrowHelper.ThrowNullArgumentException(dateTime, nameof(dateTime));
@@ -345,13 +355,6 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
                                      allowEdit);
 
             return section;
-        }
-
-        TimeSpan GetDurationFromForm()
-        {
-            return new((int)DurationHoursNUD.Value,
-                       (int)DurationMinutesNUD.Value,
-                       (int)DurationSecondsNUD.Value);
         }
 
         void UpdateSection()

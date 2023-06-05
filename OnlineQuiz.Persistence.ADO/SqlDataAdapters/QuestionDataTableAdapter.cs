@@ -17,7 +17,7 @@ namespace OnlineQuiz.Persistence.ADO.SqlDataAdapters
             string Text         = adapter.ToString(dataRow["Text"]);
             string ImageAddress = adapter.ToString(dataRow["ImageAddress"]);
             double? Score       = adapter.ToDouble(dataRow["Score"]);
-            TimeSpan? Duration  = adapter.ToTimeSpan(dataRow["Score"]);
+            TimeSpan? Duration  = adapter.ToTimeSpan(dataRow["Duration"]);
             int? Order          = adapter.ToInt32(dataRow["Order"]);
 
             return new(QuestionId, SectionId, Text, ImageAddress, Score, Duration, Order);
