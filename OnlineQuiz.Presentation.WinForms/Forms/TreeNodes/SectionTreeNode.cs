@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.QuestionEvents;
+using OnlineQuiz.Business.Abstractions.Events.SectionEvents;
 using OnlineQuiz.Business.Abstractions.IRepositories;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
 using OnlineQuiz.Business.Logic.Events.SectionEvents;
 using OnlineQuiz.Business.Models.Models.Questions;
-using OnlineQuiz.Business.Models.Models.Tests;
-using Prism.Events;
 using System.ComponentModel;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
@@ -35,6 +35,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             this.delegateContainer = serviceProvider.GetRequiredService<IDelegateContainer>();
 
             eventAggregator.Subscribe<SectionUpdateEvent, SectionEventsPayload>(OnSectionEdited);
+            eventAggregator.Subscribe<QuestionAddEvent, QuestionEventsPayload>(OnQuestionAdded);
 
             SectionId = sectionId;
             SectionTitle  = sectionTitle;
@@ -74,7 +75,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                 delegateContainer.NewChildFormAdder.Invoke(childForm);
         }
 
-        void OnSectionEdited(SectionEventsPayload payload)
+        void OnSectionEdited(ISectionEventsPayload payload)
         {
             if (payload == null || payload.Section.SectionId != SectionId)
                 return;
@@ -83,11 +84,24 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             Order = payload.Section.Order.Value ?? 0;
         }
 
-        public void AddChild(QuestionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
+        void OnQuestionAdded(IQuestionEventsPayload payload)
+        {
+            if (payload == null || payload.Question.sectionId != SectionId)
+                return;
 
-        public void AddChild(List<QuestionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
+            var questionTreeNode = new QuestionTreeNode(
+                    payload.Question.questionId,
+                    payload.Question.text.Value ?? "",
+                    payload.Question.order.Value ?? 0);
 
-        private void ReLoadQuestions()
+            AddChild(questionTreeNode);
+        }
+
+        void AddChild(QuestionTreeNode sectionTreeNode) => Nodes.Add(sectionTreeNode);
+
+        void AddChild(List<QuestionTreeNode> sectionTreeNodeList) => Nodes.AddRange(sectionTreeNodeList.ToArray());
+
+        void ReLoadQuestions()
         {
             List<QuestionViewModel> questionViewModelList = questionServices.GetQuestionList(SectionId);
 
@@ -102,7 +116,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             AddChild(questionTreeNodeList);
         }
 
-        private void UpdateText()
+        void UpdateText()
         {
             Text = "";
 
@@ -112,13 +126,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
             Text += SectionTitle;
         }
 
-        private void PropertiesToolStripMenuItem_Click(object? sender, EventArgs e)
+        void PropertiesToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             SectionPropertiesForm addSectionForm = SectionPropertiesForm.Create(TestId, SectionId, serviceProvider);
             InvokeChildFormAdder(addSectionForm);
         }
 
-        private void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
+        void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             var result = sectionServices.DeleteSection(SectionId);
 
@@ -126,7 +140,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms.TreeNodes
                 MessageBox.Show(result.message);
         }
 
-        private void AddSectionToolStripMenuItem_Click(object? sender, EventArgs e)
+        void AddSectionToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             QuestionDesignForm questionDesignForm = QuestionDesignForm.Crete(serviceProvider, TestId, SectionId);
             InvokeChildFormAdder(questionDesignForm);
