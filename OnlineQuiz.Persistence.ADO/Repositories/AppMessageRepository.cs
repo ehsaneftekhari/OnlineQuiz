@@ -56,6 +56,7 @@ namespace OnlineQuiz.Persistence.ADO.Repositories
             Messages.Add("en_Question_LessThanZeroOrder", "Order of Question can not be less than 0");
             Messages.Add("en_Question_LessThanOneOrderOnNonRandomizeQuestions", "Order of Question can not be less than 1," +
                 "\nbecause the section has no randomize question option");
+            Messages.Add("en_Question_NotEnoughDuration", "Not Enough Duration");
             ///////////
 
             Messages.Add("en_AddTestForm_TestAddedSuccessfully", "Test added successfully");

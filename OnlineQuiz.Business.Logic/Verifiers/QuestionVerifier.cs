@@ -37,7 +37,7 @@ namespace OnlineQuiz.Business.Logic.Verifiers
             if (section.Duration.HasValue && question.duration.HasValue)
                 validatorFunctions.Check(question.duration,
                          duration => duration > remainingDuration,
-                         "en_Section_TestAndSectionNotSameStart",
+                         "en_Question_NotEnoughDuration",
                          ModelStatusEnum.Error);
 
 
