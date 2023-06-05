@@ -30,8 +30,8 @@
         {
             splitContainer1 = new SplitContainer();
             splitContainer2 = new SplitContainer();
-            richTextBox1 = new RichTextBox();
-            QuestionTextLbl = new Label();
+            TextRTB = new RichTextBox();
+            TextLbl = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel5 = new Panel();
             RemainingTimeValueLbl = new Label();
@@ -56,7 +56,7 @@
             tableLayoutPanel5 = new TableLayoutPanel();
             ImageAddressLbl = new Label();
             ImageBrowseBtn = new Button();
-            textBox1 = new TextBox();
+            ImageAddressTB = new TextBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel9 = new Panel();
             AddBtn = new Button();
@@ -107,8 +107,8 @@
             // 
             // splitContainer2.Panel1
             // 
-            splitContainer2.Panel1.Controls.Add(richTextBox1);
-            splitContainer2.Panel1.Controls.Add(QuestionTextLbl);
+            splitContainer2.Panel1.Controls.Add(TextRTB);
+            splitContainer2.Panel1.Controls.Add(TextLbl);
             // 
             // splitContainer2.Panel2
             // 
@@ -117,23 +117,23 @@
             splitContainer2.SplitterDistance = 225;
             splitContainer2.TabIndex = 0;
             // 
-            // richTextBox1
+            // TextRTB
             // 
-            richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            richTextBox1.Location = new Point(3, 44);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(1171, 174);
-            richTextBox1.TabIndex = 3;
-            richTextBox1.Text = "";
+            TextRTB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TextRTB.Location = new Point(3, 44);
+            TextRTB.Name = "TextRTB";
+            TextRTB.Size = new Size(1171, 174);
+            TextRTB.TabIndex = 3;
+            TextRTB.Text = "";
             // 
-            // QuestionTextLbl
+            // TextLbl
             // 
-            QuestionTextLbl.AutoSize = true;
-            QuestionTextLbl.Location = new Point(3, 0);
-            QuestionTextLbl.Name = "QuestionTextLbl";
-            QuestionTextLbl.Size = new Size(71, 41);
-            QuestionTextLbl.TabIndex = 2;
-            QuestionTextLbl.Text = "Text";
+            TextLbl.AutoSize = true;
+            TextLbl.Location = new Point(3, 0);
+            TextLbl.Name = "TextLbl";
+            TextLbl.Size = new Size(71, 41);
+            TextLbl.TabIndex = 2;
+            TextLbl.Text = "Text";
             // 
             // tableLayoutPanel1
             // 
@@ -203,6 +203,7 @@
             DurationHoursNUD.Name = "DurationHoursNUD";
             DurationHoursNUD.Size = new Size(81, 47);
             DurationHoursNUD.TabIndex = 34;
+            DurationHoursNUD.ValueChanged += DurationNUD_ValueChanged;
             // 
             // RemainingTimeValuePB
             // 
@@ -357,7 +358,7 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel5.Controls.Add(ImageAddressLbl, 0, 0);
             tableLayoutPanel5.Controls.Add(ImageBrowseBtn, 2, 0);
-            tableLayoutPanel5.Controls.Add(textBox1, 1, 0);
+            tableLayoutPanel5.Controls.Add(ImageAddressTB, 1, 0);
             tableLayoutPanel5.Dock = DockStyle.Fill;
             tableLayoutPanel5.Location = new Point(0, 0);
             tableLayoutPanel5.Margin = new Padding(0);
@@ -389,13 +390,13 @@
             ImageBrowseBtn.Text = "Browse";
             ImageBrowseBtn.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // ImageAddressTB
             // 
-            textBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(110, 9);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(936, 47);
-            textBox1.TabIndex = 4;
+            ImageAddressTB.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            ImageAddressTB.Location = new Point(110, 9);
+            ImageAddressTB.Name = "ImageAddressTB";
+            ImageAddressTB.Size = new Size(936, 47);
+            ImageAddressTB.TabIndex = 4;
             // 
             // tableLayoutPanel2
             // 
@@ -486,13 +487,13 @@
 
         private SplitContainer splitContainer1;
         private SplitContainer splitContainer2;
-        private RichTextBox richTextBox1;
-        private Label QuestionTextLbl;
+        private RichTextBox TextRTB;
+        private Label TextLbl;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel5;
         private Label ImageAddressLbl;
         private Button ImageBrowseBtn;
-        private TextBox textBox1;
+        private TextBox ImageAddressTB;
         private Panel panel6;
         private NumericUpDown ScoreNUD;
         private Label ScoreLbl;

@@ -1,9 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineQuiz.Business.Abstractions.Events;
+using OnlineQuiz.Business.Abstractions.Events.QuestionEvents;
 using OnlineQuiz.Business.Logic.Abstractions.IServices;
+using OnlineQuiz.Business.Logic.Events.EventAggregators;
 using OnlineQuiz.Business.Models.Models.Questions;
 using OnlineQuiz.Business.Models.Models.Sections;
 using OnlineQuiz.Business.Models.Models.Tests;
 using OnlineQuiz.Presentation.WinForms.UserControls.QuestionUserControls;
+using Prism.Events;
+using System;
 using static System.Collections.Specialized.BitVector32;
 
 namespace OnlineQuiz.Presentation.WinForms.Forms
@@ -19,6 +24,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
         readonly ISectionService sectionService;
         readonly IQuestionService questionService;
         readonly ICurrentUserInfoContainer currentUserInfoContainer;
+        readonly ICustomEventAggregator eventAggregator;
 
         readonly int userId;
 
@@ -39,6 +45,7 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
             this.testService = serviceProvider.GetRequiredService<ITestService>();
             this.sectionService = serviceProvider.GetRequiredService<ISectionService>();
             this.questionService = serviceProvider.GetRequiredService<IQuestionService>();
+            this.eventAggregator = serviceProvider.GetRequiredService<ICustomEventAggregator>();
 
             userId = currentUserInfoContainer.User.BaseUserId;
 
@@ -46,6 +53,8 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
             TestSelectComboBoxInitialize();
             SectionSelectComboBoxInitialize();
+
+            eventAggregator.Subscribe<QuestionAddEvent, QuestionEventsPayload>(UpdateQuestionGV);
         }
 
         public QuestionDesignForm(IServiceProvider serviceProvider, TestViewModel selectedTest, SectionViewModel selectedSection) : this(serviceProvider)
@@ -265,6 +274,13 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         #region Question Grid View
 
+        void UpdateQuestionGV(IQuestionEventsPayload payload)
+        {
+            if (payload != null && payload.Question.sectionId == SelectedSection.SectionId)
+                UpdateQuestionGV();
+
+        }
+
         void UpdateQuestionGV()
         {
             QuestionGV.DataSource = GetQuestionSeedData();
@@ -291,22 +307,26 @@ namespace OnlineQuiz.Presentation.WinForms.Forms
 
         private void AddAddQuestionUserControlToPanel1IfIsEmpty()
         {
-            if (splitContainer1.Panel1.Controls.Count == 0)
+            if (splitContainer1.Panel1.Controls.Count == 0 && SelectedSection != null)
             {
-                var addQuestionUserControl = CreateAddQuestionUserControl();
+                var addQuestionUserControl = CreateAddQuestionUserControl(serviceProvider, SelectedSection);
                 splitContainer1.Panel1.Controls.Add(addQuestionUserControl);
             }
         }
 
-        private AddQuestionUserControl CreateAddQuestionUserControl()
+        private AddQuestionUserControl CreateAddQuestionUserControl(IServiceProvider serviceProvider, SectionViewModel SelectedSection)
         {
-            var addQuestionUserControl = new AddQuestionUserControl(ServiceProvider, SelectedSection);
-            addQuestionUserControl.Dock = DockStyle.Fill;
-            addQuestionUserControl.Location = new Point(0, 0);
-            addQuestionUserControl.Name = "addQuestionUserControl";
-            //addQuestionUserControl.Size = new Size(1554, 1509);
-            addQuestionUserControl.TabIndex = 0;
-            return addQuestionUserControl;
+            if (serviceProvider != null && SelectedSection != null)
+            {
+                var addQuestionUserControl = new AddQuestionUserControl(serviceProvider, SelectedSection);
+                addQuestionUserControl.Dock = DockStyle.Fill;
+                addQuestionUserControl.Location = new Point(0, 0);
+                addQuestionUserControl.Name = "addQuestionUserControl";
+                //addQuestionUserControl.Size = new Size(1554, 1509);
+                addQuestionUserControl.TabIndex = 0;
+                return addQuestionUserControl;
+            }
+            return null;
         }
 
         #endregion
